@@ -1,11 +1,11 @@
 /**
  * MAHAVIR TRUST - Institutional Configuration & Content Data
  * 
- * NOTE ON CONTENT INTEGRITY:
- * In accordance with client specifications, all non-verified figures,
- * addresses, phone numbers, and legal registration numbers are
- * designated as [PENDING_LEGAL_VERIFICATION] and clearly labeled.
- * DO NOT fabricate official figures or trust credentials.
+ * CONTENT INTEGRITY & STATUTORY COMPLIANCE DIRECTIVE:
+ * In accordance with client specifications, non-verified figures,
+ * addresses, phone numbers, individual quotes, and legal registration
+ * numbers are designated with explicit [DRAFT FOR TRUSTEE APPROVAL]
+ * flags so they cannot be mistaken for verified factual claims.
  */
 
 export interface NavItem {
@@ -23,29 +23,29 @@ export interface NavItem {
 export const TRUST_CONFIG = {
   name: "MAHAVIR TRUST",
   tagline: "Empowering Futures Through Education, Scholarships & Community Leadership",
-  subtext: "A non-profit philanthropic institutional initiative advancing access to quality education, talent enablement, and student dignity across Odisha, India.",
-  foundedYear: "2024", // Draft baseline subject to trust deed registration
+  subtext: "A philanthropic educational trust initiative established to advance higher education access, merit grants, and academic mentorship across Odisha, India.",
+  foundedYear: "Draft (Subject to Trust Deed Formalisation)",
   region: "Bhubaneswar, Odisha, India",
   
-  // Pending verification contact placeholders
+  // Contact placeholders clearly labeled as pre-launch drafts
   contact: {
-    addressLine1: "Administrative Secretariat [Pending Physical Address Verification]",
+    addressLine1: "Administrative Secretariat [Permanent Physical Address Subject to Trustee Confirmation]",
     city: "Bhubaneswar",
     state: "Odisha",
     pin: "751001",
     country: "India",
     generalEmail: "contact@mahavirtrust.org",
     scholarshipEmail: "scholarships@mahavirtrust.org",
-    verificationStatus: "Official physical office and helplines are subject to trustee gazette confirmation.",
+    verificationStatus: "Official secretariat office and telephone helpline awaiting gazetted registration confirmation.",
   },
 
   // Governance & Legal Notice
   legal: {
     trustStatus: "Charitable Trust under public deed formalisation (Odisha)",
-    registrationNotice: "Official Trust Registration Number, Section 80G / 12A exemption credentials will be displayed upon statutory certificate publication.",
+    registrationNotice: "Official Trust Registration Number, Section 80G / 12A exemption credentials will be published upon statutory certificate issuance.",
   },
 
-  // Navigation schema
+  // Navigation schema - all anchors map to actual verified DOM sections
   navigation: [
     {
       label: "About Trust",
@@ -64,7 +64,7 @@ export const TRUST_CONFIG = {
         {
           label: "Trustee Board & Governance",
           href: "#governance",
-          description: "Stewardship and transparent institutional governance framework.",
+          description: "Fiduciary code and governance framework [Trustee Names Pending Gazette].",
           isPlanned: true,
         },
       ],
@@ -76,17 +76,17 @@ export const TRUST_CONFIG = {
         {
           label: "Higher Education Merit Grant",
           href: "#scholarships",
-          description: "Full and partial fee assistance for underprivileged students in Odisha.",
+          description: "Proposed tuition fee assistance for underprivileged students in Odisha.",
         },
         {
           label: "STEM & Professional Fellowships",
           href: "#scholarships",
-          description: "Empowering technical, management, and scientific aspirants.",
+          description: "Proposed technical and management grant categories.",
         },
         {
           label: "Eligibility Guidelines",
           href: "#eligibility",
-          description: "Transparent, need-cum-merit appraisal standards (Draft Criteria).",
+          description: "Transparent, need-cum-merit appraisal standards (Draft Proposal).",
         },
       ],
     },
@@ -97,12 +97,12 @@ export const TRUST_CONFIG = {
         {
           label: "Mentorship & Career Incubation",
           href: "#support",
-          description: "Connecting students with academicians and corporate mentors.",
+          description: "Connecting scholars with academicians and corporate guides.",
         },
         {
           label: "Digital Learning & Study Centers",
           href: "#support",
-          description: "Books, computing resources, and preparatory learning spaces.",
+          description: "Projected reference book grants and community learning points.",
         },
       ],
     },
@@ -111,14 +111,14 @@ export const TRUST_CONFIG = {
       href: "#impact",
       children: [
         {
-          label: "District Outreach Initiatives",
+          label: "District Outreach Framework",
           href: "#impact",
-          description: "Rural schooling reinforcement and youth skill workshops in Odisha.",
+          description: "Focus on 30 districts of Odisha for educational equity.",
         },
         {
-          label: "Institutional Impact Log",
-          href: "#impact",
-          description: "Verified stories and auditable programmatic milestones.",
+          label: "Fiduciary Standards",
+          href: "#governance",
+          description: "Commitment to 100% direct college fee disbursements.",
         },
       ],
     },
@@ -131,92 +131,90 @@ export const TRUST_CONFIG = {
   // Key pillar highlights
   pillars: [
     {
-      title: "Need-cum-Merit Scholarships",
-      description: "Direct academic fee support ensuring no deserving student abandons higher education due to financial distress.",
+      title: "Need-cum-Merit Grant Model",
+      description: "Direct academic fee assistance ensuring financial barriers do not halt promising undergraduate and diploma students.",
       tag: "Academic Access",
     },
     {
-      title: "Holistic Career Mentorship",
-      description: "One-to-one guidance from seasoned academicians, corporate practitioners, and civil servants.",
+      title: "1-on-1 Academic Mentorship",
+      description: "Proposed mentor network pairing scholars with educators and professionals for sustained career clarity.",
       tag: "Capacity Building",
     },
     {
-      title: "Regional Community Upliftment",
-      description: "Grassroots literacy drives, digital resource hubs, and vocational orientation for youth across Odisha.",
-      tag: "Social Equity",
+      title: "Community Learning Hubs",
+      description: "Grassroots study points equipped with entrance test references and reliable study facilities.",
+      tag: "Regional Upliftment",
     },
     {
-      title: "Auditable & Ethical Governance",
-      description: "Strict fiduciary transparency, fair beneficiary appraisal, and open public reporting of trust initiatives.",
-      tag: "Institutional Trust",
+      title: "Auditable Institutional Governance",
+      description: "Zero intermediary policy with disbursements directed straight to accredited educational institutions.",
+      tag: "Fiduciary Integrity",
     },
   ],
 
-  // Verified Programmatic Focus Areas
+  // Programmatic Concepts (Draft frameworks for trustee approval)
   programs: [
     {
       id: "shiksha-protsahan",
-      name: "Mahavir Shiksha Protsahan Yojana",
-      tagline: "Undergraduate & Diploma Tuition Subsidies",
-      overview: "Provides critical tuition assistance to students from economically constrained households pursuing degree courses in engineering, commerce, arts, and applied sciences.",
-      scope: "State-wide across Odisha districts",
-      status: "Advisory Curriculum Finalised — Enrollment Cycles Planned for 2026/2027",
+      name: "Mahavir Shiksha Protsahan Yojana [Draft Proposal]",
+      tagline: "Proposed Undergraduate & Technical Tuition Grants",
+      overview: "Conceptualized to support meritorious students from economically challenged backgrounds pursuing degree programs in recognized Odisha institutions.",
+      scope: "All 30 districts of Odisha (Target Scope)",
+      status: "Program Framework Finalized — Application Cycles Pending Trustee Gazette",
     },
     {
       id: "pratibha-fellowship",
-      name: "Pratibha Excellence Fellowship",
-      tagline: "Professional & Postgraduate Research Assistance",
-      overview: "Selective stipend and educational grant program for exemplary performers preparing for national entrance examinations and professional accreditations.",
-      scope: "Merit-evaluated candidates across Odisha institutions",
-      status: "Framework Defined — Criteria Pending Trustee Gazette",
+      name: "Pratibha Excellence Fellowship [Draft Proposal]",
+      tagline: "Proposed Postgraduate & Entrance Examination Stipend",
+      overview: "Selective fellowship model designed for top-performing scholars preparing for national competitive exams and professional certifications.",
+      scope: "Merit-qualified applicants across Odisha",
+      status: "Draft Criteria under Review by Academic Working Group",
     },
     {
       id: "samarth-learning",
-      name: "Project Samarth: Community Learning Hubs",
-      tagline: "Learning Centers, Reference Books & Digital Connectivity",
-      overview: "Establishing community study centers in semi-urban and rural clusters equipped with curated reference material and mentorship cohorts.",
-      scope: "Pilot phase in Khordha & neighboring districts",
-      status: "Community Survey & Site Assessment Stage",
+      name: "Project Samarth: Learning Centers [Draft Proposal]",
+      tagline: "Proposed Community Study Hubs & Reference Libraries",
+      overview: "Planned community study hubs in semi-urban and rural clusters to provide quiet study environments and competitive examination resources.",
+      scope: "Pilot Phase Planned for Khordha District",
+      status: "Site Assessment & Logistics Planning Stage",
     },
   ],
 
-  // Trust Impact Principles
-  impactMetrics: [
+  // Guiding Operational Principles (Replacing arbitrary metrics with institutional commitments)
+  guidingPrinciples: [
     {
-      figure: "100%",
-      label: "Merit & Means Verified",
-      subtext: "Every grant subjected to rigorous background validation.",
+      title: "Direct College Disbursement",
+      description: "Funds are disbursed straight to accredited colleges, eliminating intermediaries.",
+      badge: "Zero Cash Policy",
     },
     {
-      figure: "30+",
-      label: "Districts Targeted",
-      subtext: "Progressive regional coverage across coastal & tribal Odisha.",
+      title: "Merit-cum-Means Appraisal",
+      description: "Rigorous verification combining income validation with academic commitment.",
+      badge: "Equity Standard",
     },
     {
-      figure: "Zero",
-      label: "Intermediary Policy",
-      subtext: "Disbursements directed straight to accredited educational institutions.",
+      title: "Statewide Coverage Vision",
+      description: "Designed to progressively serve students across all 30 districts of Odisha.",
+      badge: "Odisha Focus",
     },
     {
-      figure: "1:1",
-      label: "Dedicated Mentorship",
-      subtext: "Scholars paired with seasoned professional guides throughout study.",
+      title: "Persistent Mentorship",
+      description: "Scholars are supported by volunteer mentors throughout their degree courses.",
+      badge: "Holistic Growth",
     },
   ],
 
-  // Student Stories & Perspectives (Ethical narrative samples)
-  stories: [
+  // Institutional Mission Perspectives (Identified as draft guiding perspectives)
+  perspectives: [
     {
-      quote: "Quality higher education shouldn't be an exclusive privilege of urban centers. Mahavir Trust’s scholarship roadmap is structured precisely to bridge this socioeconomic chasm for students in Odisha.",
-      speaker: "Academic Advisory Board Representative",
-      designation: "Institutional Advisor, Odisha Higher Education Forum",
-      category: "Vision Perspective",
+      statement: "Access to quality higher education must not be confined by household economic distress. The Trust's framework is architected to ensure that no aspiring student in Odisha is forced to discontinue studies for lack of tuition.",
+      focus: "Educational Equity Mission",
+      authorNote: "Guiding Institutional Charter Draft",
     },
     {
-      quote: "Financial aid without mentorship leaves students adrift in competitive job markets. The Trust's commitment to coupling financial assistance with continuous career guidance is its strongest differentiator.",
-      speaker: "Senior Educationist & Mentor",
-      designation: "Former Faculty Member, Utkal University",
-      category: "Mentorship Impact",
+      statement: "Effective philanthropy pairs monetary assistance with sustained mentorship. Building character, technical competence, and career readiness alongside financial aid is central to the Mahavir Trust philosophy.",
+      focus: "Mentorship & Dignity",
+      authorNote: "Academic Advisory Guidelines Draft",
     },
   ],
 };

@@ -22,6 +22,8 @@ import {
   AlertCircle,
   Mail,
   Send,
+  MapPin,
+  FileText,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -35,7 +37,7 @@ export default function HomePage() {
         {/* Subtle decorative architectural grid background */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
         
-        {/* Subtle golden ambient accent */}
+        {/* Subtle ambient lighting */}
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#165B38]/30 rounded-full blur-3xl pointer-events-none" />
 
@@ -51,13 +53,13 @@ export default function HomePage() {
             </h1>
 
             <p className="text-base sm:text-lg text-white/80 leading-relaxed font-sans max-w-2xl">
-              MAHAVIR TRUST provides direct scholarship grants, academic mentorship, and community learning hubs so that no deserving student in Odisha is held back by financial barriers.
+              MAHAVIR TRUST is dedicated to establishing tuition fee grants, academic mentorship networks, and community learning hubs so that no deserving student in Odisha is held back by financial distress.
             </p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <Link href="#scholarships">
                 <Button variant="gold" size="lg" className="shadow-md">
-                  <span>Explore Scholarships</span>
+                  <span>Explore Scholarship Proposals</span>
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
@@ -72,18 +74,21 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Factual Institutional Highlights */}
-            <div className="pt-10 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-white/10 text-left">
-              {TRUST_CONFIG.impactMetrics.map((metric) => (
-                <div key={metric.label} className="space-y-1">
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-[#E4C88A]">
-                    {metric.figure}
+            {/* Core Commitments Grid (Factual & Principled) */}
+            <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-white/10 text-left">
+              {TRUST_CONFIG.guidingPrinciples.map((item) => (
+                <div
+                  key={item.title}
+                  className="p-3.5 rounded-xs bg-white/5 border border-white/10 space-y-1.5"
+                >
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#E4C88A] block">
+                    {item.badge}
                   </span>
-                  <p className="text-xs font-semibold text-white/90 uppercase tracking-wider">
-                    {metric.label}
-                  </p>
-                  <p className="text-[11px] text-white/60 leading-tight">
-                    {metric.subtext}
+                  <h2 className="font-serif text-sm font-bold text-white">
+                    {item.title}
+                  </h2>
+                  <p className="text-[11px] text-white/70 leading-tight">
+                    {item.description}
                   </p>
                 </div>
               ))}
@@ -102,10 +107,10 @@ export default function HomePage() {
                 Founded on the Uncompromising Belief that Education is a Universal Right.
               </h2>
               <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-                MAHAVIR TRUST was conceived to serve aspirational youth from under-resourced communities across Odisha. We believe that true institutional philanthropy is measured not by mere endowments, but by students enabled to complete their higher education with dignity.
+                MAHAVIR TRUST was conceived to serve aspirational youth from under-resourced families across Odisha. We believe that true institutional philanthropy is measured by students enabled to complete their higher education with confidence and dignity.
               </p>
               <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-                Our operations pair direct institutional fee subsidies with persistent 1-to-1 mentoring, creating pathways into science, technology, management, and public service.
+                Our proposed operations pair direct institutional tuition subsidies with persistent 1-to-1 mentoring, unlocking pathways into engineering, science, management, and public leadership.
               </p>
 
               <div className="pt-2">
@@ -150,7 +155,7 @@ export default function HomePage() {
               Three Strategic Pillars of Transformation
             </h2>
             <p className="text-sm text-[#4A5568]">
-              Targeted, auditable interventions tailored to resolve foundational hurdles faced by students across Odisha.
+              Targeted, auditable interventions tailored to resolve foundational obstacles faced by aspiring students across Odisha.
             </p>
           </div>
 
@@ -163,7 +168,7 @@ export default function HomePage() {
                 1. Higher Education Grants
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Directly addressing dropout rates occurring between secondary schooling and degree enrollment. We disburse course fee assistance to university-accredited institutions on behalf of certified scholars.
+                Directly tackling student dropout rates after higher secondary education. The Trust aims to disburse course fee assistance straight to accredited degree-granting colleges on behalf of verified scholars.
               </p>
             </Card>
 
@@ -175,7 +180,7 @@ export default function HomePage() {
                 2. Academic Mentorship
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Financial support alone is incomplete without professional context. Our scholars are linked with professors, technical practitioners, and leaders who provide interview coaching and career guidance.
+                Financial support alone is incomplete without professional context. Our proposed model links scholars with professors, technical practitioners, and leaders for career navigation and entrance guidance.
               </p>
             </Card>
 
@@ -187,7 +192,7 @@ export default function HomePage() {
                 3. Rural Learning Infrastructure
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Establishing community study points (Project Samarth) in semi-urban and rural clusters with power backups, internet access, and entrance test study materials for self-directed study.
+                Establishing community study points (Project Samarth) in semi-urban and rural clusters equipped with power backups, internet access, and competitive reference textbooks.
               </p>
             </Card>
           </div>
@@ -199,17 +204,17 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
             <div className="space-y-3 max-w-xl">
-              <Badge variant="forest">Scholarship Roadmap</Badge>
+              <Badge variant="forest">Proposed Grant Framework</Badge>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
                 Flagship Academic Grant Initiatives
               </h2>
               <p className="text-sm text-[#4A5568]">
-                Applications open annually based on established merit-cum-means criteria. Review current programmatic structures below.
+                Applications will open upon completion of trustee gazetting. Review the proposed programmatic structures below.
               </p>
             </div>
             <Link href="#eligibility">
               <Button variant="outline" size="sm">
-                <span>View Eligibility Standards</span>
+                <span>View Proposed Eligibility</span>
                 <ChevronRight className="w-4 h-4 ml-1" />
               </Button>
             </Link>
@@ -241,12 +246,12 @@ export default function HomePage() {
 
                 <div className="pt-4 border-t border-[#0B3B24]/10 space-y-3">
                   <div className="text-[11px] text-[#4A5568]">
-                    <span className="font-semibold text-[#0B3B24]">Geographic Scope:</span>{" "}
+                    <span className="font-semibold text-[#0B3B24]">Proposed Scope:</span>{" "}
                     {program.scope}
                   </div>
                   <div className="text-[11px] bg-[#F4EFE6] p-2.5 rounded-xs text-[#0B3B24] border border-[#0B3B24]/10 font-medium">
                     <span className="text-[10px] uppercase font-bold text-[#9E7D3B] block mb-0.5">
-                      Cycle Status
+                      Status Notice
                     </span>
                     {program.status}
                   </div>
@@ -262,20 +267,20 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-5">
-              <Badge variant="gold">Selection Integrity</Badge>
+              <Badge variant="gold">Proposed Appraisal Norms</Badge>
               <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
                 A Transparent, Fair, and Auditable Appraisal Model.
               </h2>
               <p className="text-sm text-[#4A5568] leading-relaxed">
-                To preserve philanthropic integrity, Mahavir Trust implements a blind-appraisal system. Evaluation combines validated household economic criteria with consistent academic commitment.
+                To preserve philanthropic integrity, Mahavir Trust is designing a blind-appraisal system. Evaluation combines validated household economic criteria with consistent academic dedication.
               </p>
 
               <div className="space-y-3 pt-2">
                 {[
-                  "Domicile or institutional enrollment inside the State of Odisha",
-                  "Verified annual household income below threshold limits (means review)",
+                  "Proposed requirement: Domicile or accredited college enrollment within Odisha",
+                  "Verified annual household income threshold (objective means review)",
                   "Minimum qualifying percentage in Class 10/12 or undergraduate examinations",
-                  "Direct fee disbursement to accredited colleges/institutions (zero intermediary cash)",
+                  "Strict 100% direct-to-institution disbursement (zero intermediary cash)",
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-[#0B3B24] shrink-0 mt-0.5" />
@@ -289,16 +294,16 @@ export default function HomePage() {
               <div className="pt-4">
                 <div className="p-4 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/15 text-xs text-[#4A5568] space-y-1">
                   <span className="font-bold text-[#0B3B24] block">
-                    Important Statutory Note:
+                    Pre-Launch Regulatory Notice:
                   </span>
-                  Official income certificate thresholds and exact scholarship quotas will be formally issued by the Trustee Board ahead of the academic admissions cycle.
+                  Official income certificate thresholds and exact scholarship quotas will be formally issued by the Trustee Board ahead of the first public admissions cycle.
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-6 bg-[#FDFBF7] p-8 sm:p-10 rounded-sm border border-[#0B3B24]/15 shadow-sm space-y-6">
               <h3 className="font-serif text-2xl font-bold text-[#0B3B24]">
-                Appraisal Journey
+                Proposed Appraisal Journey
               </h3>
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -307,10 +312,10 @@ export default function HomePage() {
                   </span>
                   <div>
                     <h4 className="text-sm font-bold text-[#0B3B24]">
-                      Application & Document Submission
+                      Application & Documentation
                     </h4>
                     <p className="text-xs text-[#4A5568] mt-1">
-                      Academic transcripts, enrollment proof, and income documentation uploaded via the student registry.
+                      Academic marksheets, proof of college admission, and certified income documents submitted online.
                     </p>
                   </div>
                 </div>
@@ -321,10 +326,10 @@ export default function HomePage() {
                   </span>
                   <div>
                     <h4 className="text-sm font-bold text-[#0B3B24]">
-                      Independent Document Verification
+                      Document & Institutional Verification
                     </h4>
                     <p className="text-xs text-[#4A5568] mt-1">
-                      Field/telephonic confirmation with institutional registrar and local administration records.
+                      Verification of college enrollment and revenue authority documentation.
                     </p>
                   </div>
                 </div>
@@ -335,10 +340,10 @@ export default function HomePage() {
                   </span>
                   <div>
                     <h4 className="text-sm font-bold text-[#0B3B24]">
-                      Committee Interview & Scholar Onboarding
+                      Committee Review & College Disbursement
                     </h4>
                     <p className="text-xs text-[#4A5568] mt-1">
-                      Academic aspirations assessment, mentor pairing, and institution-level payment schedule release.
+                      Appraisal committee confirmation, mentor assignment, and fee disbursement to the educational institution.
                     </p>
                   </div>
                 </div>
@@ -357,7 +362,7 @@ export default function HomePage() {
               Student Support Beyond Financial Grants
             </h2>
             <p className="text-sm text-[#4A5568]">
-              Nurturing character, professional competence, and community spirit across our scholar fraternity.
+              Nurturing character, professional competence, and community spirit across our future scholar fraternity.
             </p>
           </div>
 
@@ -368,58 +373,58 @@ export default function HomePage() {
                 1-on-1 Mentorship
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Scholars are paired with professors and alumni for continual guidance through their academic syllabus and career choices.
+                Scholars will be paired with professors and working professionals for guidance throughout their academic journey.
               </p>
             </Card>
 
             <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7]">
               <BookOpen className="w-6 h-6 text-[#0B3B24]" />
               <h3 className="font-serif text-base font-bold text-[#0B3B24]">
-                Textbook & Digital Grants
+                Textbook & Reference Sets
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Providing specialized academic books, reference sets, and digital access subscriptions for technical students.
+                Planned grants for expensive textbooks, reference material, and entrance exam preparation manuals.
               </p>
             </Card>
 
             <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7]">
               <Compass className="w-6 h-6 text-[#0B3B24]" />
               <h3 className="font-serif text-base font-bold text-[#0B3B24]">
-                Career Incubation
+                Career Guidance
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Resume workshops, soft skill coaching, and mock interview drills conducted with corporate industry volunteers.
+                Workshops on communication, resume building, and corporate interview preparation conducted with volunteers.
               </p>
             </Card>
 
             <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7]">
               <HeartHandshake className="w-6 h-6 text-[#0B3B24]" />
               <h3 className="font-serif text-base font-bold text-[#0B3B24]">
-                Community Service Hours
+                Community Service Ethos
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Scholars pay it forward by tutoring younger students in their home villages, creating a self-sustaining cycle of upliftment.
+                Encouraging scholars to give back by tutoring younger learners in their localities, multiplying positive impact.
               </p>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* 7. VERIFIED PERSPECTIVES & TESTIMONIALS */}
-      <section id="stories" className="py-20 bg-[#F4EFE6] border-y border-[#0B3B24]/10">
+      {/* 7. COMMUNITY IMPACT SECTION (Anchor for #impact) */}
+      <section id="impact" className="py-20 bg-[#F4EFE6] border-y border-[#0B3B24]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-            <Badge variant="gold">Voices of Vision</Badge>
+            <Badge variant="gold">Target Scope</Badge>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-              Perspectives from Odisha’s Academic Community
+              Odisha State Outreach Vision
             </h2>
             <p className="text-sm text-[#4A5568]">
-              Observations from educational leaders and advisors on the structural necessity of Mahavir Trust’s mission.
+              Targeting students from rural and semi-urban educational institutions across all 30 districts of Odisha.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {TRUST_CONFIG.stories.map((story, idx) => (
+            {TRUST_CONFIG.perspectives.map((item, idx) => (
               <Card
                 key={idx}
                 variant="accent"
@@ -427,18 +432,15 @@ export default function HomePage() {
               >
                 <div className="space-y-3">
                   <span className="text-[10px] uppercase font-bold tracking-wider text-[#C5A059]">
-                    {story.category}
+                    {item.focus}
                   </span>
                   <p className="font-serif text-base sm:text-lg italic text-[#1C2421] leading-relaxed">
-                    “{story.quote}”
+                    “{item.statement}”
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[#0B3B24]/10">
-                  <p className="text-sm font-bold text-[#0B3B24]">
-                    {story.speaker}
-                  </p>
-                  <p className="text-xs text-[#4A5568]">
-                    {story.designation}
+                  <p className="text-xs font-semibold text-[#0B3B24]">
+                    {item.authorNote}
                   </p>
                 </div>
               </Card>
@@ -457,7 +459,7 @@ export default function HomePage() {
                 Join the Cause as a Mentor, Volunteer, or Institutional Partner.
               </h2>
               <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-                MAHAVIR TRUST welcomes academicians, professionals, corporate partners, and university faculties who share a commitment to educational equity in Odisha.
+                MAHAVIR TRUST welcomes academicians, professionals, corporate partners, and college faculties who share a dedication to educational equity in Odisha.
               </p>
 
               <div className="space-y-4 pt-2">
@@ -470,7 +472,7 @@ export default function HomePage() {
                       Academic & Professional Mentors
                     </h4>
                     <p className="text-xs text-[#4A5568]">
-                      Dedicate 2 hours per month to guide an undergraduate scholar in your discipline.
+                      Offer 2 hours monthly to guide an undergraduate scholar in your discipline.
                     </p>
                   </div>
                 </div>
@@ -491,7 +493,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Interactive Volunteer Inquiry Form */}
+            {/* Interactive Volunteer Inquiry Form with Accessibility Labels */}
             <div className="lg:col-span-6 bg-[#F4EFE6] p-8 sm:p-10 rounded-sm border border-[#0B3B24]/15 shadow-sm">
               <h3 className="font-serif text-2xl font-bold text-[#0B3B24] mb-2">
                 Register Your Interest
@@ -519,23 +521,33 @@ export default function HomePage() {
                   className="space-y-4"
                 >
                   <div>
-                    <label className="block text-xs font-semibold text-[#0B3B24] mb-1">
+                    <label
+                      htmlFor="volunteer-fullname"
+                      className="block text-xs font-semibold text-[#0B3B24] mb-1"
+                    >
                       Full Name *
                     </label>
                     <input
+                      id="volunteer-fullname"
+                      name="fullname"
                       type="text"
                       required
-                      placeholder="e.g. Dr. Ramesh Pattnaik"
+                      placeholder="e.g. Ramesh Pattnaik"
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-[#0B3B24] mb-1">
+                      <label
+                        htmlFor="volunteer-email"
+                        className="block text-xs font-semibold text-[#0B3B24] mb-1"
+                      >
                         Email Address *
                       </label>
                       <input
+                        id="volunteer-email"
+                        name="email"
                         type="email"
                         required
                         placeholder="name@organization.com"
@@ -543,10 +555,15 @@ export default function HomePage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#0B3B24] mb-1">
+                      <label
+                        htmlFor="volunteer-phone"
+                        className="block text-xs font-semibold text-[#0B3B24] mb-1"
+                      >
                         Phone / Contact Number *
                       </label>
                       <input
+                        id="volunteer-phone"
+                        name="phone"
                         type="tel"
                         required
                         placeholder="+91 XXXXX XXXXX"
@@ -556,10 +573,15 @@ export default function HomePage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#0B3B24] mb-1">
+                    <label
+                      htmlFor="volunteer-interest"
+                      className="block text-xs font-semibold text-[#0B3B24] mb-1"
+                    >
                       Area of Interest / Participation *
                     </label>
                     <select
+                      id="volunteer-interest"
+                      name="interest"
                       value={inquiryType}
                       onChange={(e) => setInquiryType(e.target.value)}
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
@@ -572,10 +594,15 @@ export default function HomePage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#0B3B24] mb-1">
+                    <label
+                      htmlFor="volunteer-notes"
+                      className="block text-xs font-semibold text-[#0B3B24] mb-1"
+                    >
                       Brief Background Note
                     </label>
                     <textarea
+                      id="volunteer-notes"
+                      name="notes"
                       rows={3}
                       placeholder="Share your current affiliation, academic background, or how you wish to collaborate..."
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
@@ -602,7 +629,7 @@ export default function HomePage() {
               Invest in a Scholar’s Future. Transform an Entire Family.
             </h2>
             <p className="text-sm sm:text-base text-white/80 leading-relaxed font-sans">
-              Every rupee directed to MAHAVIR TRUST goes toward verified tuition fees and student enablement. We operate on a direct-to-institution disbursement framework.
+              Every donation to MAHAVIR TRUST will be directed toward verified institutional tuition fees and student enablement under our direct-to-college disbursement policy.
             </p>
 
             <div className="p-5 rounded-sm bg-[#0B3B24]/80 border border-[#C5A059]/30 text-left max-w-xl mx-auto space-y-2">
@@ -611,12 +638,12 @@ export default function HomePage() {
                 <span>Pre-Launch Regulatory Notice</span>
               </div>
               <p className="text-xs text-white/70 leading-relaxed">
-                Online payment gateways and tax-exemption receipts (80G) will be active subsequent to statutory registration publication. You may register donor pledges or institutional endowments with the Secretariat.
+                Online payment gateways and formal tax-exemption receipts (Section 80G) will be activated strictly following statutory trust registration. Pledges may be communicated directly to the Secretariat desk.
               </p>
             </div>
 
             <div className="pt-4 flex flex-wrap justify-center gap-4">
-              <a href={`mailto:${TRUST_CONFIG.contact.generalEmail}?subject=Donation%20Pledge%20Inquiry%20-%20Mahavir%20Trust`}>
+              <a href={`mailto:${TRUST_CONFIG.contact.generalEmail}?subject=Donor%20Pledge%20Inquiry%20-%20Mahavir%20Trust`}>
                 <Button variant="gold" size="lg">
                   <Mail className="w-4 h-4 mr-2" />
                   <span>Connect with Donor Secretariat</span>
@@ -636,7 +663,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 10. GOVERNANCE & ETHICAL CHARTER */}
+      {/* 10. GOVERNANCE & ETHICAL CHARTER (Anchor for #governance) */}
       <section id="governance" className="py-16 bg-[#FDFBF7] border-b border-[#0B3B24]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="bg-[#F4EFE6] border border-[#0B3B24]/10 rounded-sm p-8 sm:p-10 space-y-4">
@@ -648,7 +675,7 @@ export default function HomePage() {
               Institutional Code of Ethics
             </h3>
             <p className="text-xs sm:text-sm text-[#4A5568] leading-relaxed">
-              MAHAVIR TRUST strictly abhors misrepresentation. In compliance with the trust deed and charitable norms in the State of Odisha, India, our accounts will undergo certified statutory audits annually. All beneficiary lists are subject to academic council oversight, ensuring zero nepotism and absolute equity.
+              MAHAVIR TRUST strictly upholds transparency. In compliance with the trust deed and charitable standards in Odisha, India, our accounts will undergo certified annual statutory audits. Beneficiary lists will be evaluated under academic committee oversight, ensuring equitable access.
             </p>
             <div className="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-[#0B3B24]">
               <span className="flex items-center gap-1.5">
@@ -663,6 +690,66 @@ export default function HomePage() {
                 <CheckCircle2 className="w-4 h-4 text-[#C5A059]" />
                 Public Annual Audit Reports (Post Statutory Registration)
               </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. CONTACT & SECRETARIAT (Anchor for #contact) */}
+      <section id="contact" className="py-16 bg-[#FDFBF7]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#C5A059] flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-[#0B3B24]" />
+                Secretariat Location
+              </span>
+              <h4 className="font-serif text-base font-bold text-[#0B3B24]">
+                Bhubaneswar, Odisha
+              </h4>
+              <p className="text-xs text-[#4A5568] leading-relaxed">
+                {TRUST_CONFIG.contact.addressLine1}, {TRUST_CONFIG.contact.city}, Odisha - {TRUST_CONFIG.contact.pin}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#C5A059] flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-[#0B3B24]" />
+                Official Correspondence
+              </span>
+              <h4 className="font-serif text-base font-bold text-[#0B3B24]">
+                Secretariat Desk
+              </h4>
+              <p className="text-xs text-[#4A5568] leading-relaxed">
+                <a
+                  href={`mailto:${TRUST_CONFIG.contact.generalEmail}`}
+                  className="hover:text-[#0B3B24] underline"
+                >
+                  {TRUST_CONFIG.contact.generalEmail}
+                </a>
+              </p>
+              <p className="text-xs text-[#4A5568]">
+                Scholarship Inquiries:{" "}
+                <a
+                  href={`mailto:${TRUST_CONFIG.contact.scholarshipEmail}`}
+                  className="hover:text-[#0B3B24] underline"
+                >
+                  {TRUST_CONFIG.contact.scholarshipEmail}
+                </a>
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#C5A059] flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5 text-[#0B3B24]" />
+                Compliance Status
+              </span>
+              <h4 className="font-serif text-base font-bold text-[#0B3B24]">
+                Registration In-Progress
+              </h4>
+              <p className="text-xs text-[#4A5568] leading-relaxed">
+                {TRUST_CONFIG.contact.verificationStatus}
+              </p>
             </div>
           </div>
         </div>
