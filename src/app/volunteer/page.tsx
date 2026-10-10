@@ -5,11 +5,49 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Users, Building2, CheckCircle2, Send, HeartHandshake, ShieldCheck } from "lucide-react";
+import { Users, Building2, CheckCircle2, Send, HeartHandshake, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
+import { submitVolunteerRegistration } from "@/lib/api";
 
 export default function VolunteerPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [inquiryType, setInquiryType] = useState("mentorship");
+  const [referenceId, setReferenceId] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "Academic & Career Mentorship",
+    notes: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await submitVolunteerRegistration({
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        roleInterest: formData.role,
+        backgroundNotes: formData.notes,
+      });
+
+      setReferenceId(response.referenceId || null);
+      setFormSubmitted(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("An unexpected network error occurred while connecting to the secretariat.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -86,18 +124,40 @@ export default function VolunteerPage() {
                   <h4 className="font-serif text-xl font-bold">
                     Volunteer Registration Recorded
                   </h4>
+                  {referenceId && (
+                    <p className="text-xs font-mono text-[#E4C88A] bg-black/20 py-1 px-3 rounded inline-block">
+                      Volunteer Reference ID: #{referenceId}
+                    </p>
+                  )}
                   <p className="text-xs text-white/80 leading-relaxed">
                     Thank you for your willingness to support Odisha’s students. The Secretariat team will review your background and communicate orientation details via email.
                   </p>
+                  <Button
+                    variant="outline"
+                    className="mt-4 text-xs !border-[#E4C88A] !text-[#E4C88A] hover:!bg-[#E4C88A]/10"
+                    onClick={() => {
+                      setFormSubmitted(false);
+                      setFormData({
+                        name: "",
+                        email: "",
+                        phone: "",
+                        role: "Academic & Career Mentorship",
+                        notes: "",
+                      });
+                    }}
+                  >
+                    Register Another Volunteer
+                  </Button>
                 </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setFormSubmitted(true);
-                  }}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {errorMessage && (
+                    <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-sm text-xs flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
                   <div>
                     <label
                       htmlFor="vol-name"
@@ -110,6 +170,8 @@ export default function VolunteerPage() {
                       name="fullname"
                       type="text"
                       required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Prof. Sandeep Jena"
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
@@ -128,6 +190,8 @@ export default function VolunteerPage() {
                         name="email"
                         type="email"
                         required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="sandeep@example.com"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
@@ -144,6 +208,8 @@ export default function VolunteerPage() {
                         name="phone"
                         type="tel"
                         required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98765 43210"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
@@ -160,14 +226,14 @@ export default function VolunteerPage() {
                     <select
                       id="vol-interest"
                       name="role"
-                      value={inquiryType}
-                      onChange={(e) => setInquiryType(e.target.value)}
+                      value={formData.role}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
                     >
-                      <option value="mentorship">Academic & Career Mentorship</option>
-                      <option value="faculty">College Faculty / Campus Liaison</option>
-                      <option value="hub">Project Samarth Learning Hub Steward</option>
-                      <option value="general">General Community Volunteering</option>
+                      <option value="Academic & Career Mentorship">Academic & Career Mentorship</option>
+                      <option value="College Faculty Liaison">College Faculty / Campus Liaison</option>
+                      <option value="Learning Hub Steward">Project Samarth Learning Hub Steward</option>
+                      <option value="General Volunteering">General Community Volunteering</option>
                     </select>
                   </div>
 
@@ -182,14 +248,30 @@ export default function VolunteerPage() {
                       id="vol-notes"
                       name="notes"
                       rows={3}
+                      value={formData.notes}
+                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       placeholder="Brief note on your qualifications, employer/institution, or subject areas you can mentor in..."
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
                   </div>
 
-                  <Button type="submit" variant="primary" className="w-full justify-center">
-                    <Send className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Submit Volunteer Registration</span>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={isSubmitting}
+                    className="w-full justify-center"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                        <span>Logging Volunteer Registration...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 mr-1.5" />
+                        <span>Submit Volunteer Registration</span>
+                      </>
+                    )}
                   </Button>
                 </form>
               )}

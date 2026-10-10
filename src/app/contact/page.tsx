@@ -6,10 +6,49 @@ import { PageHero } from "@/components/PageHero";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { TRUST_CONFIG } from "@/lib/config";
-import { MapPin, Mail, PhoneCall, AlertCircle, Send, CheckCircle2, FileText } from "lucide-react";
+import { MapPin, Mail, AlertCircle, Send, CheckCircle2, Loader2, FileText } from "lucide-react";
+import { submitInquiry } from "@/lib/api";
 
 export default function ContactPage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [referenceId, setReferenceId] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    category: "Scholarship Guidance",
+    message: "",
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await submitInquiry({
+        fullName: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        category: formData.category,
+        message: formData.message,
+      });
+
+      setReferenceId(response.referenceId || null);
+      setFormSubmitted(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage("An unexpected network error occurred while connecting to the secretariat.");
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex flex-col w-full">
@@ -101,18 +140,40 @@ export default function ContactPage() {
                   <h4 className="font-serif text-xl font-bold">
                     Message Logged with Secretariat
                   </h4>
+                  {referenceId && (
+                    <p className="text-xs font-mono text-[#E4C88A] bg-black/20 py-1 px-3 rounded inline-block">
+                      Reference ID: #{referenceId}
+                    </p>
+                  )}
                   <p className="text-xs text-white/80 leading-relaxed">
-                    Thank you for reaching out to MAHAVIR TRUST. Our team will review your message and reply via official email correspondence.
+                    Thank you for reaching out to MAHAVIR TRUST. Your inquiry has been securely stored in the secretariat registry and our team will reply via official correspondence.
                   </p>
+                  <Button
+                    variant="outline"
+                    className="mt-4 text-xs !border-[#E4C88A] !text-[#E4C88A] hover:!bg-[#E4C88A]/10"
+                    onClick={() => {
+                      setFormSubmitted(false);
+                      setFormData({
+                        name: "",
+                        email: "",
+                        phone: "",
+                        category: "Scholarship Guidance",
+                        message: "",
+                      });
+                    }}
+                  >
+                    Send Another Message
+                  </Button>
                 </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setFormSubmitted(true);
-                  }}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {errorMessage && (
+                    <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-sm text-xs flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
@@ -126,6 +187,8 @@ export default function ContactPage() {
                         name="name"
                         type="text"
                         required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g. Ananya Dash"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
@@ -142,6 +205,8 @@ export default function ContactPage() {
                         name="email"
                         type="email"
                         required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="ananya@example.com"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
@@ -161,7 +226,9 @@ export default function ContactPage() {
                         name="phone"
                         type="tel"
                         required
-                        placeholder="+91 XXXXX XXXXX"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
                     </div>
@@ -175,12 +242,14 @@ export default function ContactPage() {
                       <select
                         id="contact-subject"
                         name="subject"
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
                       >
-                        <option value="scholarship">Scholarship Inquiry</option>
-                        <option value="institutional">College / Institutional Liaison</option>
-                        <option value="donor">Donor / Endowment Pledge</option>
-                        <option value="governance">Governance / Audit Query</option>
+                        <option value="Scholarship Guidance">Scholarship Guidance</option>
+                        <option value="Institutional Liaison">College / Institutional Liaison</option>
+                        <option value="Donor Consultation">Donor / Endowment Consultation</option>
+                        <option value="Governance & Audit">Governance / Audit Query</option>
                       </select>
                     </div>
                   </div>
@@ -197,14 +266,30 @@ export default function ContactPage() {
                       name="message"
                       required
                       rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please share the details of your inquiry or proposal..."
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
                   </div>
 
-                  <Button type="submit" variant="primary" className="w-full justify-center">
-                    <Send className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Send Message to Secretariat</span>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={isSubmitting}
+                    className="w-full justify-center"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                        <span>Transmitting to Secretariat...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 mr-1.5" />
+                        <span>Send Message to Secretariat</span>
+                      </>
+                    )}
                   </Button>
                 </form>
               )}
