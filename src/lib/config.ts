@@ -45,86 +45,65 @@ export const TRUST_CONFIG = {
     registrationNotice: "Official Trust Registration Number, Section 80G / 12A exemption credentials will be published upon statutory certificate issuance.",
   },
 
-  // Navigation schema - all anchors map to actual verified DOM sections
+  // Multi-page navigation schema
   navigation: [
     {
       label: "About Trust",
-      href: "#about",
+      href: "/about",
       children: [
         {
-          label: "Our Heritage & Vision",
-          href: "#about",
+          label: "Heritage & Vision",
+          href: "/about",
           description: "Foundational philosophy, public stewardship, and ethical commitment.",
         },
         {
-          label: "Mission & Core Objectives",
-          href: "#mission",
-          description: "Three pillars: Accessible Education, Merit Dignity, and Regional Upliftment.",
+          label: "Trustee Board & Governance",
+          href: "/governance",
+          description: "Fiduciary code and governance framework [Trustee Names Pending Gazette].",
         },
         {
-          label: "Trustee Board & Governance",
-          href: "#governance",
-          description: "Fiduciary code and governance framework [Trustee Names Pending Gazette].",
-          isPlanned: true,
+          label: "Frequently Asked Questions",
+          href: "/faq",
+          description: "Clear answers to scholarship, trustee, and compliance queries.",
         },
       ],
     },
     {
       label: "Scholarships",
-      href: "#scholarships",
+      href: "/scholarships",
       children: [
         {
           label: "Higher Education Merit Grant",
-          href: "#scholarships",
+          href: "/scholarships",
           description: "Proposed tuition fee assistance for underprivileged students in Odisha.",
         },
         {
-          label: "STEM & Professional Fellowships",
-          href: "#scholarships",
-          description: "Proposed technical and management grant categories.",
+          label: "Eligibility & Selection",
+          href: "/scholarships#eligibility",
+          description: "Transparent, need-cum-merit appraisal standards (Draft Proposal).",
         },
         {
-          label: "Eligibility Guidelines",
-          href: "#eligibility",
-          description: "Transparent, need-cum-merit appraisal standards (Draft Proposal).",
+          label: "Programmes Overview",
+          href: "/programmes",
+          description: "Full suite of educational, technical, and community learning initiatives.",
         },
       ],
     },
     {
-      label: "Student Support",
-      href: "#support",
-      children: [
-        {
-          label: "Mentorship & Career Incubation",
-          href: "#support",
-          description: "Connecting scholars with academicians and corporate guides.",
-        },
-        {
-          label: "Digital Learning & Study Centers",
-          href: "#support",
-          description: "Projected reference book grants and community learning points.",
-        },
-      ],
+      label: "Programmes",
+      href: "/programmes",
     },
     {
       label: "Community Impact",
-      href: "#impact",
-      children: [
-        {
-          label: "District Outreach Framework",
-          href: "#impact",
-          description: "Focus on 30 districts of Odisha for educational equity.",
-        },
-        {
-          label: "Fiduciary Standards",
-          href: "#governance",
-          description: "Commitment to 100% direct college fee disbursements.",
-        },
-      ],
+      href: "/impact",
     },
     {
       label: "Get Involved",
-      href: "#participate",
+      href: "/volunteer",
+    },
+    {
+      label: "Contact",
+      href: "/contact",
     },
   ] as NavItem[],
 
@@ -180,7 +159,7 @@ export const TRUST_CONFIG = {
     },
   ],
 
-  // Guiding Operational Principles (Replacing arbitrary metrics with institutional commitments)
+  // Guiding Operational Principles
   guidingPrinciples: [
     {
       title: "Direct College Disbursement",
@@ -204,7 +183,7 @@ export const TRUST_CONFIG = {
     },
   ],
 
-  // Institutional Mission Perspectives (Identified as draft guiding perspectives)
+  // Institutional Mission Perspectives
   perspectives: [
     {
       statement: "Access to quality higher education must not be confined by household economic distress. The Trust's framework is architected to ensure that no aspiring student in Odisha is forced to discontinue studies for lack of tuition.",

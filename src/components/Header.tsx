@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { TRUST_CONFIG } from "@/lib/config";
 import { Button } from "@/components/ui/Button";
 import { Menu, X, ChevronDown, Award, Heart, PhoneCall, ShieldCheck } from "lucide-react";
@@ -10,6 +11,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,9 +25,15 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close menus upon route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setOpenDropdown(null);
+  }, [pathname]);
+
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
-      {/* Top Institutional Bar (Inspired by premier educational institutions) */}
+      {/* Top Institutional Bar */}
       <div className="bg-[#072617] text-[#EDE6D8] border-b border-[#C5A059]/20 text-xs py-2 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-4">
@@ -41,14 +49,14 @@ export function Header() {
 
           <div className="flex items-center space-x-4 text-xs">
             <Link
-              href="#governance"
+              href="/governance"
               className="text-white/80 hover:text-[#E4C88A] transition-colors"
             >
               Public Disclosure
             </Link>
             <span className="text-white/30">|</span>
             <Link
-              href="#contact"
+              href="/contact"
               className="text-white/80 hover:text-[#E4C88A] transition-colors flex items-center gap-1"
             >
               <PhoneCall className="w-3 h-3 text-[#C5A059]" />
@@ -91,6 +99,8 @@ export function Header() {
           <div className="hidden lg:flex items-center space-x-1">
             {TRUST_CONFIG.navigation.map((item) => {
               const hasChildren = item.children && item.children.length > 0;
+              const isActive = pathname === item.href || (item.children && item.children.some(c => pathname === c.href));
+
               return (
                 <div
                   key={item.label}
@@ -100,7 +110,11 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 px-3.5 py-2 text-sm font-medium text-[#1C2421] hover:text-[#0B3B24] rounded-sm transition-colors group-hover:text-[#0B3B24]"
+                    className={`flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-sm transition-colors ${
+                      isActive
+                        ? "text-[#0B3B24] font-semibold bg-[#0B3B24]/5"
+                        : "text-[#1C2421] hover:text-[#0B3B24] group-hover:text-[#0B3B24]"
+                    }`}
                   >
                     <span>{item.label}</span>
                     {hasChildren && (
@@ -139,14 +153,14 @@ export function Header() {
 
           {/* Action CTAs */}
           <div className="hidden sm:flex items-center space-x-3">
-            <Link href="#scholarships">
+            <Link href="/scholarships">
               <Button variant="outline" size="sm" className="gap-1.5">
                 <Award className="w-3.5 h-3.5 text-[#C5A059]" />
                 <span>Apply Scholarship</span>
               </Button>
             </Link>
 
-            <Link href="#donate">
+            <Link href="/contact">
               <Button variant="gold" size="sm" className="gap-1.5 shadow-xs">
                 <Heart className="w-3.5 h-3.5 fill-[#072617] text-[#072617]" />
                 <span>Support Us</span>
@@ -197,12 +211,12 @@ export function Header() {
             ))}
 
             <div className="pt-2 flex flex-col gap-2.5">
-              <Link href="#scholarships" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/scholarships" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="outline" className="w-full justify-center">
                   Apply Scholarship
                 </Button>
               </Link>
-              <Link href="#donate" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="gold" className="w-full justify-center">
                   Support the Trust
                 </Button>

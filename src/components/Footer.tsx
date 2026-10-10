@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { TRUST_CONFIG } from "@/lib/config";
-import { ShieldAlert, Mail, MapPin, ExternalLink, ArrowRight, BookOpen, HeartHandshake } from "lucide-react";
+import { ShieldAlert, Mail, MapPin, ArrowRight } from "lucide-react";
 
 export function Footer() {
   return (
@@ -21,7 +21,7 @@ export function Footer() {
             </div>
           </div>
           <Link
-            href="#governance"
+            href="/governance"
             className="inline-flex items-center gap-1.5 text-xs text-[#E4C88A] hover:underline font-semibold whitespace-nowrap"
           >
             <span>Governance Principles</span>
@@ -72,23 +72,23 @@ export function Footer() {
             </h4>
             <ul className="space-y-2 text-xs text-white/75">
               <li>
-                <Link href="#scholarships" className="hover:text-white transition-colors">
-                  Shiksha Protsahan Yojana
+                <Link href="/scholarships" className="hover:text-white transition-colors">
+                  Scholarships Overview
                 </Link>
               </li>
               <li>
-                <Link href="#scholarships" className="hover:text-white transition-colors">
-                  Pratibha Excellence Fellowship
+                <Link href="/programmes" className="hover:text-white transition-colors">
+                  Educational Programmes
                 </Link>
               </li>
               <li>
-                <Link href="#scholarships" className="hover:text-white transition-colors">
-                  STEM & Women in Tech Grants
+                <Link href="/scholarships#eligibility" className="hover:text-white transition-colors">
+                  Eligibility & Appraisal
                 </Link>
               </li>
               <li>
-                <Link href="#eligibility" className="hover:text-white transition-colors">
-                  Eligibility & Appraisal Process
+                <Link href="/faq" className="hover:text-white transition-colors">
+                  Scholarship FAQ
                 </Link>
               </li>
             </ul>
@@ -97,56 +97,56 @@ export function Footer() {
           {/* Col 3: Student Support & Impact */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold tracking-wider uppercase text-[#E4C88A]">
-              Student & Community
+              Community & Mission
             </h4>
             <ul className="space-y-2 text-xs text-white/75">
               <li>
-                <Link href="#support" className="hover:text-white transition-colors">
-                  Project Samarth Learning Hubs
+                <Link href="/about" className="hover:text-white transition-colors">
+                  About the Trust
                 </Link>
               </li>
               <li>
-                <Link href="#support" className="hover:text-white transition-colors">
-                  Career Mentorship Network
+                <Link href="/impact" className="hover:text-white transition-colors">
+                  Odisha District Impact
                 </Link>
               </li>
               <li>
-                <Link href="#impact" className="hover:text-white transition-colors">
-                  Odisha District Impact Log
+                <Link href="/volunteer" className="hover:text-white transition-colors">
+                  Volunteer & Mentor Network
                 </Link>
               </li>
               <li>
-                <Link href="#impact" className="hover:text-white transition-colors">
-                  Perspectives & Testimonials
+                <Link href="/faq" className="hover:text-white transition-colors">
+                  General Questions
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Engagement & Disclosures */}
+          {/* Col 4: Institutional Governance & Legal */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold tracking-wider uppercase text-[#E4C88A]">
               Institutional Ethics
             </h4>
             <ul className="space-y-2 text-xs text-white/75">
               <li>
-                <Link href="#governance" className="hover:text-white transition-colors">
+                <Link href="/governance" className="hover:text-white transition-colors">
                   Trustee Code of Conduct
                 </Link>
               </li>
               <li>
-                <Link href="#participate" className="hover:text-white transition-colors">
-                  Volunteer & Mentor Sign-Up
+                <Link href="/contact" className="hover:text-white transition-colors">
+                  Secretariat & Grievance Desk
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-white transition-colors">
-                  Grievance & Secretariat Desk
+                <Link href="/accessibility" className="hover:text-white transition-colors">
+                  Accessibility Statement
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-white transition-colors">
-                  Annual Audit Standards (Draft)
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
                 </Link>
               </li>
             </ul>
@@ -157,14 +157,14 @@ export function Footer() {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-4">
           <p>© {new Date().getFullYear()} MAHAVIR TRUST. All Rights Reserved. Serving Odisha, India.</p>
           <div className="flex items-center space-x-6 text-xs">
-            <Link href="#governance" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Engagement
             </Link>
-            <Link href="#governance" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Disclosures
             </Link>
-            <Link href="#governance" className="hover:text-white transition-colors">
-              Fiduciary Charter
+            <Link href="/accessibility" className="hover:text-white transition-colors">
+              Accessibility
             </Link>
           </div>
         </div>
