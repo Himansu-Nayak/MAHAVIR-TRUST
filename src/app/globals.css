@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-forest: #0B3B24;
+    --color-forest-dark: #072617;
+    --color-forest-light: #165B38;
+    --color-gold: #C5A059;
+    --color-gold-light: #E4C88A;
+    --color-gold-muted: #9E7D3B;
+    --color-ivory: #FDFBF7;
+    --color-ivory-warm: #F4EFE6;
+    --color-sand: #EDE6D8;
+    --color-charcoal: #1C2421;
+    --color-slate-text: #4A5568;
+    --color-border-subtle: rgba(11, 59, 36, 0.12);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-charcoal);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  .font-serif,
+  h1, h2, h3, h4 {
+    font-family: "Georgia", "Cambria", "Times New Roman", Times, serif;
+  }
+
+  ::selection {
+    background-color: #C5A059;
+    color: #072617;
+  }
+}
+
+@utility text-forest {
+  color: #0B3B24;
+}
+
+@utility text-forest-dark {
+  color: #072617;
+}
+
+@utility text-gold {
+  color: #C5A059;
+}
+
+@utility text-gold-light {
+  color: #E4C88A;
+}
+
+@utility bg-forest {
+  background-color: #0B3B24;
+}
+
+@utility bg-forest-dark {
+  background-color: #072617;
+}
+
+@utility bg-forest-light {
+  background-color: #165B38;
+}
+
+@utility bg-ivory {
+  background-color: #FDFBF7;
+}
+
+@utility bg-ivory-warm {
+  background-color: #F4EFE6;
+}
+
+@utility bg-gold {
+  background-color: #C5A059;
+}
+
+@utility border-forest-subtle {
+  border-color: rgba(11, 59, 36, 0.12);
+}
+
+@utility border-gold-subtle {
+  border-color: rgba(197, 160, 89, 0.25);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #C5A059;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
