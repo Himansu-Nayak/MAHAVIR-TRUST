@@ -32,3 +32,9 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Backend (Maven & Java)
+backend/target/
+backend/.flattened-pom.xml
+backend/*.log
+backend/.env
