@@ -33,34 +33,41 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
-      {/* Top Institutional Bar */}
-      <div className="bg-[#072617] text-[#EDE6D8] border-b border-[#C5A059]/20 text-xs py-2 px-4 sm:px-8">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center gap-1.5 text-[#E4C88A]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Odisha Philanthropic Educational Initiative</span>
+      {/* Top Institutional Notification Ticker & Secretariat Bar */}
+      <div className="bg-[#051E12] text-[#EDE6D8] border-b border-[#C5A059]/30 text-xs py-1.5 px-4 sm:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <span className="shrink-0 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs bg-[#C5A059] text-[#072617] text-[10px] font-bold uppercase tracking-wider">
+              <span>Notice</span>
             </span>
-            <span className="hidden md:inline text-white/40">|</span>
-            <span className="hidden md:inline text-white/70">
-              Need-Cum-Merit Grants & Leadership Incubation
-            </span>
+            <div className="overflow-hidden whitespace-nowrap text-xs text-white/90">
+              <span className="inline-block animate-marquee font-medium">
+                📢 Academic Year 2026-27: Preliminary Higher Education Grant & Mentorship guidelines published for trustee review. Secretariat inquiry desk is open for educational institutions across Odisha.
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-4 text-xs">
+          <div className="hidden md:flex items-center space-x-4 shrink-0 text-[11px] text-white/80">
             <Link
               href="/governance"
-              className="text-white/80 hover:text-[#E4C88A] transition-colors"
+              className="hover:text-[#E4C88A] transition-colors"
             >
-              Public Disclosure
+              Statutory Governance
+            </Link>
+            <span className="text-white/30">|</span>
+            <Link
+              href="/scholarships"
+              className="hover:text-[#E4C88A] transition-colors"
+            >
+              Eligibility Matrix
             </Link>
             <span className="text-white/30">|</span>
             <Link
               href="/contact"
-              className="text-white/80 hover:text-[#E4C88A] transition-colors flex items-center gap-1"
+              className="hover:text-[#E4C88A] transition-colors flex items-center gap-1 text-[#E4C88A] font-medium"
             >
               <PhoneCall className="w-3 h-3 text-[#C5A059]" />
-              <span>Contact Secretariat</span>
+              <span>Secretariat Helpline</span>
             </Link>
           </div>
         </div>

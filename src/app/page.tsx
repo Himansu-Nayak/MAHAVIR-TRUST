@@ -5,6 +5,8 @@ import Link from "next/link";
 import { TRUST_CONFIG } from "@/lib/config";
 import { Button } from "@/components/ui/Button";
 import { Card, Badge } from "@/components/ui/Card";
+import { InstitutionalMarquee } from "@/components/InstitutionalMarquee";
+import { SchemeExplorer } from "@/components/SchemeExplorer";
 import {
   GraduationCap,
   Award,
@@ -24,16 +26,95 @@ import {
   Send,
   MapPin,
   FileText,
+  Clock,
+  Landmark,
+  Loader2,
 } from "lucide-react";
+import { submitInquiry, submitVolunteerRegistration } from "@/lib/api";
 
 export default function HomePage() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [inquiryType, setInquiryType] = useState("scholarship");
+  // Hero Quick Intake state
+  const [heroIntakeSubmitted, setHeroIntakeSubmitted] = useState(false);
+  const [heroReferenceId, setHeroReferenceId] = useState<number | null>(null);
+  const [heroIsSubmitting, setHeroIsSubmitting] = useState(false);
+  const [heroError, setHeroError] = useState<string | null>(null);
+  const [heroData, setHeroData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    district: "",
+    category: "undergraduate",
+  });
+
+  const handleHeroSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setHeroIsSubmitting(true);
+    setHeroError(null);
+
+    try {
+      const response = await submitInquiry({
+        fullName: heroData.name,
+        email: heroData.email,
+        phone: heroData.phone,
+        category: `Pre-Admissions: ${heroData.category} (${heroData.district})`,
+        message: `Scholar Eligibility Inquiry from ${heroData.district}, Odisha for ${heroData.category} degree level.`,
+      });
+      setHeroReferenceId(response.referenceId || null);
+      setHeroIntakeSubmitted(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setHeroError(err.message);
+      } else {
+        setHeroError("Unable to connect to the secretariat desk. Please check your network or try again.");
+      }
+    } finally {
+      setHeroIsSubmitting(false);
+    }
+  };
+
+  // Volunteer / Interest state
+  const [volSubmitted, setVolSubmitted] = useState(false);
+  const [volReferenceId, setVolReferenceId] = useState<number | null>(null);
+  const [volIsSubmitting, setVolIsSubmitting] = useState(false);
+  const [volError, setVolError] = useState<string | null>(null);
+  const [volData, setVolData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "Academic & Career Mentorship",
+    notes: "",
+  });
+
+  const handleVolSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setVolIsSubmitting(true);
+    setVolError(null);
+
+    try {
+      const response = await submitVolunteerRegistration({
+        fullName: volData.name,
+        email: volData.email,
+        phone: volData.phone,
+        roleInterest: volData.role,
+        backgroundNotes: volData.notes,
+      });
+      setVolReferenceId(response.referenceId || null);
+      setVolSubmitted(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setVolError(err.message);
+      } else {
+        setVolError("Unable to record volunteer registration. Please try again.");
+      }
+    } finally {
+      setVolIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="flex flex-col w-full">
-      {/* 1. HERO SECTION: Institutional Prestige & Clear Mission */}
-      <section className="relative overflow-hidden bg-[#072617] text-[#EDE6D8] pt-16 pb-24 md:pt-24 md:pb-32 border-b border-[#C5A059]/20">
+      {/* 1. HERO SECTION: Institutional Prestige & Split-Screen Quick Intake */}
+      <section className="relative overflow-hidden bg-[#072617] text-[#EDE6D8] pt-14 pb-20 md:pt-20 md:pb-28 border-b border-[#C5A059]/20">
         {/* Subtle decorative architectural grid background */}
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
         
@@ -42,56 +123,256 @@ export default function HomePage() {
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-[#165B38]/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xs bg-[#0B3B24] border border-[#C5A059]/30 text-xs text-[#E4C88A] tracking-wider uppercase font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Philanthropic Education & Merit Mission</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left Hero Content */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xs bg-[#0B3B24] border border-[#C5A059]/30 text-xs text-[#E4C88A] tracking-wider uppercase font-semibold">
+                <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>Philanthropic Education & Merit Mission</span>
+              </div>
+
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.15]">
+                Empowering Odisha’s Next Generation of Scholars & Leaders.
+              </h1>
+
+              <p className="text-base sm:text-lg text-white/80 leading-relaxed font-sans max-w-2xl">
+                MAHAVIR TRUST is dedicated to establishing direct-to-college tuition grants, academic mentorship circles, and community learning hubs so that no deserving student in Odisha is held back by financial distress.
+              </p>
+
+              <div className="pt-2 flex flex-wrap items-center gap-4">
+                <Link href="#programs">
+                  <Button variant="gold" size="lg" className="shadow-md">
+                    <span>Explore Scholarship Schemes</span>
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+                <Link href="/governance">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-white/30 text-white hover:bg-white/10"
+                  >
+                    Our Fiduciary Charter
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Guiding Principles Strip */}
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-white/10 text-left">
+                {TRUST_CONFIG.guidingPrinciples.map((item) => (
+                  <div
+                    key={item.title}
+                    className="p-3 rounded-xs bg-white/5 border border-white/10 space-y-1"
+                  >
+                    <span className="text-[9px] uppercase font-bold tracking-wider text-[#E4C88A] block">
+                      {item.badge}
+                    </span>
+                    <h2 className="font-serif text-xs font-bold text-white">
+                      {item.title}
+                    </h2>
+                    <p className="text-[10px] text-white/70 leading-snug line-clamp-2">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.15]">
-              Empowering Odisha’s Next Generation of Scholars & Leaders.
-            </h1>
+            {/* Right Hero: Institutional Quick Intake Card (Inspired by RCM's high-conversion desk) */}
+            <div className="lg:col-span-5">
+              <div className="bg-[#FDFBF7] text-[#1C2421] p-6 sm:p-8 rounded-sm shadow-2xl border-2 border-[#C5A059] relative">
+                <div className="absolute -top-3 right-6 bg-[#C5A059] text-[#072617] text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-xs">
+                  Secretariat Desk
+                </div>
 
-            <p className="text-base sm:text-lg text-white/80 leading-relaxed font-sans max-w-2xl">
-              MAHAVIR TRUST is dedicated to establishing tuition fee grants, academic mentorship networks, and community learning hubs so that no deserving student in Odisha is held back by financial distress.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <Link href="#scholarships">
-                <Button variant="gold" size="lg" className="shadow-md">
-                  <span>Explore Scholarship Proposals</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              </Link>
-              <Link href="#about">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 text-white hover:bg-white/10"
-                >
-                  Our Charter & Heritage
-                </Button>
-              </Link>
-            </div>
-
-            {/* Core Commitments Grid (Factual & Principled) */}
-            <div className="pt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-white/10 text-left">
-              {TRUST_CONFIG.guidingPrinciples.map((item) => (
-                <div
-                  key={item.title}
-                  className="p-3.5 rounded-xs bg-white/5 border border-white/10 space-y-1.5"
-                >
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#E4C88A] block">
-                    {item.badge}
+                <div className="mb-4">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#9E7D3B] block">
+                    Pre-Admissions Inquiry
                   </span>
-                  <h2 className="font-serif text-sm font-bold text-white">
-                    {item.title}
-                  </h2>
-                  <p className="text-[11px] text-white/70 leading-tight">
-                    {item.description}
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0B3B24]">
+                    Scholar Eligibility Check
+                  </h3>
+                  <p className="text-xs text-[#4A5568] mt-1">
+                    Connect with the Trust Secretariat regarding upcoming grant schedules, norms, or institutional partner endorsements.
                   </p>
                 </div>
-              ))}
+
+                {heroIntakeSubmitted ? (
+                  <div className="p-6 bg-[#0B3B24] text-white rounded-xs space-y-3 text-center animate-in fade-in">
+                    <CheckCircle2 className="w-10 h-10 text-[#E4C88A] mx-auto" />
+                    <h4 className="font-serif text-lg font-bold">
+                      Inquiry Registered
+                    </h4>
+                    {heroReferenceId && (
+                      <p className="text-xs font-mono text-[#E4C88A] bg-black/20 py-1 px-3 rounded inline-block">
+                        Registry Ref: #{heroReferenceId}
+                      </p>
+                    )}
+                    <p className="text-xs text-white/80 leading-relaxed">
+                      Thank you for contacting MAHAVIR TRUST. The Secretariat Coordinator has logged your query and will send the draft eligibility prospectus via email.
+                    </p>
+                    <Button
+                      variant="gold"
+                      size="sm"
+                      onClick={() => {
+                        setHeroIntakeSubmitted(false);
+                        setHeroData({
+                          name: "",
+                          email: "",
+                          phone: "",
+                          district: "",
+                          category: "undergraduate",
+                        });
+                      }}
+                      className="mt-2"
+                    >
+                      Submit Another Query
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleHeroSubmit} className="space-y-3.5">
+                    {heroError && (
+                      <div className="p-2.5 bg-red-50 border border-red-200 text-red-700 rounded-xs text-[11px] flex items-start gap-1.5">
+                        <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
+                        <span>{heroError}</span>
+                      </div>
+                    )}
+
+                    <div>
+                      <label htmlFor="hero-name" className="block text-[11px] font-bold text-[#0B3B24] uppercase tracking-wider mb-1">
+                        Candidate / Guardian Name *
+                      </label>
+                      <input
+                        id="hero-name"
+                        type="text"
+                        required
+                        value={heroData.name}
+                        onChange={(e) => setHeroData({ ...heroData, name: e.target.value })}
+                        placeholder="e.g. Subhashree Mohanty"
+                        className="w-full text-xs p-2.5 rounded-xs bg-[#F4EFE6] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="hero-email" className="block text-[11px] font-bold text-[#0B3B24] uppercase tracking-wider mb-1">
+                          Email Address *
+                        </label>
+                        <input
+                          id="hero-email"
+                          type="email"
+                          required
+                          value={heroData.email}
+                          onChange={(e) => setHeroData({ ...heroData, email: e.target.value })}
+                          placeholder="subhashree@example.com"
+                          className="w-full text-xs p-2.5 rounded-xs bg-[#F4EFE6] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="hero-phone" className="block text-[11px] font-bold text-[#0B3B24] uppercase tracking-wider mb-1">
+                          Phone Number *
+                        </label>
+                        <input
+                          id="hero-phone"
+                          type="tel"
+                          required
+                          value={heroData.phone}
+                          onChange={(e) => setHeroData({ ...heroData, phone: e.target.value })}
+                          placeholder="+91 XXXXX XXXXX"
+                          className="w-full text-xs p-2.5 rounded-xs bg-[#F4EFE6] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label htmlFor="hero-district" className="block text-[11px] font-bold text-[#0B3B24] uppercase tracking-wider mb-1">
+                          Home District (Odisha) *
+                        </label>
+                        <input
+                          id="hero-district"
+                          type="text"
+                          required
+                          value={heroData.district}
+                          onChange={(e) => setHeroData({ ...heroData, district: e.target.value })}
+                          placeholder="e.g. Khordha, Cuttack"
+                          className="w-full text-xs p-2.5 rounded-xs bg-[#F4EFE6] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="hero-category" className="block text-[11px] font-bold text-[#0B3B24] uppercase tracking-wider mb-1">
+                          Academic Level *
+                        </label>
+                        <select
+                          id="hero-category"
+                          value={heroData.category}
+                          onChange={(e) => setHeroData({ ...heroData, category: e.target.value })}
+                          className="w-full text-xs p-2.5 rounded-xs bg-[#F4EFE6] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
+                        >
+                          <option value="undergraduate">Undergraduate Degree (B.Sc / B.Com / B.A)</option>
+                          <option value="engineering">Engineering & Technology (B.Tech / Poly)</option>
+                          <option value="stem-fellowship">Competitive Entrance / STEM Fellowship</option>
+                          <option value="college-liaison">College Administration / Verification Desk</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      disabled={heroIsSubmitting}
+                      className="w-full justify-center shadow-sm"
+                    >
+                      {heroIsSubmitting ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                          <span>Transmitting Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5 mr-1.5" />
+                          <span>Request Secretariat Guidance</span>
+                        </>
+                      )}
+                    </Button>
+
+                    <p className="text-[10px] text-[#4A5568] text-center italic">
+                      Zero fee required. All scholarship appraisals follow strict merit-cum-means criteria.
+                    </p>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. INSTITUTIONAL ACCREDITATION & ETHICS MARQUEE */}
+      <InstitutionalMarquee />
+
+      {/* 3. KEY STATISTICAL INDICATORS & PUBLIC METRICS */}
+      <section className="bg-[#0B3B24] text-white py-10 border-b border-[#C5A059]/25">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            <div className="space-y-1 border-r last:border-r-0 border-white/10 pr-4">
+              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#E4C88A]">30</span>
+              <p className="text-xs uppercase font-semibold tracking-wider text-white/80">Districts Covered</p>
+              <p className="text-[10px] text-white/60">Statewide mandate across Odisha</p>
+            </div>
+            <div className="space-y-1 border-r last:border-r-0 border-white/10 pr-4">
+              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#E4C88A]">100%</span>
+              <p className="text-xs uppercase font-semibold tracking-wider text-white/80">Direct College Disbursal</p>
+              <p className="text-[10px] text-white/60">Zero intermediary cash leakage</p>
+            </div>
+            <div className="space-y-1 border-r last:border-r-0 border-white/10 pr-4">
+              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#E4C88A]">4</span>
+              <p className="text-xs uppercase font-semibold tracking-wider text-white/80">Strategic Pillars</p>
+              <p className="text-[10px] text-white/60">Grants, Mentorship, Hubs & Guidance</p>
+            </div>
+            <div className="space-y-1">
+              <span className="font-serif text-3xl sm:text-4xl font-bold text-[#E4C88A]">Sec. 12A/80G</span>
+              <p className="text-xs uppercase font-semibold tracking-wider text-white/80">Statutory Standard</p>
+              <p className="text-[10px] text-white/60">Committed fiduciary compliance</p>
             </div>
           </div>
         </div>
@@ -199,65 +480,65 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. SCHOLARSHIP PROGRAMS OVERVIEW */}
-      <section id="scholarships" className="py-20 md:py-28 bg-[#FDFBF7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-            <div className="space-y-3 max-w-xl">
-              <Badge variant="forest">Proposed Grant Framework</Badge>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-                Flagship Academic Grant Initiatives
-              </h2>
-              <p className="text-sm text-[#4A5568]">
-                Applications will open upon completion of trustee gazetting. Review the proposed programmatic structures below.
-              </p>
-            </div>
-            <Link href="#eligibility">
-              <Button variant="outline" size="sm">
-                <span>View Proposed Eligibility</span>
-                <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </Link>
-          </div>
+      {/* 4. SCHOLARSHIP PROGRAMS & SCHEME EXPLORER (Interactive with category tabs) */}
+      <SchemeExplorer />
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {TRUST_CONFIG.programs.map((program) => (
-              <Card
-                key={program.id}
-                variant="elevated"
-                className="flex flex-col justify-between p-8 border-[#0B3B24]/10 space-y-6"
-              >
-                <div className="space-y-4">
-                  <div className="w-10 h-10 rounded-sm bg-[#C5A059]/15 text-[#9E7D3B] flex items-center justify-center">
-                    <Award className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-bold text-[#0B3B24] leading-snug">
-                      {program.name}
-                    </h3>
-                    <p className="text-xs font-semibold text-[#C5A059] mt-1">
-                      {program.tagline}
-                    </p>
-                  </div>
-                  <p className="text-xs text-[#4A5568] leading-relaxed">
-                    {program.overview}
+      {/* 4B. FROM THE SECRETARIAT DESK: Institutional Vision & Quality Benchmark */}
+      <section className="py-16 bg-[#FDFBF7]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="bg-[#0B3B24] text-white rounded-sm p-8 sm:p-12 relative overflow-hidden border border-[#C5A059]/30 shadow-xl">
+            {/* Ambient gold glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8 space-y-4">
+                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-xs bg-[#072617] border border-[#C5A059]/30 text-[10px] uppercase font-bold tracking-widest text-[#E4C88A]">
+                  <Landmark className="w-3 h-3 text-[#C5A059]" />
+                  <span>From The Secretariat Desk</span>
+                </div>
+
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white leading-tight">
+                  “A Guarantee that Educational Excellence Transcends Economic Barriers.”
+                </h3>
+
+                <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-sans">
+                  The Mahavir Trust was established on the fundamental premise that talent is everywhere, but opportunity is unevenly distributed. By instituting direct-to-college disbursements, impartial scrutiny committees, and continuous academic mentorship, we are laying the groundwork for a transparent, durable institution that will serve students across Odisha for generations.
+                </p>
+
+                <div className="pt-2 flex flex-wrap items-center gap-4 text-xs text-[#E4C88A]">
+                  <span className="flex items-center gap-1.5 font-serif font-bold">
+                    <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
+                    Fiduciary Board of Trustees
+                  </span>
+                  <span className="text-white/40">•</span>
+                  <span>Bhubaneswar Secretariat</span>
+                  <span className="text-white/40">•</span>
+                  <span>Non-Profit Public Charitable Charter</span>
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-6 bg-[#072617] rounded-sm border border-[#C5A059]/40 text-center space-y-3">
+                <div className="w-16 h-16 rounded-full bg-[#0B3B24] border-2 border-[#C5A059] flex items-center justify-center text-[#E4C88A] shadow-inner">
+                  <GraduationCap className="w-8 h-8" />
+                </div>
+                <div>
+                  <h4 className="font-serif text-base font-bold text-white">
+                    Mahavir Trust Secretariat
+                  </h4>
+                  <p className="text-[11px] text-[#C5A059] font-medium">
+                    Office of Public Disbursals & Compliance
                   </p>
                 </div>
-
-                <div className="pt-4 border-t border-[#0B3B24]/10 space-y-3">
-                  <div className="text-[11px] text-[#4A5568]">
-                    <span className="font-semibold text-[#0B3B24]">Proposed Scope:</span>{" "}
-                    {program.scope}
-                  </div>
-                  <div className="text-[11px] bg-[#F4EFE6] p-2.5 rounded-xs text-[#0B3B24] border border-[#0B3B24]/10 font-medium">
-                    <span className="text-[10px] uppercase font-bold text-[#9E7D3B] block mb-0.5">
-                      Status Notice
-                    </span>
-                    {program.status}
-                  </div>
-                </div>
-              </Card>
-            ))}
+                <p className="text-[10px] text-white/60 italic leading-snug">
+                  Established under the Indian Trusts Act framework. Formal Gazette details to be notified upon statutory completion.
+                </p>
+                <Link href="/contact" className="w-full pt-1">
+                  <Button variant="gold" size="sm" className="w-full justify-center text-xs">
+                    Connect with Secretariat
+                  </Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -502,24 +783,46 @@ export default function HomePage() {
                 Submit your details to connect with the Secretariat regarding mentorship or volunteering.
               </p>
 
-              {formSubmitted ? (
-                <div className="p-6 bg-[#0B3B24] text-white rounded-sm space-y-2 text-center animate-in fade-in">
-                  <CheckCircle2 className="w-8 h-8 text-[#E4C88A] mx-auto" />
-                  <h4 className="font-serif text-lg font-bold">
-                    Acknowledgment Received
+              {volSubmitted ? (
+                <div className="p-6 bg-[#0B3B24] text-white rounded-sm space-y-3 text-center animate-in fade-in">
+                  <CheckCircle2 className="w-10 h-10 text-[#E4C88A] mx-auto" />
+                  <h4 className="font-serif text-xl font-bold">
+                    Volunteer Registration Recorded
                   </h4>
-                  <p className="text-xs text-white/80">
-                    Thank you for expressing interest in MAHAVIR TRUST. The Secretariat coordinator will review and reach out ahead of our upcoming orientation session.
+                  {volReferenceId && (
+                    <p className="text-xs font-mono text-[#E4C88A] bg-black/20 py-1 px-3 rounded inline-block">
+                      Volunteer Registry Ref: #{volReferenceId}
+                    </p>
+                  )}
+                  <p className="text-xs text-white/80 leading-relaxed">
+                    Thank you for your willingness to support Odisha’s students. The Secretariat team will review your background and communicate orientation details via email.
                   </p>
+                  <Button
+                    variant="outline"
+                    className="mt-4 text-xs !border-[#E4C88A] !text-[#E4C88A] hover:!bg-[#E4C88A]/10"
+                    onClick={() => {
+                      setVolSubmitted(false);
+                      setVolData({
+                        name: "",
+                        email: "",
+                        phone: "",
+                        role: "Academic & Career Mentorship",
+                        notes: "",
+                      });
+                    }}
+                  >
+                    Register Another Volunteer
+                  </Button>
                 </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setFormSubmitted(true);
-                  }}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleVolSubmit} className="space-y-4">
+                  {volError && (
+                    <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-sm text-xs flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                      <span>{volError}</span>
+                    </div>
+                  )}
+
                   <div>
                     <label
                       htmlFor="volunteer-fullname"
@@ -532,7 +835,9 @@ export default function HomePage() {
                       name="fullname"
                       type="text"
                       required
-                      placeholder="e.g. Ramesh Pattnaik"
+                      value={volData.name}
+                      onChange={(e) => setVolData({ ...volData, name: e.target.value })}
+                      placeholder="e.g. Prof. Sandeep Jena"
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
                   </div>
@@ -550,7 +855,9 @@ export default function HomePage() {
                         name="email"
                         type="email"
                         required
-                        placeholder="name@organization.com"
+                        value={volData.email}
+                        onChange={(e) => setVolData({ ...volData, email: e.target.value })}
+                        placeholder="sandeep@example.com"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
                     </div>
@@ -566,7 +873,9 @@ export default function HomePage() {
                         name="phone"
                         type="tel"
                         required
-                        placeholder="+91 XXXXX XXXXX"
+                        value={volData.phone}
+                        onChange={(e) => setVolData({ ...volData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
                         className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                       />
                     </div>
@@ -582,14 +891,14 @@ export default function HomePage() {
                     <select
                       id="volunteer-interest"
                       name="interest"
-                      value={inquiryType}
-                      onChange={(e) => setInquiryType(e.target.value)}
+                      value={volData.role}
+                      onChange={(e) => setVolData({ ...volData, role: e.target.value })}
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
                     >
-                      <option value="mentorship">Academic & Career Mentorship</option>
-                      <option value="scholarship">Student Scholarship Inquiry</option>
-                      <option value="institutional">College / Institutional Partnership</option>
-                      <option value="volunteer">Community Field Volunteering</option>
+                      <option value="Academic & Career Mentorship">Academic & Career Mentorship</option>
+                      <option value="College / Institutional Partnership">College / Institutional Partnership</option>
+                      <option value="Learning Hub Steward">Project Samarth Learning Hub Steward</option>
+                      <option value="Community Field Volunteering">Community Field Volunteering</option>
                     </select>
                   </div>
 
@@ -604,14 +913,30 @@ export default function HomePage() {
                       id="volunteer-notes"
                       name="notes"
                       rows={3}
+                      value={volData.notes}
+                      onChange={(e) => setVolData({ ...volData, notes: e.target.value })}
                       placeholder="Share your current affiliation, academic background, or how you wish to collaborate..."
                       className="w-full text-xs p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
                   </div>
 
-                  <Button type="submit" variant="primary" className="w-full justify-center">
-                    <Send className="w-3.5 h-3.5 mr-1.5" />
-                    <span>Submit Volunteer Registration</span>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    disabled={volIsSubmitting}
+                    className="w-full justify-center"
+                  >
+                    {volIsSubmitting ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" />
+                        <span>Transmitting Registration...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 mr-1.5" />
+                        <span>Submit Volunteer Registration</span>
+                      </>
+                    )}
                   </Button>
                 </form>
               )}
