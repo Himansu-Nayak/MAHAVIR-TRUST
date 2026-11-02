@@ -4,12 +4,16 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   variant?: "default" | "elevated" | "accent" | "dark" | "stat";
   padding?: "none" | "sm" | "md" | "lg";
+  isHoverable?: boolean;
+  isClickable?: boolean;
 }
 
 export function Card({
   children,
   variant = "default",
   padding = "md",
+  isHoverable = false,
+  isClickable = false,
   className = "",
   ...props
 }: CardProps) {
@@ -33,9 +37,17 @@ export function Card({
     lg: "p-8 sm:p-10",
   };
 
+  const interactiveStyles = isClickable
+    ? "cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#C5A059] active:scale-[0.99]"
+    : isHoverable
+    ? "hover:shadow-md hover:-translate-y-0.5 transition-transform"
+    : "";
+
   return (
     <div
-      className={`rounded-xs ${variantStyles[variant]} ${variant === "stat" ? "" : paddingStyles[padding]} ${className}`}
+      className={`rounded-xs ${variantStyles[variant]} ${
+        variant === "stat" ? "" : paddingStyles[padding]
+      } ${interactiveStyles} ${className}`}
       {...props}
     >
       {children}
@@ -106,29 +118,6 @@ export function CardFooter({
   );
 }
 
-export function Badge({
-  children,
-  variant = "gold",
-  className = "",
-}: {
-  children: React.ReactNode;
-  variant?: "gold" | "gold-dark" | "forest" | "neutral" | "success" | "warning";
-  className?: string;
-}) {
-  const variants = {
-    gold: "bg-[#C5A059]/15 text-[#7A5E24] border border-[#C5A059]/35 font-semibold",
-    "gold-dark": "bg-[#0B3B24] text-[#E4C88A] border border-[#C5A059]/40 font-semibold",
-    forest: "bg-[#0B3B24]/10 text-[#0B3B24] border border-[#0B3B24]/25 font-semibold",
-    neutral: "bg-gray-100 text-gray-800 border border-gray-300 font-medium",
-    success: "bg-emerald-50 text-emerald-800 border border-emerald-300 font-semibold",
-    warning: "bg-amber-50 text-amber-900 border border-amber-300 font-semibold",
-  };
+// Re-export Badge for backwards compatibility across existing pages
+export { Badge, type BadgeProps } from "./Badge";
 
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider px-2.5 py-0.5 rounded-xs select-none ${variants[variant]} ${className}`}
-    >
-      {children}
-    </span>
-  );
-}

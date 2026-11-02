@@ -176,3 +176,22 @@ space-24   96px         py-24            Hero & landmark section vertical paddin
        }
      }
      ```
+
+---
+
+## 7. Component Library Primitives (Section 1 Deliverable)
+
+All core components are exported from `src/components/ui/index.ts`:
+
+```
+src/components/ui/
+├── Button.tsx          - 6 variants, 3 sizes, loading state, accessible focus rings
+├── Badge.tsx           - Standalone primitive (gold, gold-dark, contrast-gold, forest, forest-dark, neutral, success, warning, outline)
+├── Card.tsx            - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter (with Badge re-export)
+├── Container.tsx       - Standardized responsive layout wrapper (default, narrow, prose, wide, full)
+├── SectionHeader.tsx   - Editorial section introduction with badge, title, subtitle, and action slots
+├── Input.tsx           - Accessible form input with label, error, helper text, and icon slots
+├── Textarea.tsx        - Accessible multi-line input with label, error, helper, and character counter
+├── Select.tsx          - Accessible form dropdown select with custom chevron and ARIA state bindings
+└── StateFeedback.tsx   - Universal feedback primitive for loading, error, empty, and success states
+```
