@@ -240,3 +240,20 @@ The landing page (`src/app/page.tsx`) serves as the flagship institutional exper
 - **Accessible Form Controls**: Homepage forms (Volunteer Desk & Secretariat Inquiry) now consume `<Input>`, `<Select>`, and `<Textarea>` primitives with built-in labels, icon slots, accessible chevrons, and aria-described error states.
 - **Server-Grounded Consent**: Volunteer submission binds affirmative consent (`consentDeclared: true`, `consentVersion: "v2.3"`), strictly synchronized with the Flyway V3/V4 schema and Spring Boot backend validators.
 
+---
+
+## 10. Institutional About Us & Heritage Page (Section 4 Deliverable)
+
+The About Us page (`src/app/about/page.tsx`) articulates the founding philosophy, operational mission, values, and governance tiers:
+
+### 10.1 Structured Sections
+- **Page Hero**: High-impact banner with Schema.org breadcrumb integration and dual CTAs to `/governance` and `/scholarships`.
+- **Foundational Narrative**: 2-column editorial layout pairing the post-secondary dropout crisis in Odisha with Vision & Mission cards.
+- **Guiding Values Grid**: 4 elevated cards (`Fiduciary Integrity`, `Objective Blind-Appraisal`, `Student Dignity First`, `Non-Sectarian Universality`) with `<Badge variant="contrast-gold">`.
+- **Organizational Architecture**: 4-tier governance hierarchy (`Board of Trustees`, `Academic Advisory Council`, `Appraisal & Scrutiny Committee`, `Secretariat Desk`) grounded in statutory disclaimers.
+- **Phased Evolution Roadmap**: 4 milestone columns (`2025 Genesis`, `Early 2026 Platform`, `Mid 2026 Partnerships`, `2026-27 Launch`).
+
+### 10.2 Primitives Deployed
+- `<Container size="default">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated">`, `<Button>`, and `<PageHero>`.
+
+
