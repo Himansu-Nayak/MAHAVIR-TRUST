@@ -3,8 +3,13 @@
 import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
+import { Textarea } from "@/components/ui/Textarea";
 import { Accordion } from "@/components/Accordion";
 import {
   Users,
@@ -26,7 +31,6 @@ import {
   HeartHandshake,
   FileCheck2,
   HelpCircle,
-  PhoneCall,
   Mail,
   ArrowRight,
 } from "lucide-react";
@@ -204,7 +208,7 @@ export default function VolunteerPage() {
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#C5A059]/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#165B38]/30 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-8">
+        <Container size="default" className="relative">
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="flex items-center space-x-2 text-xs text-[#E4C88A]">
@@ -279,21 +283,20 @@ export default function VolunteerPage() {
               </a>
             </div>
           </motion.div>
-        </div>
+        </Container>
       </section>
 
       {/* 2. PHILOSOPHY SECTION: The Guidance Deficit */}
       <section className="py-16 md:py-24 bg-[#FDFBF7] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+        <Container size="default">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-6">
-              <Badge variant="forest">The Mentorship Philosophy</Badge>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617] leading-snug">
-                Bridging the “Guidance Deficit” for First-Generation College Learners.
-              </h2>
-              <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-                In Odisha’s rural and tribal heartlands, hundreds of meritorious students enter undergraduate and professional programs with extraordinary grit, but without family members who have navigated higher education or formal corporate job markets.
-              </p>
+              <SectionHeader
+                badge="The Mentorship Philosophy"
+                badgeVariant="forest"
+                title="Bridging the “Guidance Deficit” for First-Generation College Learners."
+                subtitle="In Odisha’s rural and tribal heartlands, hundreds of meritorious students enter undergraduate and professional programs with extraordinary grit, but without family members who have navigated higher education or formal corporate job markets."
+              />
               <p className="text-sm text-[#4A5568] leading-relaxed">
                 They often lack guidance on entrance tests, resume structuring, workplace culture, or academic persistence. By pairing scholars with empathetic professors, engineers, doctors, and civil servants, MAHAVIR TRUST builds a durable bridge between rural talent and professional achievement.
               </p>
@@ -310,7 +313,7 @@ export default function VolunteerPage() {
 
             {/* Comparison Cards: Trust Support vs Volunteer Role */}
             <div className="lg:col-span-6 space-y-4">
-              <div className="p-6 rounded-xs bg-[#072617] text-white border border-[#C5A059]/30 space-y-3">
+              <Card variant="dark" padding="md" className="space-y-3">
                 <div className="flex items-center gap-2.5 text-[#E4C88A]">
                   <Building2 className="w-5 h-5 text-[#C5A059]" />
                   <h3 className="font-serif text-lg font-bold">What MAHAVIR TRUST Provides</h3>
@@ -321,9 +324,9 @@ export default function VolunteerPage() {
                   <li>Pre-screening and academic verification through our Scrutiny Committee.</li>
                   <li>Institutional liaison to protect scholars from financial dropouts.</li>
                 </ul>
-              </div>
+              </Card>
 
-              <div className="p-6 rounded-xs bg-white border border-[#072617]/15 shadow-xs space-y-3">
+              <Card variant="elevated" padding="md" className="space-y-3">
                 <div className="flex items-center gap-2.5 text-[#072617]">
                   <HeartHandshake className="w-5 h-5 text-[#C5A059]" />
                   <h3 className="font-serif text-lg font-bold">What Volunteer Mentors Bring</h3>
@@ -334,27 +337,24 @@ export default function VolunteerPage() {
                   <li>Emotional resilience and pastoral encouragement during critical semester exams.</li>
                   <li>Long-term professional networks that rural students rarely possess.</li>
                 </ul>
-              </div>
+              </Card>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 3. FOUR PILLARS: Why Guide Scholars with MAHAVIR TRUST */}
       <section className="py-16 md:py-24 bg-[#F4EFE6] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="max-w-3xl space-y-3">
-            <Badge variant="gold">Institutional Principles</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Four Pillars of Our Mentorship Network.
-            </h2>
-            <p className="text-sm text-[#4A5568] leading-relaxed">
-              We operate our volunteering framework with the same fiduciary rigor, privacy protections, and transparency that govern our financial scholarship disbursements.
-            </p>
-          </div>
+        <Container size="default" className="space-y-12">
+          <SectionHeader
+            badge="Institutional Principles"
+            badgeVariant="gold"
+            title="Four Pillars of Our Mentorship Network."
+            subtitle="We operate our volunteering framework with the same fiduciary rigor, privacy protections, and transparency that govern our financial scholarship disbursements."
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
               <div className="w-10 h-10 rounded-xs bg-[#072617]/10 text-[#072617] flex items-center justify-center">
                 <ShieldCheck className="w-5 h-5 text-[#C5A059]" />
               </div>
@@ -366,7 +366,7 @@ export default function VolunteerPage() {
               </p>
             </Card>
 
-            <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
               <div className="w-10 h-10 rounded-xs bg-[#072617]/10 text-[#072617] flex items-center justify-center">
                 <Clock className="w-5 h-5 text-[#C5A059]" />
               </div>
@@ -378,7 +378,7 @@ export default function VolunteerPage() {
               </p>
             </Card>
 
-            <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
               <div className="w-10 h-10 rounded-xs bg-[#072617]/10 text-[#072617] flex items-center justify-center">
                 <FileCheck2 className="w-5 h-5 text-[#C5A059]" />
               </div>
@@ -390,7 +390,7 @@ export default function VolunteerPage() {
               </p>
             </Card>
 
-            <Card variant="default" className="p-6 space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7] border-t-4 border-t-[#072617]">
               <div className="w-10 h-10 rounded-xs bg-[#072617]/10 text-[#072617] flex items-center justify-center">
                 <Award className="w-5 h-5 text-[#C5A059]" />
               </div>
@@ -402,25 +402,22 @@ export default function VolunteerPage() {
               </p>
             </Card>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 4. ROLE CATALOGUE: Four Proposed Volunteer Tracks */}
       <section id="tracks" className="py-16 md:py-24 bg-[#FDFBF7] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="max-w-3xl space-y-3">
-            <Badge variant="forest">Proposed Tracks</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Four Proposed Volunteer Service Tracks.
-            </h2>
-            <p className="text-sm text-[#4A5568] leading-relaxed">
-              The following service tracks represent proposed voluntary engagement models pending formal trust deed adoption and operational charter approval.
-            </p>
-          </div>
+        <Container size="default" className="space-y-12">
+          <SectionHeader
+            badge="Proposed Tracks"
+            badgeVariant="forest"
+            title="Four Proposed Volunteer Service Tracks."
+            subtitle="The following service tracks represent proposed voluntary engagement models pending formal trust deed adoption and operational charter approval."
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Track A */}
-            <div className="p-8 rounded-xs bg-white border border-[#072617]/15 shadow-xs flex flex-col justify-between hover:border-[#C5A059] transition-colors">
+            <Card variant="elevated" padding="lg" className="flex flex-col justify-between space-y-6 hover:border-[#C5A059] transition-colors">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-[#072617] text-[#E4C88A] px-2.5 py-1 rounded-xs">
@@ -453,20 +450,21 @@ export default function VolunteerPage() {
                 </div>
               </div>
 
-              <div className="pt-6">
-                <button
+              <div className="pt-4 border-t border-[#072617]/10">
+                <Button
                   type="button"
+                  variant="primary"
+                  className="w-full text-xs uppercase tracking-wider font-bold"
                   onClick={() => handleSelectRole("Academic & Entrance Exam Mentor")}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xs bg-[#072617] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0B3B24] transition-colors"
                 >
                   <span>Apply for Academic Mentorship</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] ml-1" />
+                </Button>
               </div>
-            </div>
+            </Card>
 
             {/* Track B */}
-            <div className="p-8 rounded-xs bg-white border border-[#072617]/15 shadow-xs flex flex-col justify-between hover:border-[#C5A059] transition-colors">
+            <Card variant="elevated" padding="lg" className="flex flex-col justify-between space-y-6 hover:border-[#C5A059] transition-colors">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-[#072617] text-[#E4C88A] px-2.5 py-1 rounded-xs">
@@ -499,20 +497,21 @@ export default function VolunteerPage() {
                 </div>
               </div>
 
-              <div className="pt-6">
-                <button
+              <div className="pt-4 border-t border-[#072617]/10">
+                <Button
                   type="button"
+                  variant="primary"
+                  className="w-full text-xs uppercase tracking-wider font-bold"
                   onClick={() => handleSelectRole("Career & Professional Guide")}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xs bg-[#072617] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0B3B24] transition-colors"
                 >
                   <span>Apply for Career Mentorship</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] ml-1" />
+                </Button>
               </div>
-            </div>
+            </Card>
 
             {/* Track C */}
-            <div className="p-8 rounded-xs bg-white border border-[#072617]/15 shadow-xs flex flex-col justify-between hover:border-[#C5A059] transition-colors">
+            <Card variant="elevated" padding="lg" className="flex flex-col justify-between space-y-6 hover:border-[#C5A059] transition-colors">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-[#072617] text-[#E4C88A] px-2.5 py-1 rounded-xs">
@@ -545,20 +544,21 @@ export default function VolunteerPage() {
                 </div>
               </div>
 
-              <div className="pt-6">
-                <button
+              <div className="pt-4 border-t border-[#072617]/10">
+                <Button
                   type="button"
+                  variant="primary"
+                  className="w-full text-xs uppercase tracking-wider font-bold"
                   onClick={() => handleSelectRole("Project Samarth Hub Steward")}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xs bg-[#072617] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0B3B24] transition-colors"
                 >
                   <span>Apply as Hub Steward</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] ml-1" />
+                </Button>
               </div>
-            </div>
+            </Card>
 
             {/* Track D */}
-            <div className="p-8 rounded-xs bg-white border border-[#072617]/15 shadow-xs flex flex-col justify-between hover:border-[#C5A059] transition-colors">
+            <Card variant="elevated" padding="lg" className="flex flex-col justify-between space-y-6 hover:border-[#C5A059] transition-colors">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider bg-[#072617] text-[#E4C88A] px-2.5 py-1 rounded-xs">
@@ -591,36 +591,34 @@ export default function VolunteerPage() {
                 </div>
               </div>
 
-              <div className="pt-6">
-                <button
+              <div className="pt-4 border-t border-[#072617]/10">
+                <Button
                   type="button"
+                  variant="primary"
+                  className="w-full text-xs uppercase tracking-wider font-bold"
                   onClick={() => handleSelectRole("College & Faculty Liaison")}
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xs bg-[#072617] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0B3B24] transition-colors"
                 >
                   <span>Apply as Faculty Liaison</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059]" />
-                </button>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] ml-1" />
+                </Button>
               </div>
-            </div>
+            </Card>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 5. INDUCTION PATHWAY: 4-Stage Onboarding Process */}
       <section className="py-16 md:py-24 bg-[#F4EFE6] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="max-w-3xl space-y-3">
-            <Badge variant="gold">Proposed Onboarding</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              The Proposed Four-Stage Volunteer Induction Pathway.
-            </h2>
-            <p className="text-sm text-[#4A5568] leading-relaxed">
-              To safeguard both scholars and volunteers, every applicant will complete a structured screening and induction process before mentoring begins.
-            </p>
-          </div>
+        <Container size="default" className="space-y-12">
+          <SectionHeader
+            badge="Proposed Onboarding"
+            badgeVariant="gold"
+            title="The Proposed Four-Stage Volunteer Induction Pathway."
+            subtitle="To safeguard both scholars and volunteers, every applicant will complete a structured screening and induction process before mentoring begins."
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7]">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">01</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
                 Expression of Interest
@@ -628,9 +626,9 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Submit your profile, academic credentials, district location, and preferred role through the registration portal below.
               </p>
-            </div>
+            </Card>
 
-            <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7]">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">02</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
                 Secretariat Review [Proposed]
@@ -638,9 +636,9 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Secretariat coordinator conducts preliminary review of submitted academic credentials and proposed track alignment.
               </p>
-            </div>
+            </Card>
 
-            <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7]">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">03</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
                 Safeguarding Orientation [Proposed]
@@ -648,9 +646,9 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Prospective volunteers review draft student welfare guidelines, ethical boundaries, and non-commercial service principles.
               </p>
-            </div>
+            </Card>
 
-            <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
+            <Card variant="default" padding="md" className="space-y-3 bg-[#FDFBF7]">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">04</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
                 Scholar Matching [Proposed]
@@ -658,15 +656,15 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Subject to admitted scholar cohorts, matched profiles are assigned with periodic administrative progress check-ins.
               </p>
-            </div>
+            </Card>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 6. SAFEGUARDING & CODE OF CONDUCT CALLOUT */}
       <section className="py-12 md:py-16 bg-[#FDFBF7] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="p-8 sm:p-10 rounded-xs bg-[#072617] text-[#EDE6D8] border border-[#C5A059]/40 relative overflow-hidden space-y-6">
+        <Container size="default">
+          <Card variant="dark" padding="lg" className="space-y-6 border border-[#C5A059]/40">
             <div className="flex items-center gap-3">
               <ShieldAlert className="w-6 h-6 text-[#C5A059] shrink-0" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
@@ -707,25 +705,22 @@ export default function VolunteerPage() {
                 {TRUST_CONFIG.contact.generalEmail}
               </a>
             </p>
-          </div>
-        </div>
+          </Card>
+        </Container>
       </section>
 
       {/* 7. GEOGRAPHIC SCOPE: Odisha District Focus */}
       <section className="py-16 md:py-20 bg-[#FDFBF7] border-b border-[#072617]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
-          <div className="max-w-3xl space-y-3">
-            <Badge variant="forest">Proposed Regional Reach</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Proposed Geographic Reach Across All 30 Districts of Odisha.
-            </h2>
-            <p className="text-sm text-[#4A5568] leading-relaxed">
-              While physical study hub facilities remain proposed initiatives subject to formal site selection and local trustee approval, the proposed virtual mentorship network aims to connect students across all 30 districts of Odisha with remote mentors.
-            </p>
-          </div>
+        <Container size="default" className="space-y-8">
+          <SectionHeader
+            badge="Proposed Regional Reach"
+            badgeVariant="forest"
+            title="Proposed Geographic Reach Across All 30 Districts of Odisha."
+            subtitle="While physical study hub facilities remain proposed initiatives subject to formal site selection and local trustee approval, the proposed virtual mentorship network aims to connect students across all 30 districts of Odisha with remote mentors."
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
+            <Card variant="default" padding="md" className="bg-[#F4EFE6] border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <MapPin className="w-4 h-4 text-[#C5A059]" />
                 <span>Proposed Rural & Tribal Pilot Zones</span>
@@ -733,9 +728,9 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Mayurbhanj, Koraput, Rayagada, Malkangiri, Nabarangpur, Kalahandi. Target pilot zones for prospective hub stewards and college liaisons.
               </p>
-            </div>
+            </Card>
 
-            <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
+            <Card variant="default" padding="md" className="bg-[#F4EFE6] border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <Building2 className="w-4 h-4 text-[#C5A059]" />
                 <span>Proposed Higher Education Corridors</span>
@@ -743,9 +738,9 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Khordha (Bhubaneswar), Cuttack, Sundargarh (Rourkela), Sambalpur, Balasore, Ganjam. Target zones for degree and polytechnic college liaisons.
               </p>
-            </div>
+            </Card>
 
-            <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
+            <Card variant="default" padding="md" className="bg-[#F4EFE6] border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <Globe2 className="w-4 h-4 text-[#C5A059]" />
                 <span>Proposed Remote & Diaspora Network</span>
@@ -753,15 +748,15 @@ export default function VolunteerPage() {
               <p className="text-xs text-[#4A5568] leading-relaxed">
                 Mentors outside Odisha and global NRIs. Digital sessions bridge geographic distance to offer academic and industry perspectives.
               </p>
-            </div>
+            </Card>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 8. APPLICATION DESK: Complete Responsive Form */}
       <section id="apply" ref={formRef} className="py-16 md:py-24 bg-[#F4EFE6]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-8">
-          <div className="bg-[#FFFFFF] p-8 sm:p-12 rounded-xs border border-[#072617]/15 shadow-sm space-y-8">
+        <Container size="narrow">
+          <Card variant="elevated" padding="lg" className="space-y-8 bg-white">
             <div className="border-b border-[#072617]/10 pb-6 space-y-2">
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-xs bg-[#072617]/10 text-[#072617] text-[11px] font-bold uppercase tracking-wider">
                 <FileCheck2 className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -811,11 +806,10 @@ export default function VolunteerPage() {
                   >
                     Register Another Volunteer
                   </Button>
-                  <Link
-                    href="/programmes"
-                    className="text-xs inline-flex items-center gap-1.5 py-2 px-4 rounded-xs bg-[#C5A059] text-[#072617] font-bold hover:bg-[#E4C88A] transition-colors"
-                  >
-                    Explore Programmes
+                  <Link href="/programmes">
+                    <Button variant="gold" size="sm">
+                      <span>Explore Programmes</span>
+                    </Button>
                   </Link>
                 </div>
               </div>
@@ -834,208 +828,112 @@ export default function VolunteerPage() {
 
                 {/* Row 1: Name & Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="vol-fullname"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Full Name *
-                    </label>
-                    <input
-                      id="vol-fullname"
-                      name="fullName"
-                      type="text"
-                      required
-                      maxLength={150}
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      placeholder="e.g. Prof. Sandeep Mohanty"
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
-                    />
-                  </div>
+                  <Input
+                    label="Full Name"
+                    id="vol-fullname"
+                    name="fullName"
+                    type="text"
+                    required
+                    maxLength={150}
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    placeholder="e.g. Prof. Sandeep Mohanty"
+                  />
 
-                  <div>
-                    <label
-                      htmlFor="vol-email"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Email Address *
-                    </label>
-                    <input
-                      id="vol-email"
-                      name="email"
-                      type="email"
-                      required
-                      maxLength={255}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="sandeep.m@example.org"
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
-                    />
-                  </div>
+                  <Input
+                    label="Email Address"
+                    id="vol-email"
+                    name="email"
+                    type="email"
+                    required
+                    maxLength={255}
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="sandeep.m@example.org"
+                  />
                 </div>
 
                 {/* Row 2: Phone & District */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="vol-phone"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Phone / Mobile Number *
-                    </label>
-                    <input
-                      id="vol-phone"
-                      name="phone"
-                      type="tel"
-                      required
-                      maxLength={30}
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+91 98765 43210"
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
-                    />
-                  </div>
+                  <Input
+                    label="Phone / Mobile Number"
+                    id="vol-phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    maxLength={30}
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="+91 98765 43210"
+                  />
 
-                  <div>
-                    <label
-                      htmlFor="vol-district"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Location / District in Odisha *
-                    </label>
-                    <select
-                      id="vol-district"
-                      name="district"
-                      value={formData.district}
-                      onChange={(e) => setFormData({ ...formData, district: e.target.value })}
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] text-[#1C2421]"
-                    >
-                      {ODISHA_DISTRICTS.map((dist) => (
-                        <option key={dist} value={dist}>
-                          {dist}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Select
+                    label="Location / District in Odisha"
+                    id="vol-district"
+                    name="district"
+                    required
+                    value={formData.district}
+                    onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+                    options={ODISHA_DISTRICTS.map((d) => ({ value: d, label: d }))}
+                  />
                 </div>
 
                 {/* Row 3: Role & Qualification */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="vol-role"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Preferred Volunteer Track *
-                    </label>
-                    <select
-                      id="vol-role"
-                      name="roleInterest"
-                      value={formData.roleInterest}
-                      onChange={(e) => setFormData({ ...formData, roleInterest: e.target.value })}
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] text-[#1C2421]"
-                    >
-                      {VOLUNTEER_ROLES.map((r) => (
-                        <option key={r} value={r}>
-                          {r}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Select
+                    label="Preferred Volunteer Track"
+                    id="vol-role"
+                    name="roleInterest"
+                    required
+                    value={formData.roleInterest}
+                    onChange={(e) => setFormData({ ...formData, roleInterest: e.target.value })}
+                    options={VOLUNTEER_ROLES.map((r) => ({ value: r, label: r }))}
+                  />
 
-                  <div>
-                    <label
-                      htmlFor="vol-qualification"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Highest Academic / Professional Qualification
-                    </label>
-                    <select
-                      id="vol-qualification"
-                      name="qualification"
-                      value={formData.qualification}
-                      onChange={(e) => setFormData({ ...formData, qualification: e.target.value })}
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] text-[#1C2421]"
-                    >
-                      {QUALIFICATIONS.map((q) => (
-                        <option key={q} value={q}>
-                          {q}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Select
+                    label="Highest Qualification"
+                    id="vol-qualification"
+                    name="qualification"
+                    value={formData.qualification}
+                    onChange={(e) => setFormData({ ...formData, qualification: e.target.value })}
+                    options={QUALIFICATIONS.map((q) => ({ value: q, label: q }))}
+                  />
                 </div>
 
                 {/* Row 4: Availability & Mode */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="vol-availability"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Time Availability *
-                    </label>
-                    <select
-                      id="vol-availability"
-                      name="availability"
-                      value={formData.availability}
-                      onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] text-[#1C2421]"
-                    >
-                      {AVAILABILITY_OPTIONS.map((a) => (
-                        <option key={a} value={a}>
-                          {a}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Select
+                    label="Time Availability"
+                    id="vol-availability"
+                    name="availability"
+                    required
+                    value={formData.availability}
+                    onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
+                    options={AVAILABILITY_OPTIONS.map((a) => ({ value: a, label: a }))}
+                  />
 
-                  <div>
-                    <label
-                      htmlFor="vol-mode"
-                      className="block text-xs font-semibold text-[#072617] mb-1.5"
-                    >
-                      Preferred Engagement Mode
-                    </label>
-                    <select
-                      id="vol-mode"
-                      name="engagementMode"
-                      value={formData.engagementMode}
-                      onChange={(e) => setFormData({ ...formData, engagementMode: e.target.value })}
-                      className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059] text-[#1C2421]"
-                    >
-                      {ENGAGEMENT_MODES.map((m) => (
-                        <option key={m} value={m}>
-                          {m}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <Select
+                    label="Preferred Engagement Mode"
+                    id="vol-mode"
+                    name="engagementMode"
+                    value={formData.engagementMode}
+                    onChange={(e) => setFormData({ ...formData, engagementMode: e.target.value })}
+                    options={ENGAGEMENT_MODES.map((m) => ({ value: m, label: m }))}
+                  />
                 </div>
 
                 {/* Background Notes */}
-                <div>
-                  <label
-                    htmlFor="vol-notes"
-                    className="block text-xs font-semibold text-[#072617] mb-1.5"
-                  >
-                    Academic / Professional Background & Subject Areas
-                  </label>
-                  <textarea
-                    id="vol-notes"
-                    name="backgroundNotes"
-                    rows={4}
-                    maxLength={2000}
-                    value={formData.backgroundNotes}
-                    onChange={(e) => setFormData({ ...formData, backgroundNotes: e.target.value })}
-                    placeholder="Briefly describe your discipline (e.g. Physics, Mechanical Engg, Nursing, Banking), your institution/employer, and how you would like to guide scholars..."
-                    className="w-full text-xs p-3 rounded-xs bg-[#FDFBF7] border border-[#072617]/20 focus:border-[#C5A059] focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
-                  />
-                  <span className="text-[10px] text-[#4A5568] mt-1 block">
-                    Maximum 2000 characters.
-                  </span>
-                </div>
+                <Textarea
+                  label="Academic / Professional Background & Subject Areas"
+                  id="vol-notes"
+                  name="backgroundNotes"
+                  rows={4}
+                  maxLength={2000}
+                  showCount
+                  value={formData.backgroundNotes}
+                  onChange={(e) => setFormData({ ...formData, backgroundNotes: e.target.value })}
+                  placeholder="Briefly describe your discipline (e.g. Physics, Mechanical Engg, Nursing, Banking), your institution/employer, and how you would like to guide scholars..."
+                />
 
                 {/* Mandatory Consent Checkbox */}
                 <div className="p-4 bg-[#F4EFE6] rounded-xs border border-[#072617]/10 space-y-2">
@@ -1074,27 +972,25 @@ export default function VolunteerPage() {
                 </Button>
               </form>
             )}
-          </div>
-        </div>
+          </Card>
+        </Container>
       </section>
 
       {/* 9. FAQ & SECRETARIAT DESK */}
       <section className="py-16 md:py-24 bg-[#FDFBF7] border-b border-[#072617]/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="text-center space-y-3">
-            <Badge variant="forest">Clarifications</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Frequently Asked Questions on Mentorship.
-            </h2>
-            <p className="text-xs sm:text-sm text-[#4A5568] max-w-xl mx-auto">
-              Find answers to common questions about time commitments, volunteer recognition, scholar matching, and remote participation.
-            </p>
-          </div>
+        <Container size="narrow" className="space-y-12">
+          <SectionHeader
+            badge="Clarifications"
+            badgeVariant="forest"
+            title="Frequently Asked Questions on Mentorship."
+            subtitle="Find answers to common questions about time commitments, volunteer recognition, scholar matching, and remote participation."
+            align="center"
+          />
 
           <Accordion items={FAQ_ITEMS} />
 
           {/* Secretariat Support Desk Card */}
-          <div className="p-8 rounded-xs bg-[#072617] text-white flex flex-col sm:flex-row items-center justify-between gap-6 border border-[#C5A059]/30">
+          <Card variant="dark" padding="lg" className="flex flex-col sm:flex-row items-center justify-between gap-6 border border-[#C5A059]/30">
             <div className="space-y-1 text-center sm:text-left">
               <h3 className="font-serif text-lg font-bold text-white flex items-center gap-2 justify-center sm:justify-start">
                 <HelpCircle className="w-5 h-5 text-[#C5A059]" />
@@ -1113,8 +1009,8 @@ export default function VolunteerPage() {
                 <span>{TRUST_CONFIG.contact.generalEmail}</span>
               </a>
             </div>
-          </div>
-        </div>
+          </Card>
+        </Container>
       </section>
     </div>
   );

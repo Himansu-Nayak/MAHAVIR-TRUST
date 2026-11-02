@@ -320,5 +320,22 @@ The Impact route (`src/app/impact/page.tsx`) articulates the geographical mandat
 ### 14.2 Primitives Deployed
 - `<Container size="default">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "default" / "dark">`, `<Button>`, and `<PageHero>`.
 
+---
+
+## 15. Volunteer Onboarding & Fellowship Desk (Section 9 Deliverable)
+
+The Volunteer route (`src/app/volunteer/page.tsx`) provides an institutional onboarding gateway and fellowship induction portal for educators, professionals, and community stewards across Odisha:
+
+### 15.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#apply` and `#tracks`.
+- **Engagement Philosophy Comparison**: Contrast matrix comparing ad-hoc volunteer charity against MAHAVIR TRUST's structured, curriculum-aligned institutional fellowship with measurable educational outcomes.
+- **Fellowship & Mentorship Tracks**: 4 elevated cards detailing specific volunteer roles (*Academic Tutoring & Remedial Coaching*, *Career Mentorship & Entrance Prep*, *Study Hub Administration & Digital Literacy*, *Community Outreach & Scholar Verification*) with commitment hours and target qualifications.
+- **Four-Stage Induction Roadmap**: 4 sequential step cards (*Online Application*, *Telephonic Credential Verification*, *Orientation & Safeguarding Workshop*, *District Deployment*) with step counters and timeline indicators.
+- **Institutional Volunteer Intake Desk**: Structured form built with design system form controls (`<Input>`, `<Select>`, `<Textarea>`) featuring floating labels, validation states, character counters, and statutory consent declarations bound to the Spring Boot REST API (`POST /api/volunteers`).
+- **Code of Conduct & Child Protection Accordion**: 4 interactive policy panels covering child safeguarding, non-commercial service pledge, institutional data privacy, and certificate issuance criteria.
+
+### 15.2 Primitives Deployed
+- `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "default" / "dark">`, `<Input>`, `<Select>`, `<Textarea>`, `<Button>`, and `<PageHero>`.
+
 
 
