@@ -352,3 +352,24 @@ The Contact route (`src/app/contact/page.tsx`) provides an auditable secretariat
 
 ### 16.2 Primitives Deployed
 - `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "dark">`, `<Input>`, `<Select>`, `<Textarea>`, `<Button>`, and `<PageHero>`.
+
+---
+
+## 17. Institutional FAQ & Knowledge Base Hub (Section 11 Deliverable)
+
+The FAQ route (`src/app/faq/page.tsx`) provides an authoritative, categorized institutional knowledge base for students, guardians, educators, volunteers, and donors across Odisha:
+
+### 17.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#categories` and `#helpdesk`.
+- **Thematic Directory Jump Cards**: 6 elevated cards with domain icons, titles, and question counters linking directly to each category section (*Scholarships & Aid*, *Mentorship & Fellows*, *Statutory Governance*, *Project Samarth*, *Volunteer Induction*, *Transparency Pledge*).
+- **Thematic FAQ Sections (24 Questions Total)**:
+  1. *Scholarships & Financial Aid*: 5 questions on eligibility, 100% direct college bank disbursals, zero application fees, documentation requirements, and supplemental aid.
+  2. *Mentorship & Career Fellowship*: 4 questions on Pratibha Fellowship requirements, mentor qualifications, competitive exam prep, and rescheduling policies.
+  3. *Statutory Governance & Audit*: 4 questions on double-blind beneficiary selection, Indian Trusts Act 1882 & 12AB/80G status, Form 10B public audit disclosures, and Trustee non-conflict rules.
+  4. *Project Samarth Community Study Hubs*: 4 questions on quiet learning infrastructure, rooftop solar backup, free student registration, and 30-district deployment.
+  5. *Volunteer Induction & Code of Conduct*: 4 questions on professional eligibility, 2-6 hour weekly commitments, mandatory child protection safeguarding, and institutional certification.
+  6. *Transparency & Non-Intermediary Pledge*: 3 questions on pre-launch endowment status, Section 80G tax deductions, and zero fundraising commissions.
+- **Direct Secretariat Support Desk**: Dark forest container with dual routing buttons to the official Inquiry Desk (`/contact`) and Volunteer Fellowship Portal (`/volunteer`), complete with direct helpline hours.
+
+### 17.2 Primitives Deployed
+- `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "dark">`, `<Button>`, `<Accordion>`, and `<PageHero>`.
