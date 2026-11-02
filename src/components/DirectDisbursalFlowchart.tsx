@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { Card, Badge } from "@/components/ui/Card";
+import { Container } from "@/components/ui/Container";
+import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
-  ShieldCheck,
   Building2,
   FileCheck2,
   ArrowRight,
@@ -53,17 +53,25 @@ export function DirectDisbursalFlowchart() {
 
   return (
     <section className="py-20 md:py-28 bg-[#072617] text-[#EDE6D8] border-b border-[#C5A059]/25 relative overflow-hidden">
-      {/* Subtle background decorative pattern */}
-      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-[#165B38]/20 rounded-full blur-3xl pointer-events-none" />
+      {/* Subtle background decorative pattern & glow */}
+      <div
+        className="absolute inset-0 opacity-5 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-1/2 left-0 w-96 h-96 bg-[#165B38]/20 rounded-full blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-8 space-y-14">
+      <Container size="default" className="relative space-y-14">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xs bg-[#0B3B24] border border-[#C5A059]/40 text-xs text-[#E4C88A] uppercase font-bold tracking-wider">
-            <Lock className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Zero-Cash Policy • Complete Transparency</span>
-          </div>
+          <Badge
+            variant="gold-dark"
+            icon={<Lock className="w-3.5 h-3.5 text-[#C5A059]" aria-hidden="true" />}
+          >
+            Zero-Cash Policy • Complete Transparency
+          </Badge>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
             Direct-to-College Disbursal Guarantee
           </h2>
@@ -74,7 +82,7 @@ export function DirectDisbursalFlowchart() {
 
         {/* 4-Step Interactive Flow Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((item, idx) => {
+          {steps.map((item) => {
             const Icon = item.icon;
             return (
               <div
@@ -90,7 +98,7 @@ export function DirectDisbursalFlowchart() {
                   <span className="font-serif text-2xl font-bold text-[#E4C88A]">
                     {item.stepNumber}
                   </span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#E4C88A] bg-black/20 px-2 py-0.5 rounded-xs">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#E4C88A] bg-black/25 px-2 py-0.5 rounded-xs">
                     {item.badge}
                   </span>
                 </div>
@@ -98,7 +106,7 @@ export function DirectDisbursalFlowchart() {
                 {/* Content */}
                 <div className="py-5 space-y-3">
                   <div className="w-12 h-12 rounded-xs bg-[#072617] border border-[#C5A059]/40 flex items-center justify-center text-[#E4C88A]">
-                    <Icon className="w-6 h-6" />
+                    <Icon className="w-6 h-6" aria-hidden="true" />
                   </div>
                   <h3 className="font-serif text-lg font-bold text-white">
                     {item.title}
@@ -110,7 +118,7 @@ export function DirectDisbursalFlowchart() {
 
                 {/* Bottom Verification Check */}
                 <div className="pt-3 border-t border-white/10 flex items-center gap-1.5 text-[11px] text-[#E4C88A]">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059] shrink-0" aria-hidden="true" />
                   <span>Auditable Protocol</span>
                 </div>
               </div>
@@ -119,7 +127,7 @@ export function DirectDisbursalFlowchart() {
         </div>
 
         {/* Callout Strip: Statutory Safeguards */}
-        <div className="bg-[#0B3B24]/70 border border-[#C5A059]/30 rounded-xs p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="bg-[#0B3B24]/80 border border-[#C5A059]/30 rounded-xs p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-1.5 text-center lg:text-left">
             <span className="text-xs uppercase font-bold tracking-widest text-[#E4C88A] block">
               Fiduciary Commitment
@@ -127,7 +135,7 @@ export function DirectDisbursalFlowchart() {
             <h4 className="font-serif text-xl sm:text-2xl font-bold text-white">
               No Intermediary Agents. Zero Processing Commissions.
             </h4>
-            <p className="text-xs text-white/75 max-w-2xl leading-relaxed">
+            <p className="text-xs text-white/75 max-w-2xl leading-relaxed font-sans">
               MAHAVIR TRUST does not authorize any commercial educational consultants, brokers, or cash collection centers. All scholarship inquiries are managed exclusively via our official Secretariat Desk.
             </p>
           </div>
@@ -136,12 +144,12 @@ export function DirectDisbursalFlowchart() {
             <Link href="/governance">
               <Button variant="gold" size="md">
                 <span>View Fiduciary Charter</span>
-                <ArrowRight className="w-4 h-4 ml-1" />
+                <ArrowRight className="w-4 h-4 ml-1" aria-hidden="true" />
               </Button>
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

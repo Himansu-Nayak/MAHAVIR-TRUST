@@ -2,19 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@/components/ui/Card";
+import { Container } from "@/components/ui/Container";
+import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
 import {
   GraduationCap,
   Award,
   BookOpen,
-  Users,
-  CheckCircle2,
-  Sparkles,
   ArrowRight,
   ShieldCheck,
-  Building2,
-  HelpCircle,
 } from "lucide-react";
 
 const ODISHA_DISTRICTS = [
@@ -44,19 +41,23 @@ export function EligibilityCalculator() {
 
   // Determine eligibility matches
   const isScoreEligible = scoreBracket !== "below-60";
-  const isMeansEligible = incomeBracket === "below-150k" || incomeBracket === "150k-250k";
-  const isHighMerit = scoreBracket === "distinction";
+  const isMeansEligible =
+    incomeBracket === "below-150k" || incomeBracket === "150k-250k";
 
   return (
-    <section id="eligibility-calculator" className="py-20 md:py-28 bg-[#F4EFE6] border-b border-[#0B3B24]/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
+    <section
+      id="eligibility-calculator"
+      className="py-20 md:py-28 bg-[#F4EFE6] border-b border-[#0B3B24]/10"
+      aria-label="Interactive Scholar Eligibility Calculator"
+    >
+      <Container size="default" className="space-y-12">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <Badge variant="gold">Interactive Scholar Discovery</Badge>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0B3B24] tracking-tight">
             Check Your Eligibility & Match Schemes
           </h2>
-          <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
+          <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed font-sans">
             Select your academic stream, previous exam performance, and district in Odisha to discover qualifying tuition grants, STEM fellowships, and study hub benefits.
           </p>
         </div>
@@ -69,87 +70,104 @@ export function EligibilityCalculator() {
               <span className="font-serif font-bold text-lg text-[#0B3B24]">
                 Scholar Profile Criteria
               </span>
-              <span className="text-[11px] text-[#7A5E24] font-semibold bg-[#C5A059]/15 px-2.5 py-0.5 rounded-xs">
+              <Badge variant="gold" size="sm">
                 Odisha Domicile
-              </span>
+              </Badge>
             </div>
 
             {/* 1. Domicile District */}
-            <div className="space-y-1.5">
-              <label htmlFor="calc-district" className="block text-xs font-bold text-[#0B3B24] uppercase tracking-wider">
-                1. Home District (Odisha)
-              </label>
-              <select
-                id="calc-district"
-                value={district}
-                onChange={(e) => setDistrict(e.target.value)}
-                className="w-full text-xs sm:text-sm p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
-              >
-                {ODISHA_DISTRICTS.map((dist) => (
-                  <option key={dist} value={dist}>
-                    {dist}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id="calc-district"
+              label="1. Home District (Odisha)"
+              value={district}
+              onChange={(e) => setDistrict(e.target.value)}
+              options={ODISHA_DISTRICTS.map((dist) => ({
+                value: dist,
+                label: dist,
+              }))}
+            />
 
             {/* 2. Academic Level & Stream */}
-            <div className="space-y-1.5">
-              <label htmlFor="calc-stream" className="block text-xs font-bold text-[#0B3B24] uppercase tracking-wider">
-                2. Academic Stream / Degree
-              </label>
-              <select
-                id="calc-stream"
-                value={stream}
-                onChange={(e) => setStream(e.target.value)}
-                className="w-full text-xs sm:text-sm p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
-              >
-                <option value="undergraduate">Undergraduate Degree (B.Sc / B.Com / B.A)</option>
-                <option value="engineering">Engineering & Technology (B.Tech / Diploma)</option>
-                <option value="stem-fellowship">Competitive Exam & STEM Fellowship (GATE/State Exams)</option>
-                <option value="higher-secondary">+2 Higher Secondary (Science / Commerce / Arts)</option>
-              </select>
-            </div>
+            <Select
+              id="calc-stream"
+              label="2. Academic Stream / Degree"
+              value={stream}
+              onChange={(e) => setStream(e.target.value)}
+              options={[
+                {
+                  value: "undergraduate",
+                  label: "Undergraduate Degree (B.Sc / B.Com / B.A)",
+                },
+                {
+                  value: "engineering",
+                  label: "Engineering & Technology (B.Tech / Diploma)",
+                },
+                {
+                  value: "stem-fellowship",
+                  label: "Competitive Exam & STEM Fellowship (GATE/State Exams)",
+                },
+                {
+                  value: "higher-secondary",
+                  label: "+2 Higher Secondary (Science / Commerce / Arts)",
+                },
+              ]}
+            />
 
             {/* 3. Previous Academic Score */}
-            <div className="space-y-1.5">
-              <label htmlFor="calc-score" className="block text-xs font-bold text-[#0B3B24] uppercase tracking-wider">
-                3. Qualifying Exam Performance
-              </label>
-              <select
-                id="calc-score"
-                value={scoreBracket}
-                onChange={(e) => setScoreBracket(e.target.value)}
-                className="w-full text-xs sm:text-sm p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
-              >
-                <option value="distinction">85% and above (High Distinction)</option>
-                <option value="first-class">70% to 84% Aggregate (First Division)</option>
-                <option value="qualifying">60% to 69% Aggregate (Qualifying Merit)</option>
-                <option value="below-60">Below 60% Aggregate</option>
-              </select>
-            </div>
+            <Select
+              id="calc-score"
+              label="3. Qualifying Exam Performance"
+              value={scoreBracket}
+              onChange={(e) => setScoreBracket(e.target.value)}
+              options={[
+                {
+                  value: "distinction",
+                  label: "85% and above (High Distinction)",
+                },
+                {
+                  value: "first-class",
+                  label: "70% to 84% Aggregate (First Division)",
+                },
+                {
+                  value: "qualifying",
+                  label: "60% to 69% Aggregate (Qualifying Merit)",
+                },
+                {
+                  value: "below-60",
+                  label: "Below 60% Aggregate",
+                },
+              ]}
+            />
 
             {/* 4. Annual Household Income */}
-            <div className="space-y-1.5">
-              <label htmlFor="calc-income" className="block text-xs font-bold text-[#0B3B24] uppercase tracking-wider">
-                4. Annual Household Income Bracket
-              </label>
-              <select
-                id="calc-income"
-                value={incomeBracket}
-                onChange={(e) => setIncomeBracket(e.target.value)}
-                className="w-full text-xs sm:text-sm p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none text-[#1C2421]"
-              >
-                <option value="below-150k">Below ₹1,50,000 / year (Priority Need Tier 1)</option>
-                <option value="150k-250k">₹1,50,000 to ₹2,50,000 / year (Need Tier 2)</option>
-                <option value="250k-400k">₹2,50,000 to ₹4,00,000 / year (Special Assistance)</option>
-                <option value="above-400k">Above ₹4,00,000 / year (Mentorship & Study Hubs Only)</option>
-              </select>
-            </div>
+            <Select
+              id="calc-income"
+              label="4. Annual Household Income Bracket"
+              value={incomeBracket}
+              onChange={(e) => setIncomeBracket(e.target.value)}
+              options={[
+                {
+                  value: "below-150k",
+                  label: "Below ₹1,50,000 / year (Priority Need Tier 1)",
+                },
+                {
+                  value: "150k-250k",
+                  label: "₹1,50,000 to ₹2,50,000 / year (Need Tier 2)",
+                },
+                {
+                  value: "250k-400k",
+                  label: "₹2,50,000 to ₹4,00,000 / year (Special Assistance)",
+                },
+                {
+                  value: "above-400k",
+                  label: "Above ₹4,00,000 / year (Mentorship & Study Hubs Only)",
+                },
+              ]}
+            />
 
             {/* Fiduciary disclaimer */}
             <div className="p-3 bg-[#F4EFE6] rounded-xs border border-[#0B3B24]/10 text-[11px] text-[#4A5568] flex items-start gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#0B3B24] shrink-0 mt-0.5" />
+              <ShieldCheck className="w-4 h-4 text-[#0B3B24] shrink-0 mt-0.5" aria-hidden="true" />
               <span>
                 Calculations are provisional estimates based on draft trustee appraisal norms. Formal income certificate verification is mandatory.
               </span>
@@ -176,7 +194,7 @@ export function EligibilityCalculator() {
 
                 <div className="flex items-start gap-3.5">
                   <div className="w-11 h-11 rounded-xs bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center shrink-0">
-                    <GraduationCap className="w-6 h-6" />
+                    <GraduationCap className="w-6 h-6" aria-hidden="true" />
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-bold text-[#7A5E24] tracking-wider block">
@@ -214,7 +232,7 @@ export function EligibilityCalculator() {
                   <Link href="#contact-desk">
                     <Button variant="primary" size="sm">
                       <span>Request Secretariat Guidance</span>
-                      <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                      <ArrowRight className="w-3.5 h-3.5 ml-1" aria-hidden="true" />
                     </Button>
                   </Link>
                 </div>
@@ -226,7 +244,7 @@ export function EligibilityCalculator() {
               <div className="bg-white p-5 rounded-xs border border-[#0B3B24]/15 shadow-xs space-y-3">
                 <div className="flex items-start gap-3.5">
                   <div className="w-10 h-10 rounded-xs bg-[#C5A059]/20 text-[#7A5E24] flex items-center justify-center shrink-0">
-                    <Award className="w-5 h-5" />
+                    <Award className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <div>
                     <span className="text-[10px] uppercase font-bold text-[#7A5E24] tracking-wider block">
@@ -246,7 +264,7 @@ export function EligibilityCalculator() {
                   </span>
                   <Link href="/scholarships">
                     <span className="text-[#0B3B24] hover:underline font-semibold flex items-center gap-1">
-                      View Syllabus & Norms <ArrowRight className="w-3 h-3" />
+                      View Syllabus & Norms <ArrowRight className="w-3 h-3" aria-hidden="true" />
                     </span>
                   </Link>
                 </div>
@@ -257,7 +275,7 @@ export function EligibilityCalculator() {
             <div className="bg-white p-5 rounded-xs border border-[#0B3B24]/15 shadow-xs space-y-3">
               <div className="flex items-start gap-3.5">
                 <div className="w-10 h-10 rounded-xs bg-[#0B3B24]/10 text-[#0B3B24] flex items-center justify-center shrink-0">
-                  <BookOpen className="w-5 h-5" />
+                  <BookOpen className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-bold text-[#0B3B24] tracking-wider block">
@@ -277,7 +295,7 @@ export function EligibilityCalculator() {
                 </span>
                 <Link href="/programmes">
                   <span className="text-[#0B3B24] hover:underline font-semibold flex items-center gap-1">
-                    Hub Locations <ArrowRight className="w-3 h-3" />
+                    Hub Locations <ArrowRight className="w-3 h-3" aria-hidden="true" />
                   </span>
                 </Link>
               </div>
@@ -292,7 +310,7 @@ export function EligibilityCalculator() {
             )}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -224,3 +224,19 @@ The global shell unites all routes with institutional authority, statutory clari
 - Consumes `<Container>` for unified margins and `<Badge variant="gold-dark">` for subpage category labels.
 - Implements Schema.org `BreadcrumbList` structured JSON-LD / microdata.
 
+---
+
+## 9. Homepage Narrative & High-Impact Editorial Layout (Section 3 Deliverable)
+
+The landing page (`src/app/page.tsx`) serves as the flagship institutional experience:
+
+### 9.1 Layout Containerization
+- **Strict `<Container size="default">` Usage**: All 13 sections (Hero, Marquee, Calculator, About, Schemes, Disbursal Flowchart, Strategic Mission, Secretariat Callout, Enablement, Impact Outreach, Volunteer Desk, Inquiry Desk, Philanthropic CTA) operate under unified responsive gutters (`px-4 sm:px-6 lg:px-8`) and max-width (`1280px`).
+
+### 9.2 Section Header Hierarchy (`SectionHeader.tsx`)
+- Standardized section titles, badges, and explanatory subtext using `<SectionHeader>` to enforce typography scale, letter spacing, and WCAG AA contrast.
+
+### 9.3 Institutional Form Controls
+- **Accessible Form Controls**: Homepage forms (Volunteer Desk & Secretariat Inquiry) now consume `<Input>`, `<Select>`, and `<Textarea>` primitives with built-in labels, icon slots, accessible chevrons, and aria-described error states.
+- **Server-Grounded Consent**: Volunteer submission binds affirmative consent (`consentDeclared: true`, `consentVersion: "v2.3"`), strictly synchronized with the Flyway V3/V4 schema and Spring Boot backend validators.
+
