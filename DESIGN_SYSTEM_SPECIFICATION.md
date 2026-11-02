@@ -337,5 +337,18 @@ The Volunteer route (`src/app/volunteer/page.tsx`) provides an institutional onb
 ### 15.2 Primitives Deployed
 - `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "default" / "dark">`, `<Input>`, `<Select>`, `<Textarea>`, `<Button>`, and `<PageHero>`.
 
+---
 
+## 16. Contact Us & Grievance Redressal Desk (Section 10 Deliverable)
 
+The Contact route (`src/app/contact/page.tsx`) provides an auditable secretariat gateway, physical verification directory, and three-tier grievance redressal mechanism for students, institutions, and citizens across Odisha:
+
+### 16.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#inquiry-form`, `#secretariat-directory`, and `#grievance-charter`.
+- **Institutional Directory & Verified Response SLAs**: 3 elevated cards detailing physical headquarters in Cuttack, digital communication desks (General & Scholarships), and the Ombudsman Compliance Desk, each with verified response time SLAs (same-day physical stamping, 24-48h electronic turnaround, 7-day grievance resolution).
+- **Official Secretariat Inquiry Desk**: Institutional form powered by design system form controls (`<Input>`, `<Select>`, `<Textarea>`) with character limits, validation state feedback, and direct integration with the Spring Boot REST API (`POST /api/v1/public/inquiries`), rendering a dedicated reference ID confirmation banner.
+- **Three-Tier Grievance Redressal Architecture**: Dark forest container outlining the multi-tier escalation protocol (*Tier 1: Secretariat Operations Desk*, *Tier 2: Fiduciary Ombudsman Committee*, *Tier 3: Board of Trustees Statutory Review*) per the Indian Trusts Act, 1882.
+- **Critical Anti-Fraud & Non-Commercial Notice**: Prominent gold-bordered advisory declaring a zero-tolerance policy for fees, touts, or unauthorized intermediaries.
+
+### 16.2 Primitives Deployed
+- `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "dark">`, `<Input>`, `<Select>`, `<Textarea>`, `<Button>`, and `<PageHero>`.
