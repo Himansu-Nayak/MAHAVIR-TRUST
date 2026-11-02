@@ -33,10 +33,10 @@ public class VolunteerRegistration {
     private Boolean consentDeclared = false;
 
     @Column(name = "consent_statement", length = 255)
-    private String consentStatement = "I agree to the MAHAVIR TRUST volunteer code of conduct, student safeguarding policy, and ethical mentorship guidelines.";
+    private String consentStatement;
 
     @Column(name = "consent_version", length = 50)
-    private String consentVersion = "v1.0-2026";
+    private String consentVersion;
 
     @Column(name = "consent_timestamp")
     private Instant consentTimestamp;

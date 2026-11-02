@@ -30,6 +30,7 @@ import {
   Mail,
   ArrowRight,
 } from "lucide-react";
+import { TRUST_CONFIG } from "@/lib/config";
 import { submitVolunteerRegistration } from "@/lib/api";
 
 const ODISHA_DISTRICTS = [
@@ -108,22 +109,22 @@ const FAQ_ITEMS = [
   {
     question: "Do volunteers receive an honorarium or certificate of service?",
     answer:
-      "All volunteer and mentor positions at MAHAVIR TRUST are strictly honorary and unpaid, in accordance with our 100% charitable trust deed. Mentors who complete one academic year of verified guidance receive an official Institutional Certificate of Appreciation from the Board of Trustees.",
+      "All volunteer and mentor positions at MAHAVIR TRUST are strictly honorary and uncompensated. Subject to formal trustee ratification of volunteer guidelines, long-term mentors who complete an academic cohort may be eligible for an institutional letter of service appreciation.",
   },
   {
     question: "How are scholars selected and paired with mentors?",
     answer:
-      "Scholars are evaluated and verified by our Academic Scrutiny Committee based on financial need and academic merit. Once admitted, scholars are matched with mentors in their discipline (e.g. engineering, nursing, commerce, sciences) based on subject alignment, language comfort, and career aspirations.",
+      "Under proposed operating guidelines, scholars will be evaluated based on verified financial vulnerability and academic merit. Once admitted, scholars will be matched with volunteer mentors in relevant disciplines (e.g. engineering, nursing, commerce, sciences) based on subject alignment and career goals.",
   },
   {
     question: "What safeguarding rules apply to mentor-scholar interactions?",
     answer:
-      "MAHAVIR TRUST enforces a strict Student Protection and Safeguarding Code of Conduct. Mentors may never solicit financial transactions, charge private tuition fees, or communicate outside approved professional platforms. Any student in need of financial aid is directed exclusively to the Trust's direct college fee grant scheme.",
+      "MAHAVIR TRUST operates under draft Student Welfare & Safeguarding Guidelines. Mentors may never solicit financial transactions, charge private tuition fees, or communicate outside registered platforms. Any student requiring financial assistance is directed exclusively to the Trust's direct college fee grant scheme.",
   },
   {
     question: "Can current college students apply to become mentors?",
     answer:
-      "Final-year post-graduate students and doctoral scholars may apply as Academic Mentors for undergraduate juniors. Undergraduate students are encouraged to participate as Student Hub Volunteers at our Project Samarth reading centers.",
+      "Final-year post-graduate students and doctoral scholars may apply as Academic Mentors for undergraduate juniors. Undergraduate students are encouraged to participate as Student Hub Volunteers at our proposed Project Samarth reading centers.",
   },
 ];
 
@@ -216,7 +217,7 @@ export default function VolunteerPage() {
               <li className="text-white/80">Get Involved</li>
               <li className="text-white/40">/</li>
               <li className="text-white font-semibold" aria-current="page">
-                Volunteer & Mentorship Network
+                Volunteer & Mentorship [Proposed]
               </li>
             </ol>
           </nav>
@@ -229,7 +230,7 @@ export default function VolunteerPage() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xs bg-[#C5A059]/20 border border-[#C5A059]/40 text-[#E4C88A] text-xs font-semibold uppercase tracking-wider">
               <Compass className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Institutional Mentorship Network</span>
+              <span>Proposed Mentorship Framework</span>
             </div>
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
@@ -248,7 +249,7 @@ export default function VolunteerPage() {
               </div>
               <div className="flex items-center gap-1.5 bg-[#0B3B24]/80 px-3 py-1.5 rounded-xs border border-[#C5A059]/20">
                 <Users className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Verified Scholar Pairing</span>
+                <span>Proposed Scholar Matching</span>
               </div>
               <div className="flex items-center gap-1.5 bg-[#0B3B24]/80 px-3 py-1.5 rounded-xs border border-[#C5A059]/20">
                 <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
@@ -256,7 +257,7 @@ export default function VolunteerPage() {
               </div>
               <div className="flex items-center gap-1.5 bg-[#0B3B24]/80 px-3 py-1.5 rounded-xs border border-[#C5A059]/20">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Student Safeguarding Protocol</span>
+                <span>Draft Safeguarding Guidelines</span>
               </div>
             </div>
 
@@ -266,7 +267,7 @@ export default function VolunteerPage() {
                 href="#tracks"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xs bg-[#C5A059] text-[#072617] text-xs font-bold uppercase tracking-wider hover:bg-[#E4C88A] transition-colors focus:outline-none focus:ring-2 focus:ring-[#C5A059] focus:ring-offset-2 focus:ring-offset-[#072617]"
               >
-                <span>Explore 4 Volunteer Tracks</span>
+                <span>Explore 4 Proposed Tracks</span>
                 <ChevronRight className="w-4 h-4" />
               </a>
               <a
@@ -404,16 +405,16 @@ export default function VolunteerPage() {
         </div>
       </section>
 
-      {/* 4. ROLE CATALOGUE: Four Approved Volunteer Tracks */}
+      {/* 4. ROLE CATALOGUE: Four Proposed Volunteer Tracks */}
       <section id="tracks" className="py-16 md:py-24 bg-[#FDFBF7] border-b border-[#072617]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
           <div className="max-w-3xl space-y-3">
-            <Badge variant="forest">Volunteer Opportunities</Badge>
+            <Badge variant="forest">Proposed Tracks</Badge>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Four Specialized Tracks to Contribute Your Skills.
+              Four Proposed Volunteer Service Tracks.
             </h2>
             <p className="text-sm text-[#4A5568] leading-relaxed">
-              Select the engagement mode that matches your professional background, geographic availability, and schedule.
+              The following service tracks represent proposed voluntary engagement models pending formal trust deed adoption and operational charter approval.
             </p>
           </div>
 
@@ -609,12 +610,12 @@ export default function VolunteerPage() {
       <section className="py-16 md:py-24 bg-[#F4EFE6] border-b border-[#072617]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
           <div className="max-w-3xl space-y-3">
-            <Badge variant="gold">Vetting & Onboarding</Badge>
+            <Badge variant="gold">Proposed Onboarding</Badge>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              The Four-Stage Volunteer Induction Pathway.
+              The Proposed Four-Stage Volunteer Induction Pathway.
             </h2>
             <p className="text-sm text-[#4A5568] leading-relaxed">
-              To safeguard both scholars and volunteers, every applicant completes a structured screening and induction process before mentoring begins.
+              To safeguard both scholars and volunteers, every applicant will complete a structured screening and induction process before mentoring begins.
             </p>
           </div>
 
@@ -632,30 +633,30 @@ export default function VolunteerPage() {
             <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">02</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
-                Secretariat Review
+                Secretariat Review [Proposed]
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Our Volunteer Coordinator reviews professional backgrounds, confirms identity authenticity, and checks subject fit.
+                Secretariat coordinator conducts preliminary review of submitted academic credentials and proposed track alignment.
               </p>
             </div>
 
             <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">03</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
-                Safeguarding Induction
+                Safeguarding Orientation [Proposed]
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Participate in a 45-minute virtual induction on child protection, ethical boundaries, and Trust reporting protocols.
+                Prospective volunteers review draft student welfare guidelines, ethical boundaries, and non-commercial service principles.
               </p>
             </div>
 
             <div className="p-6 rounded-xs bg-[#FDFBF7] border border-[#072617]/15 space-y-3 relative">
               <span className="font-serif text-3xl font-bold text-[#C5A059]">04</span>
               <h3 className="font-serif text-lg font-bold text-[#072617]">
-                Scholar Allocation
+                Scholar Matching [Proposed]
               </h3>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Receive matched scholar profiles in your discipline. Begin structured monthly mentorship with bi-annual feedback reviews.
+                Subject to admitted scholar cohorts, matched profiles are assigned with periodic administrative progress check-ins.
               </p>
             </div>
           </div>
@@ -669,7 +670,7 @@ export default function VolunteerPage() {
             <div className="flex items-center gap-3">
               <ShieldAlert className="w-6 h-6 text-[#C5A059] shrink-0" />
               <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
-                Institutional Student Welfare & Safeguarding Policy
+                Draft Student Welfare & Safeguarding Guidelines (Subject to Trustee Formalisation)
               </h2>
             </div>
 
@@ -701,9 +702,9 @@ export default function VolunteerPage() {
             </div>
 
             <p className="text-[11px] text-[#E4C88A] pt-2">
-              Concerns or breaches may be reported directly to the Independent Ethics Desk:{" "}
-              <a href="mailto:governance@mahavirtrust.org" className="underline hover:text-white">
-                governance@mahavirtrust.org
+              Questions or ethics disclosures may be communicated to the Secretariat Desk:{" "}
+              <a href={`mailto:${TRUST_CONFIG.contact.generalEmail}?subject=Safeguarding%20Inquiry`} className="underline hover:text-white">
+                {TRUST_CONFIG.contact.generalEmail}
               </a>
             </p>
           </div>
@@ -714,12 +715,12 @@ export default function VolunteerPage() {
       <section className="py-16 md:py-20 bg-[#FDFBF7] border-b border-[#072617]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-8">
           <div className="max-w-3xl space-y-3">
-            <Badge variant="forest">Geographic Focus</Badge>
+            <Badge variant="forest">Proposed Regional Reach</Badge>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#072617]">
-              Reaching Deserving Talent Across All 30 Districts of Odisha.
+              Proposed Geographic Reach Across All 30 Districts of Odisha.
             </h2>
             <p className="text-sm text-[#4A5568] leading-relaxed">
-              While our physical Project Samarth Study Hubs are piloted in selected cluster districts, our virtual mentorship network connects scholars from all corners of Odisha with mentors worldwide.
+              While physical study hub facilities remain proposed initiatives subject to formal site selection and local trustee approval, the proposed virtual mentorship network aims to connect students across all 30 districts of Odisha with remote mentors.
             </p>
           </div>
 
@@ -727,30 +728,30 @@ export default function VolunteerPage() {
             <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <MapPin className="w-4 h-4 text-[#C5A059]" />
-                <span>Priority Rural & Tribal Hubs (Pilot)</span>
+                <span>Proposed Rural & Tribal Pilot Zones</span>
               </div>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Mayurbhanj, Koraput, Rayagada, Malkangiri, Nabarangpur, Kalahandi. Highest focus for physical hub stewards and college liaisons.
+                Mayurbhanj, Koraput, Rayagada, Malkangiri, Nabarangpur, Kalahandi. Target pilot zones for prospective hub stewards and college liaisons.
               </p>
             </div>
 
             <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <Building2 className="w-4 h-4 text-[#C5A059]" />
-                <span>Urban & Technical Corridors</span>
+                <span>Proposed Higher Education Corridors</span>
               </div>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Khordha (Bhubaneswar), Cuttack, Sundargarh (Rourkela), Sambalpur, Balasore, Ganjam. Faculty liaisons for engineering and medical colleges.
+                Khordha (Bhubaneswar), Cuttack, Sundargarh (Rourkela), Sambalpur, Balasore, Ganjam. Target zones for degree and polytechnic college liaisons.
               </p>
             </div>
 
             <div className="p-6 rounded-xs bg-[#F4EFE6] border border-[#072617]/15 space-y-2">
               <div className="flex items-center gap-2 text-[#072617] font-bold text-sm">
                 <Globe2 className="w-4 h-4 text-[#C5A059]" />
-                <span>National & Diaspora Network</span>
+                <span>Proposed Remote & Diaspora Network</span>
               </div>
               <p className="text-xs text-[#4A5568] leading-relaxed">
-                Mentors outside Odisha and global NRIs. Digital sessions bridge geographic distance to offer cutting-edge industry perspective.
+                Mentors outside Odisha and global NRIs. Digital sessions bridge geographic distance to offer academic and industry perspectives.
               </p>
             </div>
           </div>
@@ -1047,7 +1048,7 @@ export default function VolunteerPage() {
                       className="mt-0.5 w-4 h-4 text-[#072617] border-[#072617]/30 rounded-xs focus:ring-[#C5A059]"
                     />
                     <span className="text-xs text-[#072617] leading-relaxed select-none">
-                      <strong>Institutional Declaration & Safeguarding Consent:</strong> I declare that all information provided is authentic. I agree to uphold the MAHAVIR TRUST Volunteer Code of Conduct, Student Safeguarding Policy, and strictly adhere to non-commercial, ethical mentorship.
+                      <strong>Institutional Declaration & Safeguarding Consent:</strong> I declare that all information provided is authentic. I agree to uphold MAHAVIR TRUST draft voluntary service principles and student safeguarding guidelines.
                     </span>
                   </label>
                 </div>
@@ -1105,11 +1106,11 @@ export default function VolunteerPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <a
-                href="mailto:volunteers@mahavirtrust.org"
+                href={`mailto:${TRUST_CONFIG.contact.generalEmail}?subject=Institutional%20Volunteer%20Collaboration`}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xs bg-[#C5A059] text-[#072617] text-xs font-bold uppercase tracking-wider hover:bg-[#E4C88A] transition-colors"
               >
                 <Mail className="w-3.5 h-3.5" />
-                <span>volunteers@mahavirtrust.org</span>
+                <span>{TRUST_CONFIG.contact.generalEmail}</span>
               </a>
             </div>
           </div>

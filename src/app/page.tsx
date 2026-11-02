@@ -98,7 +98,7 @@ export default function HomePage() {
     setVolError(null);
 
     if (!volConsent) {
-      setVolError("Please acknowledge the student safeguarding principles and voluntary service charter.");
+      setVolError("Please acknowledge the draft student safeguarding guidelines and voluntary service principles.");
       setVolIsSubmitting(false);
       return;
     }
@@ -554,10 +554,10 @@ export default function HomePage() {
             {/* Right: Volunteer Form */}
             <div className="lg:col-span-6 bg-[#F4EFE6] p-8 sm:p-10 rounded-xs border border-[#0B3B24]/15 shadow-sm">
               <h3 className="font-serif text-2xl font-bold text-[#0B3B24] mb-1">
-                Register as a Mentor or Volunteer
+                Register as a Mentor or Volunteer [Proposed Initiative]
               </h3>
               <p className="text-xs text-[#4A5568] mb-6">
-                Submit your background to connect with the Secretariat Coordinator.
+                Submit your academic or professional background to connect with our Secretariat Coordinator.
               </p>
 
               {volSubmitted ? (
@@ -703,7 +703,7 @@ export default function HomePage() {
                       className="mt-0.5 h-4 w-4 rounded-xs border-[#0B3B24]/30 text-[#072617] focus:ring-[#C5A059]"
                     />
                     <label htmlFor="vol-consent-homepage" className="text-[11px] text-[#4A5568] leading-tight select-none">
-                      I agree to the voluntary service charter and student safeguarding principles. For comprehensive tracks, code of conduct, and district scoping, view our{" "}
+                      I agree to the draft voluntary service principles and student safeguarding guidelines (subject to trustee ratification). For comprehensive proposed tracks and district scoping, view our{" "}
                       <Link href="/volunteer" className="text-[#072617] font-semibold underline hover:text-[#C5A059]">
                         Volunteer Portal
                       </Link>.

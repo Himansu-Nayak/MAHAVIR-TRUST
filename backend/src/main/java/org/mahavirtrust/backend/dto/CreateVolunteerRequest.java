@@ -1,7 +1,9 @@
 package org.mahavirtrust.backend.dto;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CreateVolunteerRequest(
@@ -37,12 +39,14 @@ public record CreateVolunteerRequest(
         @Size(max = 2000, message = "Background notes must not exceed 2000 characters")
         String backgroundNotes,
 
+        @NotNull(message = "Consent declaration is mandatory")
+        @AssertTrue(message = "Affirmative consent to the voluntary service declaration is required")
         Boolean consentDeclared,
 
         @Size(max = 50, message = "Consent version must not exceed 50 characters")
         String consentVersion
 ) {
     public CreateVolunteerRequest(String fullName, String email, String phone, String roleInterest, String backgroundNotes) {
-        this(fullName, email, phone, roleInterest, null, null, null, null, backgroundNotes, false, "v1.0-2026");
+        this(fullName, email, phone, roleInterest, null, null, null, null, backgroundNotes, false, null);
     }
 }

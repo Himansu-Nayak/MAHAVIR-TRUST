@@ -21,12 +21,20 @@ public class VolunteerRegistrationService {
 
     private final VolunteerRegistrationRepository repository;
 
+    public static final String SERVER_CONSENT_VERSION = "v1.0-draft-2026";
+    public static final String SERVER_CONSENT_STATEMENT =
+            "I declare that all information provided is authentic. I agree to uphold MAHAVIR TRUST draft voluntary service principles and student safeguarding guidelines.";
+
     public VolunteerRegistrationService(VolunteerRegistrationRepository repository) {
         this.repository = repository;
     }
 
     @Transactional
     public SubmissionResponse registerVolunteer(CreateVolunteerRequest request) {
+        if (request.consentDeclared() == null || !request.consentDeclared()) {
+            throw new IllegalArgumentException("Affirmative consent to the voluntary service declaration is mandatory.");
+        }
+
         String cleanEmail = request.email().trim().toLowerCase();
         String cleanRole = sanitizeInput(request.roleInterest().trim());
 
@@ -54,12 +62,10 @@ public class VolunteerRegistrationService {
 
         log.info("Received volunteer registration for role: {}", cleanRole);
 
-        boolean consent = Boolean.TRUE.equals(request.consentDeclared());
-        String consentVersion = request.consentVersion() != null && !request.consentVersion().isBlank()
-                ? sanitizeInput(request.consentVersion().trim())
-                : "v1.0-2026";
-        String consentStatement = "I agree to the MAHAVIR TRUST volunteer code of conduct, student safeguarding policy, and ethical mentorship guidelines.";
-        Instant consentTimestamp = consent ? Instant.now() : null;
+        boolean consent = true;
+        String consentVersion = SERVER_CONSENT_VERSION;
+        String consentStatement = SERVER_CONSENT_STATEMENT;
+        Instant consentTimestamp = Instant.now();
 
         VolunteerRegistration registration = new VolunteerRegistration(
                 sanitizeInput(request.fullName().trim()),
