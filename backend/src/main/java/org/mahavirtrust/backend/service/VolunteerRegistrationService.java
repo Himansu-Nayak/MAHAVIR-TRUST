@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.util.List;
 
 @Service
 public class VolunteerRegistrationService {
@@ -24,14 +27,39 @@ public class VolunteerRegistrationService {
 
     @Transactional
     public SubmissionResponse registerVolunteer(CreateVolunteerRequest request) {
-        log.info("Received volunteer registration for role: {}", request.roleInterest());
+        String cleanEmail = request.email().trim().toLowerCase();
+        String cleanRole = sanitizeInput(request.roleInterest().trim());
+
+        // Duplicate submission check
+        List<VolunteerRegistration> recent = repository.findByEmailOrderByIdDesc(cleanEmail);
+        if (!recent.isEmpty()) {
+            VolunteerRegistration latest = recent.get(0);
+            long rawSeconds = latest.getCreatedAt() != null
+                    ? Math.abs(Duration.between(latest.getCreatedAt(), Instant.now()).toSeconds())
+                    : 0;
+
+            int tzOffsetSeconds = ZoneId.systemDefault().getRules().getOffset(Instant.now()).getTotalSeconds();
+            long normalizedSeconds = Math.min(rawSeconds, Math.abs(rawSeconds - tzOffsetSeconds));
+
+            if (latest.getRoleInterest().equalsIgnoreCase(cleanRole) && normalizedSeconds < 180) {
+                log.warn("Duplicate volunteer registration detected for email: {}. Returning existing ref.", cleanEmail);
+                return new SubmissionResponse(
+                        "SUCCESS",
+                        latest.getId(),
+                        "Your volunteer registration is already recorded under reference #" + latest.getId() + ".",
+                        latest.getCreatedAt()
+                );
+            }
+        }
+
+        log.info("Received volunteer registration for role: {}", cleanRole);
 
         VolunteerRegistration registration = new VolunteerRegistration(
-                request.fullName().trim(),
-                request.email().trim().toLowerCase(),
-                request.phone().trim(),
-                request.roleInterest().trim(),
-                request.backgroundNotes() != null ? request.backgroundNotes().trim() : null
+                sanitizeInput(request.fullName().trim()),
+                cleanEmail,
+                sanitizeInput(request.phone().trim()),
+                cleanRole,
+                request.backgroundNotes() != null ? sanitizeInput(request.backgroundNotes().trim()) : null
         );
 
         VolunteerRegistration saved = repository.save(registration);
@@ -43,5 +71,11 @@ public class VolunteerRegistrationService {
                 "Your volunteer registration has been logged for orientation review.",
                 Instant.now()
         );
+    }
+
+    private String sanitizeInput(String input) {
+        if (input == null) return null;
+        return input.replaceAll("(?i)<script.*?>.*?</script>", "")
+                    .replaceAll("<[^>]*>", "");
     }
 }
