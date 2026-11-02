@@ -373,3 +373,26 @@ The FAQ route (`src/app/faq/page.tsx`) provides an authoritative, categorized in
 
 ### 17.2 Primitives Deployed
 - `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "dark">`, `<Button>`, `<Accordion>`, and `<PageHero>`.
+
+---
+
+## 18. Statutory Legal, Privacy & Accessibility Hub (Section 12 Deliverable)
+
+The Legal & Accessibility Hub (`src/app/terms/page.tsx`, `src/app/privacy/page.tsx`, `src/app/accessibility/page.tsx`) provides an integrated, transparent statutory compliance foundation across all MAHAVIR TRUST public portals:
+
+### 18.1 Structural Architecture
+- **Unified Cross-Policy Tab Bar**: Elevated sub-navigation bar shared across all 3 pages allowing visitors to switch between Terms of Engagement, Privacy & Confidentiality, and Accessibility Statement seamlessly.
+- **Terms of Engagement (`/terms`)**:
+  - 8 structured institutional clauses covering the Indian Trusts Act 1882 statutory preamble, authenticity of submissions, selection discretion, 100% direct-to-college bank disbursals, Project Samarth community guidelines, educational fair use, limitation of liability, and zero-fee / anti-bribery undertakings.
+  - Dark forest statutory warning card with an absolute prohibition against application fees and touts.
+- **Privacy & Student Confidentiality Policy (`/privacy`)**:
+  - 6 comprehensive sections aligned with India's Digital Personal Data Protection Act, 2023 (DPDP Act) and Section 12AB transparency norms.
+  - Highlights student dignity protections, categories of data collected, lawful charitable processing purposes, an inviolable non-commercialization pledge (zero tracking or data broker sharing), security safeguards, and Grievance Redressal Officer (GRO) contact channels.
+- **Digital Accessibility Statement (`/accessibility`)**:
+  - Grounded in WCAG 2.2 Level AA and Guidelines for Indian Government Websites (GIGW).
+  - Documents high contrast ratios (>7:1 body, >10:1 headings), full keyboard tab navigation with visible 2px gold focus rings, native HTML5 landmarks with strict heading hierarchies, 44×44px touch targets, and `prefers-reduced-motion` vestibular comfort.
+  - Assistive technology compatibility matrix covering NVDA, JAWS, VoiceOver, and TalkBack.
+  - Dedicated Accessibility Feedback & Remediation Desk with a 48-hour response SLA.
+
+### 18.2 Primitives Deployed
+- `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "dark">`, `<Button>`, and `<PageHero>`.
