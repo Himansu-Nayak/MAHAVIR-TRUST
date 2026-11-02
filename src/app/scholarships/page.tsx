@@ -2,26 +2,20 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Accordion } from "@/components/Accordion";
 import { TRUST_CONFIG } from "@/lib/config";
 import {
-  Award,
   CheckCircle2,
   ChevronRight,
   FileCheck,
   ArrowRight,
-  AlertCircle,
   GraduationCap,
-  BookOpen,
-  FileText,
-  Clock,
   Landmark,
   ShieldCheck,
-  HelpCircle,
-  Download,
-  Users,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -67,6 +61,37 @@ export default function ScholarshipsPage() {
       protsahan: "Annual verification of semester progression and minimum 60% pass rate",
       pratibha: "Quarterly progress review with designated academic mentor",
       samarth: "Continuous community access with valid college ID card",
+    },
+  ];
+
+  const appraisalSteps = [
+    {
+      step: 1,
+      title: "1. Inquiry & Submission",
+      description:
+        "Candidate or guardian registers via the Secretariat desk, providing marksheets, college admission slip, and Tahsildar income certificate.",
+      detail: "Zero registration or processing fees charged.",
+    },
+    {
+      step: 2,
+      title: "2. College Verification",
+      description:
+        "Secretariat officers contact the college accounts desk to confirm bonafide enrollment, annual course fee schedules, and official institutional bank details.",
+      detail: "Direct bursar liaison without middlemen.",
+    },
+    {
+      step: 3,
+      title: "3. Committee Scrutiny",
+      description:
+        "Independent Academic Scrutiny Panel assesses dossiers against standardized merit-cum-means rubrics, establishing an auditable sanction list.",
+      detail: "Blind assessment by academic volunteers.",
+    },
+    {
+      step: 4,
+      title: "4. Direct Bank Disbursal",
+      description:
+        "100% of the approved grant is remitted directly to the college bursar via bank RTGS. The official receipt is confirmed and mentor paired with scholar.",
+      detail: "Fiduciary zero-cash policy strictly enforced.",
     },
   ];
 
@@ -157,32 +182,30 @@ export default function ScholarshipsPage() {
 
       {/* 2. Scheme Comparison Matrix */}
       <section id="comparison" className="py-20 md:py-28 bg-[#FDFBF7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <Badge variant="forest">Programmatic Matrix</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0B3B24] tracking-tight">
-              Scholarship Scheme Comparison
-            </h2>
-            <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-              Compare the eligibility thresholds, financial grant scopes, and renewal conditions across our proposed educational initiatives.
-            </p>
-          </div>
+        <Container size="default" className="space-y-12">
+          <SectionHeader
+            badge="Programmatic Matrix"
+            badgeVariant="forest"
+            title="Scholarship Scheme Comparison"
+            subtitle="Compare the eligibility thresholds, financial grant scopes, and renewal conditions across our proposed educational initiatives."
+            align="center"
+          />
 
           {/* Desktop Responsive Table */}
-          <div className="overflow-x-auto bg-white rounded-xs border border-[#0B3B24]/15 shadow-sm">
+          <div className="overflow-x-auto bg-white rounded-xs border border-[#0B3B24]/15 shadow-xs">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="bg-[#072617] text-[#EDE6D8] border-b border-[#C5A059]/30">
-                  <th className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4">
+                  <th scope="col" className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4">
                     Feature / Evaluation Criterion
                   </th>
-                  <th className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
+                  <th scope="col" className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
                     Shiksha Protsahan Yojana (Tuition Grants)
                   </th>
-                  <th className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
+                  <th scope="col" className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
                     Pratibha Fellowship (STEM & Entrance)
                   </th>
-                  <th className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
+                  <th scope="col" className="p-4 sm:p-5 font-serif font-bold text-sm w-1/4 text-[#E4C88A]">
                     Project Samarth (Study Hubs)
                   </th>
                 </tr>
@@ -214,94 +237,74 @@ export default function ScholarshipsPage() {
           <p className="text-[11px] text-[#4A5568] text-center italic">
             Note: All eligibility thresholds represent draft proposals pending final gazetted formalization by the Trustee Board ahead of the inaugural academic cycle.
           </p>
-        </div>
+        </Container>
       </section>
 
       {/* 3. Four-Step Application & Appraisal Workflow */}
       <section className="py-20 bg-[#F4EFE6] border-y border-[#0B3B24]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-14">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <Badge variant="gold">Standardized Journey</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-              Scholar Appraisal & Disbursal Journey
-            </h2>
-            <p className="text-sm text-[#4A5568]">
-              A 4-step transparent evaluation pipeline ensuring objective appraisal and zero intermediary delay.
-            </p>
-          </div>
+        <Container size="default" className="space-y-14">
+          <SectionHeader
+            badge="Standardized Journey"
+            badgeVariant="gold"
+            title="Scholar Appraisal & Disbursal Journey"
+            subtitle="A 4-step transparent evaluation pipeline ensuring objective appraisal and zero intermediary delay."
+            align="center"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 bg-white rounded-xs border border-[#0B3B24]/12 shadow-xs space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#0B3B24] text-[#E4C88A] font-serif font-bold text-sm flex items-center justify-center">
-                1
-              </span>
-              <h3 className="font-serif text-lg font-bold text-[#0B3B24]">
-                1. Inquiry & Submission
-              </h3>
-              <p className="text-xs text-[#4A5568] leading-relaxed">
-                Candidate or guardian registers via the Secretariat desk, providing marksheets, college admission slip, and Tahsildar income certificate.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-xs border border-[#0B3B24]/12 shadow-xs space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#0B3B24] text-[#E4C88A] font-serif font-bold text-sm flex items-center justify-center">
-                2
-              </span>
-              <h3 className="font-serif text-lg font-bold text-[#0B3B24]">
-                2. College Verification
-              </h3>
-              <p className="text-xs text-[#4A5568] leading-relaxed">
-                Secretariat officers contact the college accounts desk to confirm bonafide enrollment, annual course fee schedules, and official institutional bank details.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-xs border border-[#0B3B24]/12 shadow-xs space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#0B3B24] text-[#E4C88A] font-serif font-bold text-sm flex items-center justify-center">
-                3
-              </span>
-              <h3 className="font-serif text-lg font-bold text-[#0B3B24]">
-                3. Committee Scrutiny
-              </h3>
-              <p className="text-xs text-[#4A5568] leading-relaxed">
-                Independent Academic Scrutiny Panel assesses dossiers against standardized merit-cum-means rubrics, establishing an auditable sanction list.
-              </p>
-            </div>
-
-            <div className="p-6 bg-white rounded-xs border border-[#0B3B24]/12 shadow-xs space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#0B3B24] text-[#E4C88A] font-serif font-bold text-sm flex items-center justify-center">
-                4
-              </span>
-              <h3 className="font-serif text-lg font-bold text-[#0B3B24]">
-                4. Direct Bank Disbursal
-              </h3>
-              <p className="text-xs text-[#4A5568] leading-relaxed">
-                100% of the approved grant is remitted directly to the college bursar via bank RTGS. The official receipt is confirmed and mentor paired with scholar.
-              </p>
-            </div>
+            {appraisalSteps.map((step) => (
+              <Card
+                key={step.step}
+                variant="elevated"
+                padding="md"
+                className="space-y-3 relative flex flex-col justify-between"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="w-8 h-8 rounded-full bg-[#0B3B24] text-[#E4C88A] font-serif font-bold text-sm flex items-center justify-center shadow-xs">
+                      {step.step}
+                    </span>
+                    <Badge variant="neutral" className="text-[10px]">
+                      Phase {step.step}
+                    </Badge>
+                  </div>
+                  <h3 className="font-serif text-lg font-bold text-[#0B3B24]">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-[#4A5568] leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-[#0B3B24]/8 text-[11px] font-medium text-[#0B3B24]/80 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                  <span>{step.detail}</span>
+                </div>
+              </Card>
+            ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 4. Required Document Checklist */}
       <section id="checklist" className="py-20 md:py-28 bg-[#FDFBF7] border-b border-[#0B3B24]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-14">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <Badge variant="forest">Application Preparedness</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-              Mandatory Documentation Checklist
-            </h2>
-            <p className="text-sm text-[#4A5568] leading-relaxed">
-              Applicants are advised to gather certified documentation before submitting their dossiers to ensure rapid processing.
-            </p>
-          </div>
+        <Container size="default" className="space-y-14">
+          <SectionHeader
+            badge="Application Preparedness"
+            badgeVariant="forest"
+            title="Mandatory Documentation Checklist"
+            subtitle="Applicants are advised to gather certified documentation before submitting their dossiers to ensure rapid processing."
+            align="center"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {documentChecklist.map((group) => {
               const Icon = group.icon;
               return (
-                <div
+                <Card
                   key={group.category}
-                  className="p-7 sm:p-8 bg-white rounded-xs border border-[#0B3B24]/15 shadow-xs space-y-5"
+                  variant="elevated"
+                  padding="lg"
+                  className="space-y-5"
                 >
                   <div className="flex items-center gap-3 pb-3 border-b border-[#0B3B24]/10">
                     <div className="w-10 h-10 rounded-xs bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center shrink-0">
@@ -320,13 +323,17 @@ export default function ScholarshipsPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </Card>
               );
             })}
           </div>
 
           {/* Document Verification Notice */}
-          <div className="p-6 bg-[#F4EFE6] rounded-xs border border-[#0B3B24]/15 flex flex-col md:flex-row items-center justify-between gap-5 text-xs">
+          <Card
+            variant="accent"
+            padding="md"
+            className="flex flex-col md:flex-row items-center justify-between gap-5 text-xs"
+          >
             <div className="space-y-1">
               <span className="font-bold text-[#0B3B24] uppercase tracking-wider block">
                 Verification Safeguard
@@ -340,22 +347,20 @@ export default function ScholarshipsPage() {
                 <span>Ask Secretariat Coordinator</span>
               </Button>
             </Link>
-          </div>
-        </div>
+          </Card>
+        </Container>
       </section>
 
       {/* 5. Frequently Asked Questions */}
       <section className="py-20 bg-[#F4EFE6] border-b border-[#0B3B24]/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="text-center space-y-3">
-            <Badge variant="gold">Student Guidance</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-              Scholarship Frequently Asked Questions
-            </h2>
-            <p className="text-sm text-[#4A5568]">
-              Clear answers regarding eligibility rules, multi-scholarship coordination, and renewals.
-            </p>
-          </div>
+        <Container size="narrow" className="space-y-12">
+          <SectionHeader
+            badge="Student Guidance"
+            badgeVariant="gold"
+            title="Scholarship Frequently Asked Questions"
+            subtitle="Clear answers regarding eligibility rules, multi-scholarship coordination, and renewals."
+            align="center"
+          />
 
           <Accordion items={faqItems} />
 
@@ -367,12 +372,15 @@ export default function ScholarshipsPage() {
               </Button>
             </Link>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 6. Call to Action Strip */}
       <section className="py-16 bg-[#072617] text-[#EDE6D8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <Container
+          size="default"
+          className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
+        >
           <div className="space-y-2">
             <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
               Ready to Discover Your Eligible Grants?
@@ -394,7 +402,7 @@ export default function ScholarshipsPage() {
               </Button>
             </Link>
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );

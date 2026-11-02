@@ -272,5 +272,22 @@ The Governance route (`src/app/governance/page.tsx`) codifies ethical boundaries
 ### 11.2 Primitives Deployed
 - `<Container size="default">`, `<Badge>`, `<SectionHeader theme="dark" / "light">`, `<Card variant="elevated">`, `<Button>`, and `<PageHero>`.
 
+---
+
+## 12. Scholarships & Financial Aid Hub (Section 6 Deliverable)
+
+The Scholarships page (`src/app/scholarships/page.tsx`) provides an objective, transparent framework for students, guardians, and college principals across Odisha:
+
+### 12.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#comparison` and `#checklist`.
+- **Scheme Comparison Matrix**: Responsive tabular comparison of the 3 flagship initiatives (*Shiksha Protsahan Yojana*, *Pratibha Fellowship*, *Project Samarth*) comparing Target Audience, Academic Thresholds, Household Means Limits, Benefit Coverage, Disbursement Modes, and Annual Renewal Terms.
+- **4-Step Appraisal & Disbursal Journey**: 4 elevated cards mapping the student journey from Inquiry & Submission to College Verification, Committee Scrutiny, and 100% Direct Bank RTGS Disbursal.
+- **Mandatory Documentation Checklist**: 3 category cards (*Academic Records*, *Income & Residency Proofs*, *Institutional Banking Details*) equipped with verification safeguards and regulatory warnings.
+- **Student Guidance FAQ**: Narrow-container accordion addressing dual-scholarship coordination, direct-to-college remittances, zero fees, college transfers, and renewal GPA criteria.
+- **Interactive Action Callout Strip**: Dark forest container driving candidates to the interactive Scholar Eligibility Calculator (`/#eligibility-calculator`) or Secretariat Inquiry Desk (`/contact`).
+
+### 12.2 Primitives Deployed
+- `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "accent">`, `<Button>`, `<Accordion>`, and `<PageHero>`.
+
 
 
