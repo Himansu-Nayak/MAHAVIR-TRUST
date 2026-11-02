@@ -256,4 +256,21 @@ The About Us page (`src/app/about/page.tsx`) articulates the founding philosophy
 ### 10.2 Primitives Deployed
 - `<Container size="default">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated">`, `<Button>`, and `<PageHero>`.
 
+---
+
+## 11. Statutory Governance & Fiduciary Charter Page (Section 5 Deliverable)
+
+The Governance route (`src/app/governance/page.tsx`) codifies ethical boundaries, multi-tier committee mandates, and financial oversight:
+
+### 11.1 Structural Architecture
+- **Statutory Notice Strip**: Containerized banner highlighting the trust deed formalisation notice and compliance desk link.
+- **Trustee Governance & Committee Architecture**: 4 elevated cards detailing committee scope, composition, and legal mandates (`Board of Trustees`, `Audit Panel`, `Appraisal Committee`, `Secretariat Office`).
+- **Financial Oversight Standard**: 3 dark-themed cards detailing the 100% direct-to-college bank remittance, dual-signatory electronic authorization, and mandatory CA audits.
+- **Conflict-of-Interest & Whistleblower Policies**: 4 cards outlining zero remuneration for trustees, the relatives exclusion rule, non-sectarian universality, and confidential reporting channels (`governance@mahavirtrust.org`).
+- **Transparency Repository**: 4 official policy documents with provisional classification codes and inspection request actions.
+
+### 11.2 Primitives Deployed
+- `<Container size="default">`, `<Badge>`, `<SectionHeader theme="dark" / "light">`, `<Card variant="elevated">`, `<Button>`, and `<PageHero>`.
+
+
 
