@@ -195,3 +195,32 @@ src/components/ui/
 ├── Select.tsx          - Accessible form dropdown select with custom chevron and ARIA state bindings
 └── StateFeedback.tsx   - Universal feedback primitive for loading, error, empty, and success states
 ```
+
+---
+
+## 8. Global Website Experience (Section 2 Deliverable)
+
+The global shell unites all routes with institutional authority, statutory clarity, and responsive utility:
+
+### 8.1 Institutional Header & Mega-Menu (`Header.tsx`)
+- **Secretariat Announcement Ticker**: High-contrast top bar with marquee pause on hover/focus and reduced-motion detection.
+- **Editorial Mega-Menu**: Multi-column flyouts for high-density academic navigation ("About Trust", "Scholarships") featuring categorized sub-sections, planned feature tags, and institutional callout cards ("Direct Disbursal Guarantee", "Fiduciary Charter").
+- **Keyboard & Escape Trap**: `Escape` key closes active menus immediately; outside clicks are cleanly dismissed.
+- **Off-Canvas Mobile Drawer**: Full-height slide-in drawer from viewport right with backdrop blur overlay, body scroll lock, and touch targets ≥44px.
+
+### 8.2 Fiduciary Footer (`Footer.tsx`)
+- **Tier 1 (Statutory Compliance Alert)**: Prominently highlights the 100% Direct-to-College Disbursal Policy and zero-cash rule.
+- **Tier 2 (5-Column Grid)**: Organizes Trust identity, Secretariat desk, Academic Grants, Fiduciary Governance, and Community Engagement.
+- **Tier 3 (Legal & Accessibility Bar)**: Dynamic copyright year, Privacy, Terms, Accessibility Statement (WCAG 2.2 AA), and Statutory Disclosures.
+- **Layout Consistency**: Consumes the unified `<Container size="default">` primitive across all tiers.
+
+### 8.3 Floating Quick Action Dock (`QuickActionDock.tsx`)
+- **Desktop Ribbon**: Docked to right viewport edge with dark forest surface (`#072617`), gold borders (`#C5A059`/40), and accessible tooltips.
+- **Mobile Action Sheet**: Floating Action Button (FAB) at bottom-right expanding into an accessible dialog with backdrop dismiss and `Escape` key listener.
+- **Print Optimization**: Automatically suppressed on print (`print:hidden`).
+
+### 8.4 Universal Page Hero (`PageHero.tsx`)
+- Standardized across all 11 subpages (`/about`, `/governance`, `/scholarships`, `/programmes`, `/impact`, `/volunteer`, `/contact`, `/faq`, `/terms`, `/privacy`, `/accessibility`).
+- Consumes `<Container>` for unified margins and `<Badge variant="gold-dark">` for subpage category labels.
+- Implements Schema.org `BreadcrumbList` structured JSON-LD / microdata.
+
