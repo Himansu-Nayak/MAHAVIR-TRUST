@@ -83,6 +83,7 @@ export default function HomePage() {
   const [volReferenceId, setVolReferenceId] = useState<number | null>(null);
   const [volIsSubmitting, setVolIsSubmitting] = useState(false);
   const [volError, setVolError] = useState<string | null>(null);
+  const [volConsent, setVolConsent] = useState(false);
   const [volData, setVolData] = useState({
     name: "",
     email: "",
@@ -96,6 +97,12 @@ export default function HomePage() {
     setVolIsSubmitting(true);
     setVolError(null);
 
+    if (!volConsent) {
+      setVolError("Please acknowledge the student safeguarding principles and voluntary service charter.");
+      setVolIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await submitVolunteerRegistration({
         fullName: volData.name,
@@ -103,6 +110,8 @@ export default function HomePage() {
         phone: volData.phone,
         roleInterest: volData.role,
         backgroundNotes: volData.notes,
+        consentDeclared: true,
+        consentVersion: "v1.0-2026",
       });
       setVolReferenceId(response.referenceId || null);
       setVolSubmitted(true);
@@ -570,6 +579,7 @@ export default function HomePage() {
                     className="mt-3 text-xs !border-[#E4C88A] !text-[#E4C88A] hover:!bg-[#E4C88A]/10"
                     onClick={() => {
                       setVolSubmitted(false);
+                      setVolConsent(false);
                       setVolData({
                         name: "",
                         email: "",
@@ -681,6 +691,23 @@ export default function HomePage() {
                       placeholder="Share your university affiliation, corporate background, or subject expertise..."
                       className="w-full text-xs sm:text-sm p-2.5 rounded-xs bg-[#FDFBF7] border border-[#0B3B24]/20 focus:border-[#C5A059] focus:outline-none"
                     />
+                  </div>
+
+                  <div className="flex items-start gap-2 pt-1">
+                    <input
+                      id="vol-consent-homepage"
+                      type="checkbox"
+                      required
+                      checked={volConsent}
+                      onChange={(e) => setVolConsent(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 rounded-xs border-[#0B3B24]/30 text-[#072617] focus:ring-[#C5A059]"
+                    />
+                    <label htmlFor="vol-consent-homepage" className="text-[11px] text-[#4A5568] leading-tight select-none">
+                      I agree to the voluntary service charter and student safeguarding principles. For comprehensive tracks, code of conduct, and district scoping, view our{" "}
+                      <Link href="/volunteer" className="text-[#072617] font-semibold underline hover:text-[#C5A059]">
+                        Volunteer Portal
+                      </Link>.
+                    </label>
                   </div>
 
                   <Button

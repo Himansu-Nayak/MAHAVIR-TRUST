@@ -86,6 +86,21 @@ public class AdminController {
         return ResponseEntity.ok(volunteerRepository.findAll());
     }
 
+    @PatchMapping("/volunteers/{id}/status")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'ADMIN', 'VOLUNTEER_COORDINATOR')")
+    public ResponseEntity<VolunteerRegistration> updateVolunteerStatus(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body) {
+        String newStatus = body.get("status");
+        if (newStatus == null || newStatus.isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return volunteerRepository.findById(id).map(vol -> {
+            vol.setVerificationStatus(newStatus);
+            return ResponseEntity.ok(volunteerRepository.save(vol));
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
     private String getClientIp(HttpServletRequest request) {
         String xf = request.getHeader("X-Forwarded-For");
         if (xf != null && !xf.isBlank()) {

@@ -54,12 +54,27 @@ public class VolunteerRegistrationService {
 
         log.info("Received volunteer registration for role: {}", cleanRole);
 
+        boolean consent = Boolean.TRUE.equals(request.consentDeclared());
+        String consentVersion = request.consentVersion() != null && !request.consentVersion().isBlank()
+                ? sanitizeInput(request.consentVersion().trim())
+                : "v1.0-2026";
+        String consentStatement = "I agree to the MAHAVIR TRUST volunteer code of conduct, student safeguarding policy, and ethical mentorship guidelines.";
+        Instant consentTimestamp = consent ? Instant.now() : null;
+
         VolunteerRegistration registration = new VolunteerRegistration(
                 sanitizeInput(request.fullName().trim()),
                 cleanEmail,
                 sanitizeInput(request.phone().trim()),
                 cleanRole,
-                request.backgroundNotes() != null ? sanitizeInput(request.backgroundNotes().trim()) : null
+                request.district() != null ? sanitizeInput(request.district().trim()) : null,
+                request.availability() != null ? sanitizeInput(request.availability().trim()) : null,
+                request.qualification() != null ? sanitizeInput(request.qualification().trim()) : null,
+                request.engagementMode() != null ? sanitizeInput(request.engagementMode().trim()) : null,
+                request.backgroundNotes() != null ? sanitizeInput(request.backgroundNotes().trim()) : null,
+                consent,
+                consentStatement,
+                consentVersion,
+                consentTimestamp
         );
 
         VolunteerRegistration saved = repository.save(registration);

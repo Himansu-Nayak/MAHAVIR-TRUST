@@ -26,6 +26,30 @@ public class VolunteerRegistration {
     @Column(name = "background_notes", columnDefinition = "TEXT")
     private String backgroundNotes;
 
+    @Column(length = 100)
+    private String district;
+
+    @Column(name = "consent_declared", nullable = false)
+    private Boolean consentDeclared = false;
+
+    @Column(name = "consent_statement", length = 255)
+    private String consentStatement = "I agree to the MAHAVIR TRUST volunteer code of conduct, student safeguarding policy, and ethical mentorship guidelines.";
+
+    @Column(name = "consent_version", length = 50)
+    private String consentVersion = "v1.0-2026";
+
+    @Column(name = "consent_timestamp")
+    private Instant consentTimestamp;
+
+    @Column(length = 50)
+    private String availability;
+
+    @Column(length = 100)
+    private String qualification;
+
+    @Column(name = "engagement_mode", length = 30)
+    private String engagementMode;
+
     @Column(name = "verification_status", nullable = false, length = 30)
     private String verificationStatus = "AWAITING_ORIENTATION";
 
@@ -40,6 +64,28 @@ public class VolunteerRegistration {
         this.phone = phone;
         this.roleInterest = roleInterest;
         this.backgroundNotes = backgroundNotes;
+        this.verificationStatus = "AWAITING_ORIENTATION";
+        this.createdAt = Instant.now();
+    }
+
+    public VolunteerRegistration(String fullName, String email, String phone, String roleInterest, 
+                                 String district, String availability, String qualification, 
+                                 String engagementMode, String backgroundNotes, 
+                                 Boolean consentDeclared, String consentStatement, 
+                                 String consentVersion, Instant consentTimestamp) {
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.roleInterest = roleInterest;
+        this.district = district;
+        this.availability = availability;
+        this.qualification = qualification;
+        this.engagementMode = engagementMode;
+        this.backgroundNotes = backgroundNotes;
+        this.consentDeclared = consentDeclared != null ? consentDeclared : false;
+        this.consentStatement = consentStatement;
+        this.consentVersion = consentVersion;
+        this.consentTimestamp = consentTimestamp;
         this.verificationStatus = "AWAITING_ORIENTATION";
         this.createdAt = Instant.now();
     }
@@ -90,6 +136,70 @@ public class VolunteerRegistration {
 
     public void setBackgroundNotes(String backgroundNotes) {
         this.backgroundNotes = backgroundNotes;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public Boolean getConsentDeclared() {
+        return consentDeclared;
+    }
+
+    public void setConsentDeclared(Boolean consentDeclared) {
+        this.consentDeclared = consentDeclared;
+    }
+
+    public String getConsentStatement() {
+        return consentStatement;
+    }
+
+    public void setConsentStatement(String consentStatement) {
+        this.consentStatement = consentStatement;
+    }
+
+    public String getConsentVersion() {
+        return consentVersion;
+    }
+
+    public void setConsentVersion(String consentVersion) {
+        this.consentVersion = consentVersion;
+    }
+
+    public Instant getConsentTimestamp() {
+        return consentTimestamp;
+    }
+
+    public void setConsentTimestamp(Instant consentTimestamp) {
+        this.consentTimestamp = consentTimestamp;
+    }
+
+    public String getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(String availability) {
+        this.availability = availability;
+    }
+
+    public String getQualification() {
+        return qualification;
+    }
+
+    public void setQualification(String qualification) {
+        this.qualification = qualification;
+    }
+
+    public String getEngagementMode() {
+        return engagementMode;
+    }
+
+    public void setEngagementMode(String engagementMode) {
+        this.engagementMode = engagementMode;
     }
 
     public String getVerificationStatus() {
