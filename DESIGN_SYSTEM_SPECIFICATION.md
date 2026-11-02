@@ -304,5 +304,21 @@ The Programmes route (`src/app/programmes/page.tsx`) presents the structural int
 ### 13.2 Primitives Deployed
 - `<Container size="default">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "dark">`, `<Button>`, and `<PageHero>`.
 
+---
+
+## 14. Community Impact & District Outreach Hub (Section 8 Deliverable)
+
+The Impact route (`src/app/impact/page.tsx`) articulates the geographical mandate, objective impact metrics, and statutory accountability standards of MAHAVIR TRUST:
+
+### 14.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#districts` and `#framework`.
+- **Coverage Strategy Across All 30 Odisha Districts**: 4 regional zone cards (*Central Educational*, *Northern & Industrial*, *Western Academic*, *Southern & Aspirational*) categorizing all 30 districts by operational phase and institutional status, with gold badge counters.
+- **Auditable Impact Framework**: 4 elevated cards measuring core non-profit milestones: College Retention Rate (>95%), Direct Disbursal Integrity (100% non-cash), First-Gen Scholar Focus (>70%), and Gender Equity in STEM.
+- **Representative Scholar Journeys (Archetypes)**: 3 elevated narrative cards modeling realistic barriers and interventions across rural Kalahandi, coastal Balasore, and semi-urban Cuttack.
+- **Statutory Annual Reports & Financial Disclosures**: Dark forest container detailing the annual Form 10B audit calendar, disbursement ledger reconciliations, and CA certified balance sheet publication terms.
+
+### 14.2 Primitives Deployed
+- `<Container size="default">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "default" / "dark">`, `<Button>`, and `<PageHero>`.
+
 
 
