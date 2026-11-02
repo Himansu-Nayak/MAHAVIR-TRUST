@@ -289,5 +289,20 @@ The Scholarships page (`src/app/scholarships/page.tsx`) provides an objective, t
 ### 12.2 Primitives Deployed
 - `<Container size="default">`, `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "accent">`, `<Button>`, `<Accordion>`, and `<PageHero>`.
 
+---
+
+## 13. Educational & Community Programmes (Section 7 Deliverable)
+
+The Programmes route (`src/app/programmes/page.tsx`) presents the structural interventions deployed by MAHAVIR TRUST to overcome higher education dropouts and lack of study infrastructure:
+
+### 13.1 Structural Architecture
+- **Page Hero**: High-impact banner with Schema.org breadcrumbs and fast-jump actions to `#flagship` and `#hubs`.
+- **Three Flagship Initiatives in Depth**: 3 elevated institutional cards (*Mahavir Shiksha Protsahan Yojana*, *Pratibha Excellence Fellowship*, *Project Samarth*) featuring numeric milestone callouts, high-contrast badges, strategic objective lists, target beneficiary criteria, and scheme guideline links.
+- **Project Samarth Community Study Hubs Blueprint**: Dark forest container with gold radial geometry detailing rural study infrastructure specifications (solar continuity, filtered academic Wi-Fi, reference archives, volunteer mentor desks) and a volunteer steward registration banner.
+- **Odisha 30-District Engagement Strategy**: 3 elevated phase cards (*Phase 1 Pilot Cluster*, *Phase 2 Coastal & Industrial*, *Phase 3 Western & Southern*) outlining the systematic geographical scaling roadmap.
+
+### 13.2 Primitives Deployed
+- `<Container size="default">`, `<Badge>`, `<SectionHeader theme="light" / "dark">`, `<Card variant="elevated" / "dark">`, `<Button>`, and `<PageHero>`.
+
 
 

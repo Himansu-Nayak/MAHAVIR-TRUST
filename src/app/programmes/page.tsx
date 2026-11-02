@@ -2,6 +2,8 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
+import { Container } from "@/components/ui/Container";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { TRUST_CONFIG } from "@/lib/config";
@@ -11,16 +13,11 @@ import {
   School,
   Users,
   BookOpen,
-  Compass,
   ArrowRight,
   ShieldCheck,
-  Building2,
   CheckCircle2,
   Sun,
   Wifi,
-  MapPin,
-  Clock,
-  Sparkles,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -167,24 +164,24 @@ export default function ProgrammesPage() {
 
       {/* 2. Three Flagship Initiatives in Depth */}
       <section id="flagship" className="py-20 md:py-28 bg-[#FDFBF7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-16">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <Badge variant="forest">Core Interventions</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0B3B24] tracking-tight">
-              Three Flagship Initiatives
-            </h2>
-            <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-              Every initiative addresses a verified structural barrier across an underprivileged student’s educational trajectory.
-            </p>
-          </div>
+        <Container size="default" className="space-y-16">
+          <SectionHeader
+            badge="Core Interventions"
+            badgeVariant="forest"
+            title="Three Flagship Initiatives"
+            subtitle="Every initiative addresses a verified structural barrier across an underprivileged student’s educational trajectory."
+            align="center"
+          />
 
           <div className="space-y-12">
             {flagshipPrograms.map((program) => {
               const Icon = program.icon;
               return (
-                <div
+                <Card
                   key={program.id}
-                  className="bg-white rounded-xs border border-[#0B3B24]/15 shadow-sm p-8 sm:p-10 space-y-6 relative overflow-hidden"
+                  variant="elevated"
+                  padding="lg"
+                  className="space-y-6 relative overflow-hidden"
                 >
                   {/* Top Bar */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[#0B3B24]/10 gap-3">
@@ -192,18 +189,18 @@ export default function ProgrammesPage() {
                       <span className="font-serif text-3xl font-bold text-[#7A5E24]">
                         {program.number}
                       </span>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#7A5E24] bg-[#C5A059]/15 px-2.5 py-0.5 rounded-xs">
+                      <Badge variant="contrast-gold">
                         {program.badge}
-                      </span>
+                      </Badge>
                     </div>
-                    <span className="text-xs text-[#0B3B24] font-semibold bg-[#0B3B24]/8 px-3 py-1 rounded-xs">
+                    <Badge variant="neutral">
                       {program.scope}
-                    </span>
+                    </Badge>
                   </div>
 
                   {/* Header */}
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xs bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-xs bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center shrink-0 shadow-xs">
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>
@@ -241,17 +238,19 @@ export default function ProgrammesPage() {
                         Target Beneficiaries & Coverage
                       </span>
                       <p className="text-xs text-[#4A5568] leading-relaxed">
-                        <strong>Target Cohort:</strong> {program.beneficiaries}
+                        <strong className="text-[#0B3B24]">Target Cohort:</strong> {program.beneficiaries}
                       </p>
-                      <p className="text-xs text-[#4A5568] leading-relaxed pt-1 border-t border-[#0B3B24]/10">
-                        <strong>Grant Benefit:</strong> <span className="text-[#0B3B24] font-semibold">{program.coverage}</span>
+                      <p className="text-xs text-[#4A5568] leading-relaxed pt-2 border-t border-[#0B3B24]/10">
+                        <strong className="text-[#0B3B24]">Grant Benefit:</strong>{" "}
+                        <span className="text-[#0B3B24] font-semibold">{program.coverage}</span>
                       </p>
                     </div>
                   </div>
 
                   {/* Bottom Action */}
-                  <div className="pt-2 flex items-center justify-between">
-                    <span className="text-xs text-[#4A5568] italic">
+                  <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#0B3B24]/10">
+                    <span className="text-xs text-[#4A5568] italic flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
                       Zero processing fee • 100% direct-to-college disbursals
                     </span>
                     <Link href={program.href}>
@@ -261,39 +260,44 @@ export default function ProgrammesPage() {
                       </Button>
                     </Link>
                   </div>
-                </div>
+                </Card>
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 3. Project Samarth: Community Study Hubs Blueprint */}
-      <section id="hubs" className="py-20 md:py-28 bg-[#072617] text-[#EDE6D8] border-y border-[#C5A059]/25 relative overflow-hidden">
+      <section
+        id="hubs"
+        className="py-20 md:py-28 bg-[#072617] text-[#EDE6D8] border-y border-[#C5A059]/25 relative overflow-hidden"
+      >
         <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-8 space-y-14">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xs bg-[#0B3B24] border border-[#C5A059]/40 text-xs text-[#E4C88A] uppercase font-bold tracking-wider">
-              <School className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Community Learning Infrastructure</span>
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
-              Project Samarth: Community Study Hubs
-            </h2>
-            <p className="text-sm sm:text-base text-white/80 leading-relaxed font-sans">
-              Bridging the study environment divide. Deploying quiet, solar-backed reference reading rooms across semi-urban and rural clusters in Odisha.
-            </p>
-          </div>
+        <Container size="default" className="relative space-y-14">
+          <SectionHeader
+            badge={
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xs bg-[#0B3B24] border border-[#C5A059]/40 text-xs text-[#E4C88A] uppercase font-bold tracking-wider">
+                <School className="w-3.5 h-3.5 text-[#C5A059]" />
+                <span>Community Learning Infrastructure</span>
+              </div>
+            }
+            title="Project Samarth: Community Study Hubs"
+            subtitle="Bridging the study environment divide. Deploying quiet, solar-backed reference reading rooms across semi-urban and rural clusters in Odisha."
+            align="center"
+            theme="dark"
+          />
 
           {/* Hub Specifications Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {hubSpecs.map((spec) => {
               const Icon = spec.icon;
               return (
-                <div
+                <Card
                   key={spec.title}
-                  className="p-6 bg-white/5 border border-white/10 rounded-xs hover:border-[#C5A059]/40 transition-all space-y-3"
+                  variant="dark"
+                  padding="md"
+                  className="space-y-3 hover:border-[#C5A059]/40 transition-all duration-200"
                 >
                   <div className="w-11 h-11 rounded-xs bg-[#0B3B24] border border-[#C5A059]/40 text-[#E4C88A] flex items-center justify-center">
                     <Icon className="w-5 h-5" />
@@ -304,13 +308,13 @@ export default function ProgrammesPage() {
                   <p className="text-xs text-white/70 leading-relaxed font-sans">
                     {spec.description}
                   </p>
-                </div>
+                </Card>
               );
             })}
           </div>
 
           {/* Community Hub Steward Notice */}
-          <div className="bg-[#0B3B24]/80 border border-[#C5A059]/40 rounded-xs p-7 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="bg-[#0B3B24]/90 border border-[#C5A059]/40 rounded-xs p-7 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
             <div className="space-y-1 text-center md:text-left">
               <span className="text-xs font-bold uppercase tracking-wider text-[#E4C88A]">
                 Volunteer Stewardship
@@ -329,49 +333,51 @@ export default function ProgrammesPage() {
               </Button>
             </Link>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* 4. Statewide District Outreach & Phased Rollout */}
       <section className="py-20 md:py-28 bg-[#F4EFE6] border-b border-[#0B3B24]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <Badge variant="gold">Statewide Vision</Badge>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24]">
-              Odisha 30-District Engagement Strategy
-            </h2>
-            <p className="text-sm text-[#4A5568]">
-              A disciplined, phased rollout ensuring institutional durability, transparent college partnerships, and audit compliance.
-            </p>
-          </div>
+        <Container size="default" className="space-y-12">
+          <SectionHeader
+            badge="Statewide Vision"
+            badgeVariant="gold"
+            title="Odisha 30-District Engagement Strategy"
+            subtitle="A disciplined, phased rollout ensuring institutional durability, transparent college partnerships, and audit compliance."
+            align="center"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {districtPhases.map((phase) => (
-              <div
+              <Card
                 key={phase.phase}
-                className="p-7 bg-white rounded-xs border border-[#0B3B24]/15 shadow-xs space-y-4"
+                variant="elevated"
+                padding="lg"
+                className="space-y-4 flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between pb-3 border-b border-[#0B3B24]/10">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#7A5E24]">
-                    {phase.phase}
-                  </span>
-                  <span className="text-[10px] font-semibold text-[#0B3B24] bg-[#0B3B24]/10 px-2 py-0.5 rounded-xs">
-                    {phase.status}
-                  </span>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between pb-3 border-b border-[#0B3B24]/10">
+                    <Badge variant="contrast-gold">
+                      {phase.phase}
+                    </Badge>
+                    <Badge variant="neutral">
+                      {phase.status}
+                    </Badge>
+                  </div>
+                  <h3 className="font-serif text-xl font-bold text-[#0B3B24]">
+                    {phase.districts}
+                  </h3>
+                  <p className="text-xs text-[#7A5E24] font-semibold">
+                    Region: {phase.region}
+                  </p>
+                  <p className="text-xs text-[#4A5568] leading-relaxed">
+                    {phase.focus}
+                  </p>
                 </div>
-                <h3 className="font-serif text-xl font-bold text-[#0B3B24]">
-                  {phase.districts}
-                </h3>
-                <p className="text-xs text-[#7A5E24] font-semibold">
-                  Region: {phase.region}
-                </p>
-                <p className="text-xs text-[#4A5568] leading-relaxed">
-                  {phase.focus}
-                </p>
-              </div>
+              </Card>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
     </div>
   );
