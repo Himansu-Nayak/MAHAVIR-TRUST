@@ -5,7 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TRUST_CONFIG } from "@/lib/config";
 import { Button } from "@/components/ui/Button";
-import { Menu, X, ChevronDown, Award, Heart, PhoneCall, ShieldCheck } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Award,
+  Heart,
+  PhoneCall,
+  ShieldCheck,
+  Building2,
+  BookOpen,
+} from "lucide-react";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,7 +35,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus upon route change
+  // Close menus on route change
   useEffect(() => {
     setMobileMenuOpen(false);
     setOpenDropdown(null);
@@ -34,15 +44,19 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full transition-all duration-300">
       {/* Top Institutional Notification Ticker & Secretariat Bar */}
-      <div className="bg-[#051E12] text-[#EDE6D8] border-b border-[#C5A059]/30 text-xs py-1.5 px-4 sm:px-8">
+      <div
+        className="bg-[#072617] text-[#EDE6D8] border-b border-[#C5A059]/30 text-xs py-1.5 px-4 sm:px-8"
+        role="region"
+        aria-label="Institutional Announcements"
+      >
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 overflow-hidden">
-            <span className="shrink-0 inline-flex items-center gap-1.5 px-2 py-0.5 rounded-xs bg-[#C5A059] text-[#072617] text-[10px] font-bold uppercase tracking-wider">
+            <span className="shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-xs bg-[#C5A059] text-[#072617] text-[10px] font-bold uppercase tracking-wider">
               <span>Notice</span>
             </span>
             <div className="overflow-hidden whitespace-nowrap text-xs text-white/90">
               <span className="inline-block animate-marquee font-medium">
-                📢 Academic Year 2026-27: Preliminary Higher Education Grant & Mentorship guidelines published for trustee review. Secretariat inquiry desk is open for educational institutions across Odisha.
+                📢 Academic Year 2026-27: Preliminary Higher Education Grant & Mentorship guidelines published for trustee review. Secretariat inquiry desk is open for educational institutions across all 30 districts of Odisha.
               </span>
             </div>
           </div>
@@ -54,20 +68,20 @@ export function Header() {
             >
               Statutory Governance
             </Link>
-            <span className="text-white/30">|</span>
+            <span className="text-white/30" aria-hidden="true">|</span>
             <Link
               href="/scholarships"
               className="hover:text-[#E4C88A] transition-colors"
             >
               Eligibility Matrix
             </Link>
-            <span className="text-white/30">|</span>
+            <span className="text-white/30" aria-hidden="true">|</span>
             <Link
               href="/contact"
-              className="hover:text-[#E4C88A] transition-colors flex items-center gap-1 text-[#E4C88A] font-medium"
+              className="hover:text-[#E4C88A] transition-colors flex items-center gap-1.5 text-[#E4C88A] font-semibold"
             >
               <PhoneCall className="w-3 h-3 text-[#C5A059]" />
-              <span>Secretariat Helpline</span>
+              <span>Secretariat Desk</span>
             </Link>
           </div>
         </div>
@@ -77,8 +91,8 @@ export function Header() {
       <nav
         className={`w-full transition-all duration-200 border-b ${
           isScrolled
-            ? "bg-[#FDFBF7]/95 backdrop-blur-md border-[#0B3B24]/15 shadow-sm py-3"
-            : "bg-[#FDFBF7] border-[#0B3B24]/10 py-4.5"
+            ? "bg-[#FDFBF7]/95 backdrop-blur-md border-[#0B3B24]/15 shadow-sm py-2.5"
+            : "bg-[#FDFBF7] border-[#0B3B24]/10 py-3.5"
         }`}
         aria-label="Main Navigation"
       >
@@ -86,17 +100,17 @@ export function Header() {
           {/* Institutional Identity / Brand */}
           <Link
             href="/"
-            className="flex items-center space-x-3.5 group focus:outline-none"
+            className="flex items-center space-x-3.5 group focus-visible:outline-2 focus-visible:outline-[#C5A059]"
             aria-label="MAHAVIR TRUST Homepage"
           >
-            <div className="w-10 h-10 rounded-sm bg-[#0B3B24] border border-[#C5A059] flex items-center justify-center text-[#E4C88A] font-serif font-bold text-xl shadow-xs group-hover:bg-[#072617] transition-colors">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xs bg-[#0B3B24] border-2 border-[#C5A059] flex items-center justify-center text-[#E4C88A] font-serif font-bold text-xl shadow-xs group-hover:bg-[#072617] transition-colors shrink-0">
               M
             </div>
             <div className="flex flex-col">
               <span className="font-serif tracking-wider font-bold text-lg sm:text-xl text-[#0B3B24] leading-tight group-hover:text-[#072617] transition-colors">
                 MAHAVIR TRUST
               </span>
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-[#C5A059] font-sans">
+              <span className="text-[10px] tracking-widest uppercase font-bold text-[#7A5E24] font-sans">
                 Odisha Educational Foundation
               </span>
             </div>
@@ -106,7 +120,9 @@ export function Header() {
           <div className="hidden lg:flex items-center space-x-1">
             {TRUST_CONFIG.navigation.map((item) => {
               const hasChildren = item.children && item.children.length > 0;
-              const isActive = pathname === item.href || (item.children && item.children.some(c => pathname === c.href));
+              const isActive =
+                pathname === item.href ||
+                (item.children && item.children.some((c) => pathname === c.href));
 
               return (
                 <div
@@ -117,9 +133,12 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-sm transition-colors ${
+                    aria-current={isActive ? "page" : undefined}
+                    aria-expanded={hasChildren ? openDropdown === item.label : undefined}
+                    aria-haspopup={hasChildren ? "true" : undefined}
+                    className={`flex items-center gap-1 px-3.5 py-2 text-sm font-medium rounded-xs transition-colors ${
                       isActive
-                        ? "text-[#0B3B24] font-semibold bg-[#0B3B24]/5"
+                        ? "text-[#0B3B24] font-bold bg-[#0B3B24]/8"
                         : "text-[#1C2421] hover:text-[#0B3B24] group-hover:text-[#0B3B24]"
                     }`}
                   >
@@ -129,9 +148,9 @@ export function Header() {
                     )}
                   </Link>
 
-                  {/* Dropdown Menu */}
+                  {/* Accessible Dropdown Menu */}
                   {hasChildren && openDropdown === item.label && (
-                    <div className="absolute top-full left-0 w-72 bg-[#FDFBF7] border border-[#0B3B24]/15 rounded-sm shadow-xl p-2.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <div className="absolute top-full left-0 w-72 bg-[#FDFBF7] border border-[#0B3B24]/15 rounded-xs shadow-xl p-2.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
                       {item.children?.map((subItem) => (
                         <Link
                           key={subItem.label}
@@ -161,16 +180,16 @@ export function Header() {
           {/* Action CTAs */}
           <div className="hidden sm:flex items-center space-x-3">
             <Link href="/scholarships">
-              <Button variant="outline" size="sm" className="gap-1.5">
-                <Award className="w-3.5 h-3.5 text-[#C5A059]" />
-                <span>Apply Scholarship</span>
+              <Button variant="outline" size="sm" className="gap-1.5 font-semibold">
+                <Award className="w-3.5 h-3.5 text-[#0B3B24]" />
+                <span>Scholarships</span>
               </Button>
             </Link>
 
             <Link href="/contact">
               <Button variant="gold" size="sm" className="gap-1.5 shadow-xs">
                 <Heart className="w-3.5 h-3.5 fill-[#072617] text-[#072617]" />
-                <span>Support Us</span>
+                <span>Secretariat</span>
               </Button>
             </Link>
           </div>
@@ -180,8 +199,9 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#0B3B24] hover:bg-[#F4EFE6] rounded-sm transition-colors"
-              aria-label="Toggle menu"
+              className="p-2 text-[#0B3B24] hover:bg-[#F4EFE6] rounded-xs transition-colors"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -190,13 +210,13 @@ export function Header() {
 
         {/* Mobile Dropdown Panel */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-[#FDFBF7] border-t border-[#0B3B24]/10 px-4 pt-3 pb-6 space-y-3">
+          <div className="lg:hidden bg-[#FDFBF7] border-t border-[#0B3B24]/10 px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
             {TRUST_CONFIG.navigation.map((item) => (
               <div key={item.label} className="border-b border-[#0B3B24]/5 pb-2">
                 <Link
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-semibold text-[#0B3B24] py-1.5"
+                  className="block text-sm font-bold text-[#0B3B24] py-1.5"
                 >
                   {item.label}
                 </Link>
@@ -225,7 +245,7 @@ export function Header() {
               </Link>
               <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="gold" className="w-full justify-center">
-                  Support the Trust
+                  Secretariat Inquiry
                 </Button>
               </Link>
             </div>

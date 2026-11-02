@@ -4,7 +4,17 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Card, Badge } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { GraduationCap, BookOpen, Award, ArrowRight, ShieldCheck, Clock, Users, Building2 } from "lucide-react";
+import {
+  GraduationCap,
+  BookOpen,
+  Award,
+  ArrowRight,
+  ShieldCheck,
+  Clock,
+  Users,
+  Building2,
+  CheckCircle2,
+} from "lucide-react";
 
 export function SchemeExplorer() {
   const [activeTab, setActiveTab] = useState<"all" | "grants" | "stem" | "mentorship">("all");
@@ -17,9 +27,10 @@ export function SchemeExplorer() {
       title: "Mahavir Shiksha Protsahan Yojana",
       tagline: "Proposed Need-cum-Merit Higher Education Tuition Fee Grants",
       target: "Underprivileged undergraduate scholars across Odisha",
-      criteria: "Minimum 65% aggregate in +2 / Higher Secondary; verified household annual income criteria.",
+      criteria: "Minimum 60% aggregate in +2 / Higher Secondary; verified household annual income criteria.",
       disbursement: "100% Direct College Disbursal (Zero Cash Policy)",
       timeline: "Annual Academic Cycle (Provisional)",
+      coverage: "Direct College Tuition Fees + Annual Textbook Grant",
       icon: GraduationCap,
       href: "/scholarships",
     },
@@ -33,6 +44,7 @@ export function SchemeExplorer() {
       criteria: "Demonstrated academic aptitude in state/national entrance rankings and STEM disciplines.",
       disbursement: "Direct study grant toward examination fees & learning resources",
       timeline: "Quarterly Application Review (Draft Proposal)",
+      coverage: "Examination Registration Fees + Specialized Learning Resources",
       icon: Award,
       href: "/scholarships",
     },
@@ -46,6 +58,7 @@ export function SchemeExplorer() {
       criteria: "Open to enrolled higher education students in pilot cluster districts.",
       disbursement: "Physical infrastructure, text archives, and supervised study halls",
       timeline: "Phase 1 Logistics & Cluster Pilot (Khordha)",
+      coverage: "Supervised Study Halls, Reference Archives, Solar Powered Desks",
       icon: BookOpen,
       href: "/programmes",
     },
@@ -59,66 +72,71 @@ export function SchemeExplorer() {
       criteria: "Enrolled Mahavir Trust grant recipients and university partner referrals.",
       disbursement: "Structured monthly advisory sessions and mock career reviews",
       timeline: "Year-round Volunteer Cohorts",
+      coverage: "1-on-1 Faculty Mentorship, Career Roadmaps, Mock Interviews",
       icon: Users,
       href: "/volunteer",
     },
   ];
 
-  const filtered = activeTab === "all" ? initiatives : initiatives.filter((item) => item.category === activeTab);
+  const filtered =
+    activeTab === "all"
+      ? initiatives
+      : initiatives.filter((item) => item.category === activeTab);
 
   return (
-    <section id="programs" className="py-20 md:py-28 bg-[#F4EFE6] border-y border-[#0B3B24]/10">
+    <section id="programs" className="py-20 md:py-28 bg-[#FDFBF7] border-y border-[#0B3B24]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 space-y-12">
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <Badge variant="gold">Institutional Initiatives</Badge>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0B3B24] tracking-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0B3B24] tracking-tight">
             Academic Grants & Student Support Ecosystem
           </h2>
           <p className="text-sm sm:text-base text-[#4A5568] leading-relaxed">
-            Explorable educational interventions designed to address critical barriers across a scholar’s journey from college entry to professional independence.
+            Explorable educational interventions designed to address critical barriers across a scholar’s journey from higher secondary completion to professional independence.
           </p>
 
-          {/* Interactive Filter Tabs matching RCM academic program selector */}
+          {/* Interactive Filter Tabs matching institutional selection desks */}
           <div className="flex flex-wrap justify-center gap-2 pt-4">
             <button
               onClick={() => setActiveTab("all")}
-              className={`px-4 py-2 text-xs font-semibold rounded-xs transition-colors ${
+              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
                 activeTab === "all"
                   ? "bg-[#0B3B24] text-white shadow-xs"
-                  : "bg-white/80 text-[#0B3B24] hover:bg-white border border-[#0B3B24]/10"
+                  : "bg-[#F4EFE6] text-[#0B3B24] hover:bg-[#EDE6D8] border border-[#0B3B24]/10"
               }`}
             >
-              All Initiatives
+              All Initiatives ({initiatives.length})
             </button>
             <button
               onClick={() => setActiveTab("grants")}
-              className={`px-4 py-2 text-xs font-semibold rounded-xs transition-colors ${
+              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
                 activeTab === "grants"
                   ? "bg-[#0B3B24] text-white shadow-xs"
-                  : "bg-white/80 text-[#0B3B24] hover:bg-white border border-[#0B3B24]/10"
+                  : "bg-[#F4EFE6] text-[#0B3B24] hover:bg-[#EDE6D8] border border-[#0B3B24]/10"
               }`}
             >
-              Tuition Grants
+              Tuition Grants (1)
             </button>
             <button
               onClick={() => setActiveTab("stem")}
-              className={`px-4 py-2 text-xs font-semibold rounded-xs transition-colors ${
+              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
                 activeTab === "stem"
                   ? "bg-[#0B3B24] text-white shadow-xs"
-                  : "bg-white/80 text-[#0B3B24] hover:bg-white border border-[#0B3B24]/10"
+                  : "bg-[#F4EFE6] text-[#0B3B24] hover:bg-[#EDE6D8] border border-[#0B3B24]/10"
               }`}
             >
-              STEM Fellowships
+              STEM Fellowships (1)
             </button>
             <button
               onClick={() => setActiveTab("mentorship")}
-              className={`px-4 py-2 text-xs font-semibold rounded-xs transition-colors ${
+              className={`px-4 py-2 text-xs font-bold rounded-xs transition-colors cursor-pointer ${
                 activeTab === "mentorship"
                   ? "bg-[#0B3B24] text-white shadow-xs"
-                  : "bg-white/80 text-[#0B3B24] hover:bg-white border border-[#0B3B24]/10"
+                  : "bg-[#F4EFE6] text-[#0B3B24] hover:bg-[#EDE6D8] border border-[#0B3B24]/10"
               }`}
             >
-              Mentorship & Study Hubs
+              Mentorship & Study Hubs (2)
             </button>
           </div>
         </div>
@@ -131,14 +149,14 @@ export function SchemeExplorer() {
               <Card
                 key={item.id}
                 variant="elevated"
-                className="p-7 bg-[#FDFBF7] border-[#0B3B24]/15 hover:border-[#C5A059] transition-all duration-200 flex flex-col justify-between space-y-6 group"
+                className="p-7 sm:p-8 bg-white border-[#0B3B24]/12 hover:border-[#C5A059] transition-all duration-300 flex flex-col justify-between space-y-6 group"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#9E7D3B] bg-[#9E7D3B]/10 px-2.5 py-1 rounded-xs">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A5E24] bg-[#C5A059]/15 border border-[#C5A059]/30 px-2.5 py-1 rounded-xs">
                       {item.badge}
                     </span>
-                    <div className="w-10 h-10 rounded-sm bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xs bg-[#0B3B24] text-[#E4C88A] flex items-center justify-center group-hover:scale-105 transition-transform shrink-0">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
@@ -147,23 +165,27 @@ export function SchemeExplorer() {
                     <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#0B3B24] group-hover:text-[#072617] transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#C5A059] font-medium mt-1">
+                    <p className="text-xs text-[#7A5E24] font-semibold mt-1">
                       {item.tagline}
                     </p>
                   </div>
 
-                  <div className="space-y-2 text-xs text-[#4A5568] border-t border-[#0B3B24]/10 pt-4">
+                  <div className="space-y-2.5 text-xs text-[#4A5568] border-t border-[#0B3B24]/10 pt-4">
                     <div className="flex items-start gap-2">
-                      <strong className="text-[#0B3B24] shrink-0 font-semibold">Target Group:</strong>
+                      <strong className="text-[#0B3B24] shrink-0 font-bold">Target Cohort:</strong>
                       <span>{item.target}</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <strong className="text-[#0B3B24] shrink-0 font-semibold">Criteria:</strong>
+                      <strong className="text-[#0B3B24] shrink-0 font-bold">Eligibility:</strong>
                       <span>{item.criteria}</span>
                     </div>
                     <div className="flex items-start gap-2">
-                      <strong className="text-[#0B3B24] shrink-0 font-semibold">Disbursal:</strong>
-                      <span className="font-mono text-[#0B3B24] font-medium">{item.disbursement}</span>
+                      <strong className="text-[#0B3B24] shrink-0 font-bold">Disbursal:</strong>
+                      <span className="font-mono text-[#0B3B24] font-semibold">{item.disbursement}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <strong className="text-[#0B3B24] shrink-0 font-bold">Grant Scope:</strong>
+                      <span className="text-emerald-800 font-medium">{item.coverage}</span>
                     </div>
                   </div>
                 </div>
@@ -176,7 +198,7 @@ export function SchemeExplorer() {
 
                   <Link href={item.href}>
                     <Button variant="secondary" size="sm" className="group-hover:border-[#C5A059]">
-                      <span>Program Details</span>
+                      <span>View Guidelines</span>
                       <ArrowRight className="w-3.5 h-3.5 ml-1" />
                     </Button>
                   </Link>
