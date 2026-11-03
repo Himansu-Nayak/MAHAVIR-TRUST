@@ -396,3 +396,34 @@ The Legal & Accessibility Hub (`src/app/terms/page.tsx`, `src/app/privacy/page.t
 
 ### 18.2 Primitives Deployed
 - `<Container size="narrow">`, `<Badge>`, `<SectionHeader>`, `<Card variant="elevated" / "dark">`, `<Button>`, and `<PageHero>`.
+
+---
+
+## 19. Full Suite Integration & Backend Security Architecture (Section 13 Deliverable)
+
+The MAHAVIR TRUST technical platform bridges a static, accessible Next.js 16.4.3 frontend with a high-security Spring Boot 4.1.1 backend running on Java 21:
+
+### 19.1 End-to-End Route Matrix (14 Static Pages)
+All 14 routes are statically compiled, prerendered, and integrated with the institutional design system:
+1. `/` — Homepage & Narrative Portal
+2. `/about` — Institutional Heritage & Mission
+3. `/governance` — Statutory Board & Fiduciary Charter
+4. `/scholarships` — Scholarships & Financial Aid Hub
+5. `/programmes` — Educational Interventions & Study Hubs
+6. `/impact` — District Outreach & Auditable Outcomes Hub
+7. `/volunteer` — Volunteer Intake Desk & Fellowship Portal
+8. `/contact` — Secretariat Communications & Grievance Desk
+9. `/faq` — 24-Topic Institutional Knowledge Base
+10. `/terms` — Terms of Engagement & Fiduciary Clauses
+11. `/privacy` — Student Data Privacy (DPDP Act 2023)
+12. `/accessibility` — WCAG 2.2 Level AA Accessibility Statement
+13. `/_not-found` — Branded 404 Institutional Fallback
+14. `/robots.txt` / `/sitemap.xml` — SEO & Crawler Governance
+
+### 19.2 Backend Security Controls
+- **Stateless Authentication**: JWT tokens with cryptographically signed claims (`HMAC-SHA256`) and strict expiration windows.
+- **Credential Protection**: BCrypt password hashing with cost factor 12 (`BCryptPasswordEncoder(12)`).
+- **Brute-Force & Denial-of-Service Defense**: In-memory `RateLimitingFilter` enforcing IP-based token-bucket quotas on public API endpoints (`/public/inquiries`, `/public/volunteers`).
+- **Account Lockout Policy**: Automated account lockout after 5 consecutive failed authentication attempts, audited directly in the security log.
+- **SQL Injection & XSS Mitigations**: Parameterized Spring Data JPA repositories, Hibernate ORM parameter binding, Content Security Policy (`default-src 'self'`), and Frame Options (`DENY`).
+- **Immutable Audit Trail**: `AuditLogService` logging every security event, administrative action, and status update with actor identity, resource ID, action tag, client IP, and UTC timestamp.
