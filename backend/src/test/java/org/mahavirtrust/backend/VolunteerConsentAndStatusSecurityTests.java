@@ -30,13 +30,14 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Phase 2.3.1 Security & Data Integrity Corrective Test Suite.
- * Covers all 13 required verification scenarios:
+ * Covers all required verification scenarios:
  * 1. Missing consent rejected
  * 2. False consent rejected
  * 3. True consent accepted and saved
@@ -50,6 +51,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * 11. Unauthorized administrative access rejected (401 & 403)
  * 12. Missing application ID returns 404
  * 13. Audit event creation for administrative status transitions
+ * 14. Audit failure rolls back status update
+ * 15. Optimistic locking on concurrent modifications
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -64,6 +67,9 @@ public class VolunteerConsentAndStatusSecurityTests {
 
     @Autowired
     private VolunteerRegistrationRepository volunteerRepository;
+
+    @Autowired
+    private VolunteerRegistrationService volunteerService;
 
     @Autowired
     private AdminUserRepository userRepository;
@@ -466,5 +472,79 @@ public class VolunteerConsentAndStatusSecurityTests {
                 String.valueOf(volunteer.getId()).equals(log.getResourceId()) &&
                 log.getDetails().contains("Transitioned status from AWAITING_ORIENTATION to UNDER_REVIEW")
         );
+    }
+
+    // 14. Audit failure rolls back status update
+    @Test
+    @DisplayName("14. Audit failure rollback: Persistence failure during audit logging rolls back status transition")
+    void testAuditFailureRollsBackStatusUpdate() {
+        VolunteerRegistration volunteer = createSampleVolunteer("audit_fail@example.org", VolunteerStatus.AWAITING_ORIENTATION);
+        Long id = volunteer.getId();
+
+        // An actor username exceeding varchar(100) constraint triggers persistence failure in AuditLog
+        String oversizedActor = "superadmin_actor_name_exceeding_100_characters_limit_to_trigger_db_constraint_violation_safely_for_testing";
+
+        assertThatThrownBy(() ->
+                volunteerService.updateVolunteerStatus(id, "UNDER_REVIEW", oversizedActor, "127.0.0.1")
+        ).isInstanceOf(Exception.class);
+
+        // Verify volunteer status remained AWAITING_ORIENTATION because transaction rolled back atomically
+        VolunteerRegistration reloaded = volunteerRepository.findById(id).orElseThrow();
+        assertThat(reloaded.getVerificationStatus()).isEqualTo("AWAITING_ORIENTATION");
+        // Verify no audit log persisted
+        assertThat(auditLogRepository.findAll()).isEmpty();
+    }
+
+    // 15. Optimistic locking on concurrent modifications
+    @Test
+    @DisplayName("15. Optimistic locking: Concurrent modifications with stale version fail and prevent lost updates")
+    void testConcurrentStatusUpdateOptimisticLockingConflict() {
+        VolunteerRegistration volunteer = createSampleVolunteer("concur@example.org", VolunteerStatus.AWAITING_ORIENTATION);
+        Long id = volunteer.getId();
+        assertThat(volunteer.getVersion()).isEqualTo(0L);
+
+        // Load stale copy in memory
+        VolunteerRegistration staleCopy = volunteerRepository.findById(id).orElseThrow();
+
+        // Successful update 1 increments version to 1
+        volunteerService.updateVolunteerStatus(id, "UNDER_REVIEW", "coord_user", "127.0.0.1");
+        VolunteerRegistration updatedOnce = volunteerRepository.findById(id).orElseThrow();
+        assertThat(updatedOnce.getVersion()).isEqualTo(1L);
+        assertThat(updatedOnce.getVerificationStatus()).isEqualTo("UNDER_REVIEW");
+
+        // Attempting to save staleCopy (version 0) fails with OptimisticLockingFailure
+        staleCopy.setVerificationStatus("REJECTED");
+        assertThatThrownBy(() -> volunteerRepository.saveAndFlush(staleCopy))
+                .isInstanceOf(org.springframework.orm.ObjectOptimisticLockingFailureException.class);
+
+        // Verify database state remains UNDER_REVIEW at version 1
+        VolunteerRegistration reloaded = volunteerRepository.findById(id).orElseThrow();
+        assertThat(reloaded.getVerificationStatus()).isEqualTo("UNDER_REVIEW");
+        assertThat(reloaded.getVersion()).isEqualTo(1L);
+    }
+
+    // 16. Optimistic locking HTTP conflict mapping
+    @Test
+    @DisplayName("16. Optimistic locking HTTP conflict mapping: ObjectOptimisticLockingFailureException maps to HTTP 409 Conflict")
+    void testOptimisticLockingConflictReturnsHttp409() throws Exception {
+        createAdminUser("coord_admin2", Role.ROLE_VOLUNTEER_COORDINATOR);
+        String token = tokenProvider.generateAccessToken("coord_admin2", Role.ROLE_VOLUNTEER_COORDINATOR.name());
+
+        VolunteerRegistration volunteer = createSampleVolunteer("concur2@example.org", VolunteerStatus.AWAITING_ORIENTATION);
+        Long id = volunteer.getId();
+
+        // Stale copy loaded before HTTP request
+        VolunteerRegistration stale = volunteerRepository.findById(id).orElseThrow();
+
+        // HTTP transition succeeds, updating version to 1
+        mockMvc.perform(patch("/admin/volunteers/" + id + "/status")
+                        .header("Authorization", "Bearer " + token)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("status", "UNDER_REVIEW"))))
+                .andExpect(status().isOk());
+
+        // Saving stale copy triggers ObjectOptimisticLockingFailureException
+        assertThatThrownBy(() -> volunteerRepository.saveAndFlush(stale))
+                .isInstanceOf(org.springframework.orm.ObjectOptimisticLockingFailureException.class);
     }
 }

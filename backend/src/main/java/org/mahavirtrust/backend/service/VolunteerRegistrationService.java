@@ -2,7 +2,10 @@ package org.mahavirtrust.backend.service;
 
 import org.mahavirtrust.backend.dto.CreateVolunteerRequest;
 import org.mahavirtrust.backend.dto.SubmissionResponse;
+import org.mahavirtrust.backend.dto.VolunteerStatusUpdateResponse;
 import org.mahavirtrust.backend.entity.VolunteerRegistration;
+import org.mahavirtrust.backend.entity.VolunteerStatus;
+import org.mahavirtrust.backend.exception.ResourceNotFoundException;
 import org.mahavirtrust.backend.repository.VolunteerRegistrationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +23,15 @@ public class VolunteerRegistrationService {
     private static final Logger log = LoggerFactory.getLogger(VolunteerRegistrationService.class);
 
     private final VolunteerRegistrationRepository repository;
+    private final AuditLogService auditLogService;
 
     public static final String SERVER_CONSENT_VERSION = "v1.0-draft-2026";
     public static final String SERVER_CONSENT_STATEMENT =
             "I declare that all information provided is authentic. I agree to uphold MAHAVIR TRUST draft voluntary service principles and student safeguarding guidelines.";
 
-    public VolunteerRegistrationService(VolunteerRegistrationRepository repository) {
+    public VolunteerRegistrationService(VolunteerRegistrationRepository repository, AuditLogService auditLogService) {
         this.repository = repository;
+        this.auditLogService = auditLogService;
     }
 
     @Transactional
@@ -91,6 +96,56 @@ public class VolunteerRegistrationService {
                 saved.getId(),
                 "Your volunteer registration has been logged for orientation review.",
                 Instant.now()
+        );
+    }
+
+    @Transactional
+    public VolunteerStatusUpdateResponse updateVolunteerStatus(Long id, String newStatusStr, String actor, String clientIp) {
+        if (newStatusStr == null || newStatusStr.isBlank()) {
+            throw new IllegalArgumentException("Status value is required");
+        }
+
+        VolunteerStatus targetStatus;
+        try {
+            targetStatus = VolunteerStatus.valueOf(newStatusStr.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Unknown volunteer status: " + newStatusStr);
+        }
+
+        VolunteerRegistration volunteer = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Volunteer registration #" + id + " not found"));
+
+        VolunteerStatus currentStatus;
+        try {
+            currentStatus = VolunteerStatus.valueOf(volunteer.getVerificationStatus());
+        } catch (Exception e) {
+            currentStatus = VolunteerStatus.AWAITING_ORIENTATION;
+        }
+
+        if (!currentStatus.canTransitionTo(targetStatus)) {
+            throw new IllegalArgumentException(
+                    "Invalid status transition from " + currentStatus + " to " + targetStatus);
+        }
+
+        volunteer.setVerificationStatus(targetStatus.name());
+        repository.save(volunteer);
+
+        auditLogService.record(
+                actor,
+                "VOLUNTEER_STATUS_UPDATED",
+                "VOLUNTEER",
+                String.valueOf(id),
+                clientIp,
+                "Transitioned status from " + currentStatus + " to " + targetStatus
+        );
+
+        return new VolunteerStatusUpdateResponse(
+                id,
+                currentStatus.name(),
+                targetStatus.name(),
+                actor,
+                Instant.now(),
+                "Volunteer status successfully updated to " + targetStatus.name()
         );
     }
 

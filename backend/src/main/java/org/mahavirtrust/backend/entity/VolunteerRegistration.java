@@ -56,6 +56,10 @@ public class VolunteerRegistration {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt = Instant.now();
 
+    @Version
+    @Column(name = "version", nullable = false)
+    private Long version = 0L;
+
     public VolunteerRegistration() {}
 
     public VolunteerRegistration(String fullName, String email, String phone, String roleInterest, String backgroundNotes) {
@@ -216,5 +220,13 @@ public class VolunteerRegistration {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

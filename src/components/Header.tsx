@@ -38,10 +38,12 @@ export function Header() {
   }, []);
 
   // Close menus on route change
-  useEffect(() => {
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setMobileMenuOpen(false);
     setOpenDropdown(null);
-  }, [pathname]);
+  }
 
   // Lock body scroll when mobile menu is active
   useEffect(() => {

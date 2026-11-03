@@ -18,15 +18,11 @@ public class AuditLogService {
         this.auditLogRepository = auditLogRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void record(String actorUsername, String action, String resourceType, String resourceId, String ipAddress, String details) {
-        try {
-            AuditLog auditLog = new AuditLog(actorUsername, action, resourceType, resourceId, ipAddress, details);
-            auditLogRepository.save(auditLog);
-            log.info("AUDIT: user='{}' action='{}' resource='{}:{}' ip='{}'",
-                    actorUsername, action, resourceType, resourceId, ipAddress);
-        } catch (Exception e) {
-            log.error("Failed to persist audit log: {}", e.getMessage(), e);
-        }
+        AuditLog auditLog = new AuditLog(actorUsername, action, resourceType, resourceId, ipAddress, details);
+        auditLogRepository.save(auditLog);
+        log.info("AUDIT: user='{}' action='{}' resource='{}:{}' ip='{}'",
+                actorUsername, action, resourceType, resourceId, ipAddress);
     }
 }

@@ -15,6 +15,7 @@ import org.mahavirtrust.backend.repository.PublicInquiryRepository;
 import org.mahavirtrust.backend.repository.VolunteerRegistrationRepository;
 import org.mahavirtrust.backend.service.AdminUserService;
 import org.mahavirtrust.backend.service.AuditLogService;
+import org.mahavirtrust.backend.service.VolunteerRegistrationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,15 +34,18 @@ public class AdminController {
     private final PublicInquiryRepository inquiryRepository;
     private final VolunteerRegistrationRepository volunteerRepository;
     private final AuditLogService auditLogService;
+    private final VolunteerRegistrationService volunteerRegistrationService;
 
     public AdminController(AdminUserService adminUserService,
                            PublicInquiryRepository inquiryRepository,
                            VolunteerRegistrationRepository volunteerRepository,
-                           AuditLogService auditLogService) {
+                           AuditLogService auditLogService,
+                           VolunteerRegistrationService volunteerRegistrationService) {
         this.adminUserService = adminUserService;
         this.inquiryRepository = inquiryRepository;
         this.volunteerRepository = volunteerRepository;
         this.auditLogService = auditLogService;
+        this.volunteerRegistrationService = volunteerRegistrationService;
     }
 
     @PostMapping("/users")
@@ -103,54 +107,10 @@ public class AdminController {
             HttpServletRequest httpRequest) {
         String actor = authentication.getName();
         String clientIp = getClientIp(httpRequest);
-
         String newStatusStr = body != null ? body.get("status") : null;
-        if (newStatusStr == null || newStatusStr.isBlank()) {
-            throw new IllegalArgumentException("Status value is required");
-        }
 
-        VolunteerStatus targetStatus;
-        try {
-            targetStatus = VolunteerStatus.valueOf(newStatusStr.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Unknown volunteer status: " + newStatusStr);
-        }
-
-        VolunteerRegistration volunteer = volunteerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Volunteer registration #" + id + " not found"));
-
-        VolunteerStatus currentStatus;
-        try {
-            currentStatus = VolunteerStatus.valueOf(volunteer.getVerificationStatus());
-        } catch (Exception e) {
-            currentStatus = VolunteerStatus.AWAITING_ORIENTATION;
-        }
-
-        if (!currentStatus.canTransitionTo(targetStatus)) {
-            throw new IllegalArgumentException(
-                    "Invalid status transition from " + currentStatus + " to " + targetStatus);
-        }
-
-        volunteer.setVerificationStatus(targetStatus.name());
-        volunteerRepository.save(volunteer);
-
-        auditLogService.record(
-                actor,
-                "VOLUNTEER_STATUS_UPDATED",
-                "VOLUNTEER",
-                String.valueOf(id),
-                clientIp,
-                "Transitioned status from " + currentStatus + " to " + targetStatus
-        );
-
-        VolunteerStatusUpdateResponse response = new VolunteerStatusUpdateResponse(
-                id,
-                currentStatus.name(),
-                targetStatus.name(),
-                actor,
-                Instant.now(),
-                "Volunteer status successfully updated to " + targetStatus.name()
-        );
+        VolunteerStatusUpdateResponse response = volunteerRegistrationService.updateVolunteerStatus(
+                id, newStatusStr, actor, clientIp);
 
         return ResponseEntity.ok(response);
     }
